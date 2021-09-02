@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
+import GlobalFonts from './assets/fonts';
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalFonts/>
   </React.StrictMode>,
   document.getElementById('root')
 );
