@@ -2,15 +2,15 @@ import React, { FC } from 'react';
 import styled, {useTheme} from 'styled-components';
 
 interface LogoIconProps {
-  size?: 'small' | 'large';
+  width?: number;
   variant?: 'dark' | 'white';
 }
 
-export const LogoIcon: FC<LogoIconProps> = ({ size = 'small', variant = 'dark'}) => {
+export const LogoIcon: FC<LogoIconProps> = ({ width = 36, variant = 'dark'}) => {
   const {colors} = useTheme();
   const color = variant === 'dark' ? colors.black : colors.white;
   return (
-    <StyleSvg $size={size} viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={width} viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0)">
         <path
           d="M22.1777 20.9834L35.8294 7.32098C36.1611 6.98896 36.1611 6.45774 35.8294 6.14232C35.4976 5.81031 34.9668 5.81031 34.6517 6.14232L20.6848 20.1036C20.6351 20.1534 20.6019 20.2032 20.5521 20.2696C20.4858 20.3028 20.436 20.336 20.3863 20.4024C20.0545 20.7344 20.0545 21.2656 20.3863 21.5811L34.6351 35.8411C34.801 36.0071 35.0166 36.0902 35.2322 36.0902C35.4479 36.0902 35.6635 36.0071 35.8294 35.8411C36.1611 35.5091 36.1611 34.9779 35.8294 34.6625L22.1777 20.9834Z"
@@ -33,15 +33,6 @@ export const LogoIcon: FC<LogoIconProps> = ({ size = 'small', variant = 'dark'})
           fill={color}
         />
       </g>
-    </StyleSvg>
+    </svg>
   );
 };
-
-const StyleSvg = styled.svg<{ $size: 'small' | 'large' }>`
-  ${({ $size }) => {
-    if ($size === 'large') {
-      return `width: 42px; height: 42px;`;
-    }
-    return `width: 36px; height: 36px;`;
-  }}}
-`;

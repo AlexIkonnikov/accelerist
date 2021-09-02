@@ -4,13 +4,13 @@ import { AppLogo } from './AppLogo';
 
 export const Header: FC = () => {
   return (
-    <Wrapper>
-      <AppLogo />
-    </Wrapper>
+    <HeaderWrapper>
+        <AppLogo />
+    </HeaderWrapper>
   );
 };
 
-const Wrapper = styled.header`
+const HeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
   min-height: 80px;
