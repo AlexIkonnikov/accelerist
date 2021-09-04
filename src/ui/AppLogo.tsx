@@ -17,7 +17,3 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-
-const Margin = styled.div`
-  margin-right: 16px;
-`

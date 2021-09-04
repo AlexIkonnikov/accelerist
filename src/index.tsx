@@ -4,15 +4,18 @@ import reportWebVitals from './reportWebVitals';
 import { GlobalStyle } from './ui/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
-import { Authentication } from './screens/Authentication';
+import { BrowserRouter } from 'react-router-dom';
+import { SignUp } from './pages/SignUp';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <React.StrictMode>
-      <GlobalStyle />
-      <Authentication/>
-    </React.StrictMode>
-  </ThemeProvider>,
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <React.StrictMode>
+        <GlobalStyle />
+          <SignUp/>
+      </React.StrictMode>
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById('root'),
 );
 
