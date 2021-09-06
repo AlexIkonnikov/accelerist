@@ -23,7 +23,7 @@ const Normalize = createGlobalStyle`
 
   body, html {
     height: 100vh;
-    width: 100vw;
+    min-width: 100%;
     min-width: 100%;
     font-family: Rubik-Regular;
   }
