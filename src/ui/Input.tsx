@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FieldRenderProps } from 'react-final-form';
 
 interface InputProps extends FieldRenderProps<string> {
-  label?: string;
+  label?: string
 }
 
 export const Input: FC<InputProps> = ({ label = '', input, meta }) => {
@@ -11,7 +11,7 @@ export const Input: FC<InputProps> = ({ label = '', input, meta }) => {
   return (
     <>
       {label !== '' && <StyledLabel htmlFor={input.name}>{label}</StyledLabel>}
-      <StyledInput id={input.name} {...input} $isValid={isValid} />
+      <StyledInput id={input.name} {...input} $isValid={isValid}/>
       {isValid && <ErrorText>{meta.error}</ErrorText>}
     </>
   );
@@ -32,11 +32,12 @@ const StyledLabel = styled.label`
 
 const StyledInput = styled.input<{ $isValid: boolean }>`
   display: block;
+  position: relative;
   width: 100%;
   border-radius: 6px;
   font-size: 16px;
   line-height: 25px;
-  padding: 10px 0 10px 16px;
+  padding: 10px 50px 10px 16px;
   color: ${({ theme }) => theme.colors.black};
   border: 1px solid ${({ theme }) => theme.colors.line};
   &:focus {

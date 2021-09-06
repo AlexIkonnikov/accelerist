@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Header } from '../ui/Header';
 import img from './../assets/img/homedark.jpg';
-import SignUpForm from '../components/SignUpForm/SignUpForm';
+import { Header } from '../ui/Header';
 
-export const SignUp: FC = () => {
+export const StartLayout: FC = ({ children }) => {
   return (
     <Background>
       <Header />
       <ContentWrapper>
-        <SignUpForm/>
+       {children}
       </ContentWrapper>
     </Background>
   );
@@ -24,7 +23,5 @@ const Background = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
   margin-top: 73px;
 `;

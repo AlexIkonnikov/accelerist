@@ -4,18 +4,16 @@ import reportWebVitals from './reportWebVitals';
 import { GlobalStyle } from './ui/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
-import { BrowserRouter } from 'react-router-dom';
-import { SignUp } from './pages/SignUp';
+import { AuthRoute } from './route/AuthRoute';
+
 
 ReactDOM.render(
-  <BrowserRouter>
     <ThemeProvider theme={theme}>
       <React.StrictMode>
         <GlobalStyle />
-          <SignUp/>
+          <AuthRoute/>
       </React.StrictMode>
-    </ThemeProvider>
-  </BrowserRouter>,
+    </ThemeProvider>,
   document.getElementById('root'),
 );
 

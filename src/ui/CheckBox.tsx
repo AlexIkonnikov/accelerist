@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
+import { FieldRenderProps } from 'react-final-form';
 import styled from 'styled-components';
 import check from './../assets/img/check.svg';
 
-export const CheckBox: FC = () => {
+export const CheckBox: FC<FieldRenderProps<string>> = ({input}) => {
   return (
     <StyledLabel>
-      <StyledCheckbox />
+      <StyledCheckbox type="checkbox" {...input}/>
       <Indicator />
       Remember
     </StyledLabel>
@@ -15,10 +16,11 @@ export const CheckBox: FC = () => {
 const StyledLabel = styled.label`
   padding-left: 30px;
   font-size: 12px;
+  line-height: 20px;
   color: ${({theme}) => theme.colors.black};
 `;
 
-const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const StyledCheckbox = styled.input`
   appearance: none;
   margin: 0;
   position: absolute;

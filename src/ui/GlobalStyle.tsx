@@ -21,7 +21,7 @@ const Normalize = createGlobalStyle`
     box-sizing: inherit;
   }
 
-  body {
+  body, html {
     height: 100vh;
     width: 100vw;
     min-width: 100%;

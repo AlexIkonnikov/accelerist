@@ -2,21 +2,16 @@ import React, { FC } from 'react';
 import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 import { Button } from '../../ui/Button';
-import { CheckBox } from '../../ui/CheckBox';
+import { FormWrapper } from '../../ui/FormWrapper';
 import { Input } from '../../ui/Input';
-import { TabLink } from '../../ui/TabLink';
+import { PasswordInput } from '../PasswordInput/PasswordInput';
 
 const SignUpForm: FC = () => {
   const handleFormSubmit = () => {
-    console.log('lol')
-  }
+    console.log('lol');
+  };
   return (
     <FormWrapper>
-      <WelcomeText>Welcome to Accelerist</WelcomeText>
-      <TabWrapper>
-        <TabLink to="/registration" title="Register"/>
-        <TabLink to="/login" title="Login" />
-      </TabWrapper>
       <Form
         onSubmit={handleFormSubmit}
         render={({ handleSubmit }) => {
@@ -33,12 +28,14 @@ const SignUpForm: FC = () => {
               <Field
                 name="password"
                 type="password"
-                render={({ input, meta}) => {
-                  return <Input label="Password" input={input} meta={meta} />;
+                render={({ input, meta }) => {
+                  return <PasswordInput label="Password" input={input} meta={meta} />;
                 }}
               />
-              <CheckBox/>
-
+              <TextWrapper>
+                I agree that by clicking <b>“Registration”</b> I accept the Terms Of Service and Privacy Policy
+              </TextWrapper>
+              <Button onClick={handleSubmit}>Registration</Button>
             </>
           );
         }}
@@ -47,31 +44,19 @@ const SignUpForm: FC = () => {
   );
 };
 
-const FormWrapper = styled.div`
-  width: 100%;
-  max-width: 454px;
-  background: rgb(255, 255, 255);
-  border-radius: 6px;
-  padding: 40px;
-`;
-
-const WelcomeText = styled.h3`
-  font-size: 24px;
-  line-height: 36px;
-  font-weight: 500;
-  text-align: center;
-  color: ${({ theme }) => theme.colors.black};
-  margin-bottom: 20px;
-`;
-
-const TabWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  margin-bottom: 34px;
-`;
-
 const InputWrapper = styled.div`
   margin-bottom: 24px;
+  @media (max-width: 375px) {
+    margin-bottom: 20px;
+  }
+`;
+
+const TextWrapper = styled.p`
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 40px 0 16px;
+  padding: 0 7px;
 `;
 
 export default SignUpForm;
