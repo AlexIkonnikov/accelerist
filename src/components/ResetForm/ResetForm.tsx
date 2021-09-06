@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 import { Button } from '../../ui/Button';
-import { Input } from '../../ui/Input';
+import { InputField } from '../InputField/';
 
 const ResetForm: FC = () => {
   const handleFormSubmit = () => {
@@ -18,7 +18,10 @@ const ResetForm: FC = () => {
           return (
             <>
               <InputWrapper>
-                <Field name="email" render={({ input, meta }) => <Input label="Email" input={input} meta={meta} />} />
+                <Field
+                  name="email"
+                  render={({ input, meta }) => <InputField label="Email" input={input} meta={meta} />}
+                />
               </InputWrapper>
               <Button onClick={handleSubmit}>Reset</Button>
             </>

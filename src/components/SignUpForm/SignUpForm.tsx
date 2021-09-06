@@ -3,11 +3,9 @@ import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
 import { Button } from '../../ui/Button';
 import { FormWrapper } from '../../ui/FormWrapper';
-import { Input } from '../../ui/Input';
-import { PasswordInput } from '../PasswordInput/PasswordInput';
+import { InputField } from '../InputField';
 
 const SignUpForm: FC = () => {
-
   const handleFormSubmit = () => {
     console.log('lol');
   };
@@ -23,7 +21,7 @@ const SignUpForm: FC = () => {
                 <Field
                   name="email"
                   render={({ ...outerProps }) => {
-                    return <Input label="Email" {...outerProps} />;
+                    return <InputField label="Email" {...outerProps} />;
                   }}
                 />
               </InputWrapper>
@@ -31,7 +29,7 @@ const SignUpForm: FC = () => {
                 name="password"
                 type="password"
                 render={({ ...outerProps }) => {
-                  return <PasswordInput label="Password" {...outerProps} />;
+                  return <InputField label="Password" {...outerProps} />;
                 }}
               />
               <TextWrapper>
