@@ -7,9 +7,11 @@ import { Input } from '../../ui/Input';
 import { PasswordInput } from '../PasswordInput/PasswordInput';
 
 const SignUpForm: FC = () => {
+
   const handleFormSubmit = () => {
     console.log('lol');
   };
+
   return (
     <FormWrapper>
       <Form
@@ -20,16 +22,16 @@ const SignUpForm: FC = () => {
               <InputWrapper>
                 <Field
                   name="email"
-                  render={({ input, meta }) => {
-                    return <Input label="Email" input={input} meta={meta} />;
+                  render={({ ...outerProps }) => {
+                    return <Input label="Email" {...outerProps} />;
                   }}
                 />
               </InputWrapper>
               <Field
                 name="password"
                 type="password"
-                render={({ input, meta }) => {
-                  return <PasswordInput label="Password" input={input} meta={meta} />;
+                render={({ ...outerProps }) => {
+                  return <PasswordInput label="Password" {...outerProps} />;
                 }}
               />
               <TextWrapper>

@@ -6,6 +6,7 @@ import { Button } from '../../ui/Button';
 import { CheckBox } from '../../ui/CheckBox';
 import { FormWrapper } from '../../ui/FormWrapper';
 import { Input } from '../../ui/Input';
+import { PasswordInput } from '../PasswordInput/PasswordInput';
 
 const SignInForm: FC = () => {
   const handleFormSubmit = (values: FormProps) => {
@@ -19,12 +20,12 @@ const SignInForm: FC = () => {
           return (
             <>
               <InputWrapper>
-                <Field name="email" render={({ input, meta }) => <Input label="Email" input={input} meta={meta} />} />
+                <Field name="email" render={({...outerProps}) => <Input label="Email" {...outerProps} />} />
               </InputWrapper>
               <Field
                 name="password"
                 type="password"
-                render={({ input, meta }) => <Input label="Password" input={input} meta={meta} />}
+                render={({...outerProps}) => <PasswordInput label="Password" {...outerProps} />}
               />
               <Wrapper>
                 <Field name="remember" type="checkbox" render={CheckBox} />

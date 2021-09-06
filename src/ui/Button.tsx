@@ -1,11 +1,20 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
+import { Loader } from './Loader';
 
-export const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ ...outerProps }) => {
-  return <StyledButton {...outerProps} />;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  isLoading?: boolean;
+}
+
+export const Button: FC<ButtonProps> = ({ children, isLoading = false, disabled, ...outerProps }) => {
+  return (
+    <StyledButton $isLoading={isLoading} disabled={disabled || isLoading} {...outerProps}>
+      {isLoading ? <Loader/> : children}
+    </StyledButton>
+  )
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{$isLoading: boolean}>`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.blue};
   color: ${({ theme }) => theme.colors.white};
@@ -15,15 +24,20 @@ const StyledButton = styled.button`
   border-radius: 6px;
 
   &:hover {
-    background-color: #51C2EE;
+    background-color: #51c2ee;
   }
   &:active {
-    background-color: #1DA7DC;
+    background-color: #1da7dc;
   }
 
   &:disabled {
-    color: ${({ theme }) => theme.colors.blue};
-    background-color: #CEEDF9;
     cursor: no-drop;
+    ${({$isLoading, theme}) => {
+      if ($isLoading) {
+        return `background-color: ${theme.colors.blue};`
+      } else {
+        return ` background-color: #ceedf9; color:${theme.colors.blue};`
+      }
+    }}
   }
 `;
