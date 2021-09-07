@@ -1,6 +1,6 @@
 import React, {Children, FC} from 'react';
 import styled from 'styled-components';
-import LinkeidnIcon from './icons/LinkeidnIcon';
+import LinkedinIcon from './icons/LinkedinIcon';
 import { TabLink } from './TabLink';
 
 export const FormWrapper: FC = ({children}) => {
@@ -14,7 +14,7 @@ export const FormWrapper: FC = ({children}) => {
       {children}
       <TextWrapper>or continue with</TextWrapper>
       <IconWrapper>
-        <LinkeidnIcon/>
+        <LinkedinIcon/>
       </IconWrapper>
     </StyledWrapper>
   );

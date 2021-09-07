@@ -1,14 +1,18 @@
 import React, { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { CurrentUser } from './CurrentUser';
-import CloseIcon from './../assets/icons/close.svg';
+import { CurrentUser } from './../../ui/CurrentUser';
+import CloseIcon from './../../assets/icons/close.svg';
 
-export const NavLinkList: FC = () => {
+const Navbar: FC = () => {
   const [isVisible, setVisible] = useState(false);
 
-  const handleShowModal = () => {setVisible(true)};
-  const handleCloseModal = () => {setVisible(false)};
+  const handleShowModal = () => {
+    setVisible(true);
+  };
+  const handleCloseModal = () => {
+    setVisible(false);
+  };
   return (
     <Container>
       <Burger onClick={handleShowModal} />
@@ -43,13 +47,13 @@ export const NavLinkList: FC = () => {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   @media (max-width: 768px) {
-    width: 100%;
     justify-content: flex-end;
   }
 `;
 
-const NavWrapper = styled.nav<{$isVisible: boolean}>`
+const NavWrapper = styled.nav<{ $isVisible: boolean }>`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -59,10 +63,20 @@ const NavWrapper = styled.nav<{$isVisible: boolean}>`
     width: 43%;
     z-index: 10;
     position: fixed;
-    right: ${({$isVisible}) => $isVisible ? '0px' : '-400px'};
+    right: -400px;
+    ${({ $isVisible }) => {
+      if ($isVisible) {
+        return `transform: translateX(-400px);`;
+      }
+      return ``;
+    }}
     top: 0;
     background: white;
     padding: 132px 130px 32px 40px;
+    transition: transform 0.4s;
+  }
+  @media(max-width: 375px) {
+    width: 100%;
   }
 `;
 
@@ -123,7 +137,6 @@ const Burger = styled.button`
     background-color: ${({ theme }) => theme.colors.black};
     top: 4px;
     left: 0;
-    transition: 0.3s;
   }
 
   &::before {
@@ -151,7 +164,9 @@ const Closer = styled.button`
   background-image: url(${CloseIcon});
   background-size: cover;
   background-repeat: no-repeat;
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     display: none;
   }
-`
+`;
+
+export default Navbar;

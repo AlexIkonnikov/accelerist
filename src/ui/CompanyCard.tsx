@@ -8,9 +8,9 @@ export const CompanyCard: FC = () => {
     <Wrapper>
       <Body>
         <CompanyFace>
-          <AvatarWapper>
+          <AvatarWrapper>
             <div>Аватар</div>
-          </AvatarWapper>
+          </AvatarWrapper>
           <Rating>
             <RatingText>Priority Ranking</RatingText>
             <RatingNum>12</RatingNum>
@@ -93,7 +93,8 @@ const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const AvatarWapper = styled.div`
+
+const AvatarWrapper = styled.div`
   flex-grow: 1;
   display: flex;
   justify-content: center;
