@@ -1,13 +1,16 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { HeartIcon } from './icons/HeartIcon';
+import { TransparentButton } from './TransparentButton';
 
 export const CompanyCard: FC = () => {
   return (
     <Wrapper>
       <Body>
         <CompanyFace>
-          <Avatar>Avatar</Avatar>
+          <AvatarWapper>
+            <div>Аватар</div>
+          </AvatarWapper>
           <Rating>
             <RatingText>Priority Ranking</RatingText>
             <RatingNum>12</RatingNum>
@@ -36,6 +39,7 @@ export const CompanyCard: FC = () => {
           <HeartWrapper>
             <HeartIcon />
           </HeartWrapper>
+          <TransparentButton>Profile</TransparentButton>
         </Buttons>
       </Body>
     </Wrapper>
@@ -46,8 +50,16 @@ const Wrapper = styled.div`
   padding: 26px 32px;
   background-color: white;
   border-radius: 6px;
-  min-width: 536px;
-  height: 100%;
+  width: 48.98%;
+  margin-bottom: 24px;
+  @media (max-width: 768px) {
+    width: 48.3%;
+    padding: 24px 16px;
+  }
+  @media (max-width: 375px) {
+    width: 100%;
+    margin-bottom: 17px;
+  }
 `;
 
 const Body = styled.div`
@@ -56,7 +68,7 @@ const Body = styled.div`
   grid-template-areas:
     'avatar info'
     'avatar buttons';
-  @media (max-width: 375px) {
+  @media (max-width: 768px) {
     grid-template-areas:
       'avatar info'
       'buttons buttons';
@@ -68,6 +80,8 @@ const CompanyFace = styled.div`
   border: 1px solid #e8e8e8;
   border-radius: 6px;
   grid-area: avatar;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CompanyInfo = styled.div`
@@ -76,12 +90,19 @@ const CompanyInfo = styled.div`
 
 const Buttons = styled.div`
   grid-area: buttons;
+  display: flex;
+  justify-content: space-between;
 `;
-const Avatar = styled.div`
-  min-width: 104px;
-  min-height: 104px;
+const AvatarWapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 26px 32px;
   text-align: center;
+  @media (max-width: 768px) {
+    margin: 22px;
+  }
 `;
 
 const Rating = styled.div`
@@ -124,21 +145,39 @@ const Address = styled.p`
 const Phone = styled.p`
   ${grayText}
   margin-bottom: 28px;
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
 `;
 
 const BorderWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid rgb(232, 232, 232);
   width: 100%;
+  @media (max-width: 768px) {
+    display: block;
+    border: none;
+  }
 `;
 
 const Focus = styled.div`
   border-right: 1px solid rgb(232, 232, 232);
   padding: 0px 20px 12px 0px;
+  @media (max-width: 768px) {
+    border: none;
+    padding: 0;
+    margin-bottom: 17px;
+  }
 `;
 
 const Revenue = styled.div`
   padding: 0px 0px 12px 20px;
+  @media (max-width: 768px) {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const FocusText = styled.p`
@@ -162,6 +201,10 @@ const TagWrapper = styled.div`
   ${smallBoldText}
   font-size: 12px;
   line-height: 18px;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 const Tag = styled.span`
@@ -186,6 +229,13 @@ const Tag = styled.span`
       display: none;
     }
   }
+  @media (max-width: 768px) {
+    padding-right: 11px;
+    &:after {
+      right: 4px;
+      top: 7px;
+    }
+  }
 `;
 
 const RevenueNum = styled.span`
@@ -200,4 +250,11 @@ const HeartWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 6px;
+  @media(max-width: 768px) {
+    margin-right: 12px;
+  }
+  @media(max-width: 375px) {
+    margin-right: 15px;
+  }
 `;
