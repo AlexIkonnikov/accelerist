@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { SearchBar } from '../components/SearchBar';
-import { Container } from './Container';
 import { SlidersIcon } from './icons/SlidersIcon';
 import { TitleText } from './TitleText';
 
@@ -18,9 +17,7 @@ export const TitleBlock: FC<TitleBlockProps> = ({ title }) => {
           <TitleText>{title}</TitleText>
           <Route path="/search">
             <SearchBarWrapper>
-              <SearchBar
-                render={() => <StyledSlidersIcon />}
-              />
+              <SearchBar render={() => <StyledSlidersIcon />} />
             </SearchBarWrapper>
           </Route>
         </ContentWrapper>
@@ -29,6 +26,20 @@ export const TitleBlock: FC<TitleBlockProps> = ({ title }) => {
   );
 };
 
+const Container = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 284px 0 60px;
+  @media (max-width: 768px) {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+  @media (max-width: 375px) {
+    max-width: 375px;
+    padding: 0 16px;
+  }
+`;
+
 const StyledSlidersIcon = styled(SlidersIcon)`
   margin-right: 15px;
 `;
@@ -36,15 +47,31 @@ const StyledSlidersIcon = styled(SlidersIcon)`
 const Background = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   margin-bottom: 32px;
+  @media (max-width: 375px) {
+    background: transparent;
+    margin: 0;
+  }
 `;
 
 const ContentWrapper = styled.div`
   padding: 24px 0;
   display: flex;
   align-items: center;
+  @media(max-width: 375px) {
+    display: block;
+    padding: 16px 0 20px 0;
+  }
 `;
 
 const SearchBarWrapper = styled.div`
   margin-left: 82px;
-  width: 715px;
+  width: 100%;
+  margin-right: 173px;
+  @media (max-width: 768px) {
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  @media (max-width: 375px) {
+    margin: 8px 0 0 0;
+  }
 `;

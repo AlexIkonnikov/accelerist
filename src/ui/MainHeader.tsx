@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { SearchBar } from '../components/SearchBar';
 import { Container } from './Container';
 import { CurrentUser } from './CurrentUser';
 import { LogoIcon } from './icons/LogoIcon';
-import { SearchIcon } from './icons/SearchIcon';
 import { NavLinkList } from './NavLinkList';
 import { TextLogo } from './TextLogo';
 
@@ -20,8 +18,7 @@ export const MainHeader: FC = () => {
             </LogoWrapper>
             <TextLogo variant="dark" />
           </LogoLink>
-          <NavLinkList />
-
+          <DesktopNav />
           <UserWrapper>
             <CurrentUser />
           </UserWrapper>
@@ -56,7 +53,16 @@ const LogoWrapper = styled.div`
   }
 `;
 
+const DesktopNav = styled(NavLinkList)`
+  @media(max-width: 768px) {
+    display: none;
+  }
+`
+
 const UserWrapper = styled.div`
   margin-left: auto;
   margin-right: 6px;
+  @media(max-width: 768px) {
+    display: none;
+  }
 `;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FieldRenderProps } from 'react-final-form';
 import styled from 'styled-components';
-import check from './../assets/img/check.svg';
+import Check from './../assets/icons/check.svg';
 
 export const CheckBox: FC<FieldRenderProps<string>> = ({input}) => {
   return (
@@ -27,7 +27,7 @@ const StyledCheckbox = styled.input`
 `;
 
 const Indicator = styled.span`
-margin-left: -30px;
+  margin-left: -30px;
   position: absolute;
   width: 20px;
   height: 20px;
@@ -50,6 +50,6 @@ margin-left: -30px;
     display: block;
     width: 20px;
     height: 18px;
-    background: url(${check}) no-repeat center center;
+    background: url(${Check}) no-repeat center center;
   }
 `;

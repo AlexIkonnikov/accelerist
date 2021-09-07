@@ -1,29 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const NavLinkList: FC = () => {
+export const NavLinkList: FC<HTMLAttributes<HTMLElement>> = ({ className }) => {
   return (
-    <List>
-      <Item>
-        <Link to="/dashboard">Dashboard</Link>
-      </Item>
-      <Item>
-        <Link to="/audience">Audience</Link>
-      </Item>
-      <Item>
-        <Link to="/pricing">Pricing</Link>
-      </Item>
-      <Item>
-        <Link to="/prospecting">Prospecting</Link>
-      </Item>
-      <Item>
-        <Link to="/roi">ROI</Link>
-      </Item>
-      <Item>
-        <Link to="/upgrade-membership">Upgrade Membership</Link>
-      </Item>
-    </List>
+    <nav className={className}>
+      <List>
+        <Item>
+          <Link to="/dashboard">Dashboard</Link>
+        </Item>
+        <Item>
+          <Link to="/audience">Audience</Link>
+        </Item>
+        <Item>
+          <Link to="/pricing">Pricing</Link>
+        </Item>
+        <Item>
+          <Link to="/prospecting">Prospecting</Link>
+        </Item>
+        <Item>
+          <Link to="/roi">ROI</Link>
+        </Item>
+        <Item>
+          <Link to="/upgrade-membership">Upgrade Membership</Link>
+        </Item>
+      </List>
+    </nav>
   );
 };
 
