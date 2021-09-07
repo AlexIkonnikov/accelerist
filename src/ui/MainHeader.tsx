@@ -18,10 +18,7 @@ export const MainHeader: FC = () => {
             </LogoWrapper>
             <TextLogo variant="dark" />
           </LogoLink>
-          <DesktopNav />
-          <UserWrapper>
-            <CurrentUser />
-          </UserWrapper>
+          <NavLinkList />
         </ContentWrapper>
       </Container>
     </Background>
@@ -52,17 +49,10 @@ const LogoWrapper = styled.div`
     margin-right: 8px;
   }
 `;
-
-const DesktopNav = styled(NavLinkList)`
-  @media(max-width: 768px) {
-    display: none;
-  }
-`
-
-const UserWrapper = styled.div`
-  margin-left: auto;
-  margin-right: 6px;
-  @media(max-width: 768px) {
-    display: none;
-  }
-`;
+// const UserWrapper = styled.div`
+//   margin-left: auto;
+//   margin-right: 6px;
+//   @media(max-width: 768px) {
+//     display: none;
+//   }
+// `;
