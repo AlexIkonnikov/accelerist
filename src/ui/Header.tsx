@@ -9,7 +9,7 @@ export const Header: FC = () => {
       <IconWrapper>
         <LogoIcon variant="white" />
       </IconWrapper>
-      <TextLogo />
+      <TextLogo variant="white"/>
     </HeaderWrapper>
   );
 };

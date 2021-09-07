@@ -4,14 +4,14 @@ import reportWebVitals from './reportWebVitals';
 import { GlobalStyle } from './ui/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
-import { AuthRoute } from './route/AuthRoute';
+import { RootRouter } from './route/RootRouter';
 
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>
       <React.StrictMode>
         <GlobalStyle />
-          <AuthRoute/>
+          <RootRouter/>
       </React.StrictMode>
     </ThemeProvider>,
   document.getElementById('root'),

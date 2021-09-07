@@ -16,8 +16,10 @@ export const StartLayout: FC = ({ children }) => {
 
 const Background = styled.div`
   min-height: 100vh;
-  background: url(${img}) no-repeat;
-  background-size: 100% 100%;
+  background-image: url(${img});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 `;
 
 const ContentWrapper = styled.div`
