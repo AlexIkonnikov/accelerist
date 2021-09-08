@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { TitleText } from './TitleText';
+import { Container } from './Container';
 
 interface TitleBlockProps {
   title: string
@@ -11,7 +10,7 @@ interface TitleBlockProps {
 export const TitleBlock: FC<TitleBlockProps> = ({ title, render }) => {
   return (
     <Background>
-      <Container>
+      <Container variant={2}>
         <ContentWrapper>
           <TitleText>{title}</TitleText>
           {render && render()}
@@ -21,26 +20,27 @@ export const TitleBlock: FC<TitleBlockProps> = ({ title, render }) => {
   );
 };
 
-const Container = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 284px 0 60px;
-  @media (max-width: 768px) {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-  @media (max-width: 375px) {
-    max-width: 375px;
-    padding: 0 16px;
-  }
-`;
-
 const Background = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   margin-bottom: 32px;
   @media (max-width: 375px) {
     background: transparent;
     margin: 0;
+  }
+`;
+
+const TitleText = styled.h2`
+  color: ${({theme}) => theme.colors.black};
+  font-family: Rubik-Medium;
+  font-size: 32px;
+  line-height: 48px;
+  @media (max-width: 768px) {
+    font-size: 28px;
+    line-height: 42px;
+  }
+  @media (max-width: 375px) {
+    font-size: 16px;
+    line-height: 24px;
   }
 `;
 
