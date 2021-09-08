@@ -1,6 +1,6 @@
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as Arrow} from '../../assets/icons/arrow.svg';
 
 const Pagination: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
   return (

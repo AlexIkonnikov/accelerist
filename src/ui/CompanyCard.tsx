@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { HeartIcon } from './icons/HeartIcon';
-import { TransparentButton } from './TransparentButton';
+import { Button } from './Button';
 
 export const CompanyCard: FC = () => {
   return (
@@ -39,7 +39,7 @@ export const CompanyCard: FC = () => {
           <HeartWrapper>
             <HeartIcon />
           </HeartWrapper>
-          <TransparentButton>Profile</TransparentButton>
+          <Button variant="secondary">Profile</Button>
         </Buttons>
       </Body>
     </Wrapper>
