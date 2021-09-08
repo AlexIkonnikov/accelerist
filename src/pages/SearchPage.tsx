@@ -1,20 +1,28 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { MainLayout } from '../layouts/MainLayout';
 import { CompanyCard } from '../ui/CompanyCard';
-import { SearchResult } from '../ui/SearchResult';
+import { Counter } from '../ui/Counter';
 import { TitleBlock } from '../ui/TitleBlock';
 import { ReactComponent as Save } from './../assets/icons/folder-plus.svg';
 import { ReactComponent as Mail } from './../assets/icons/mail.svg';
 import { ReactComponent as Upload } from '../assets/icons/upload.svg';
 import { Pagination } from '../components/Pagination';
+import { SlidersIcon } from '../ui/icons/SlidersIcon';
+import { SearchBar } from '../components/SearchBar';
+import { Container } from '../ui/Container';
 
 const SearchPage: FC = () => {
   return (
-    <MainLayout>
-      <TitleBlock title="Search" />
-      <Inner>
-        <SearchResult count={0} />
+    <>
+      <TitleBlock title="Search" render={() => {
+        return (
+          <SearchBarWrapper>
+            <SearchBar render={() => <StyledSlidersIcon/>}/>
+          </SearchBarWrapper>
+        )
+      }}/>
+      <Container variant={2}>
+        <Counter count={0} />
         <Wrapper>
           <BtnWrapper>
             <BtnIcon>
@@ -38,23 +46,27 @@ const SearchPage: FC = () => {
           <CompanyCard />
           <MobilePagination/>
         </CardWrapper>
-      </Inner>
-    </MainLayout>
+      </Container>
+    </>
   );
 };
 
-const Inner = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 284px 0 60px;
+const SearchBarWrapper = styled.div`
+  margin-left: 82px;
+  width: 100%;
+  margin-right: 173px;
+  min-width: 200px;
   @media (max-width: 768px) {
-    max-width: 768px;
-    padding: 0 32px;
+    margin-left: 32px;
+    margin-right: 0;
   }
   @media (max-width: 375px) {
-    max-width: 375px;
-    padding: 0 16px;
+    margin: 8px 0 0 0;
   }
+`;
+
+const StyledSlidersIcon = styled(SlidersIcon)`
+  margin-right: 15px;
 `;
 
 const CardWrapper = styled.div`

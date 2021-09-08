@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
-import { AuthRoute } from './AuthRoute';
-import { MainRoute } from './MainRoute';
+import { PublicRoute } from './PublicRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 export const RootRouter: FC = () => {
   const isAuth = true;
-  return isAuth ? <MainRoute/> : <AuthRoute/>
+  return isAuth ? <PrivateRoute/> : <PublicRoute/>
 };

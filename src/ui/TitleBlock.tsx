@@ -1,25 +1,20 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { SearchBar } from '../components/SearchBar';
-import { SlidersIcon } from './icons/SlidersIcon';
 import { TitleText } from './TitleText';
 
 interface TitleBlockProps {
-  title: string;
+  title: string
+  render?: () => JSX.Element
 }
 
-export const TitleBlock: FC<TitleBlockProps> = ({ title }) => {
+export const TitleBlock: FC<TitleBlockProps> = ({ title, render }) => {
   return (
     <Background>
       <Container>
         <ContentWrapper>
           <TitleText>{title}</TitleText>
-          <Route path="/search">
-            <SearchBarWrapper>
-              <SearchBar render={() => <StyledSlidersIcon />} />
-            </SearchBarWrapper>
-          </Route>
+          {render && render()}
         </ContentWrapper>
       </Container>
     </Background>
@@ -40,10 +35,6 @@ const Container = styled.div`
   }
 `;
 
-const StyledSlidersIcon = styled(SlidersIcon)`
-  margin-right: 15px;
-`;
-
 const Background = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   margin-bottom: 32px;
@@ -60,18 +51,5 @@ const ContentWrapper = styled.div`
   @media(max-width: 375px) {
     display: block;
     padding: 16px 0 20px 0;
-  }
-`;
-
-const SearchBarWrapper = styled.div`
-  margin-left: 82px;
-  width: 100%;
-  margin-right: 173px;
-  @media (max-width: 768px) {
-    margin-left: 32px;
-    margin-right: 0;
-  }
-  @media (max-width: 375px) {
-    margin: 8px 0 0 0;
   }
 `;

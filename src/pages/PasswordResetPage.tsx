@@ -2,17 +2,15 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { ResetForm } from '../components/ResetForm';
-import { StartLayout } from '../layouts/StartLayout';
 
 const PasswordResetPage: FC = () => {
   return (
-    <StartLayout>
+    <>
       <ResetForm />
-
       <LinkWrapper>
         <OpacityLink to="/signin">Return to Login</OpacityLink>
       </LinkWrapper>
-    </StartLayout>
+    </>
   );
 };
 

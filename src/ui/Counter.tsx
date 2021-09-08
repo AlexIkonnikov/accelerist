@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-interface SearchResultProps {
+interface CounterProps {
   count: number
 }
 
-export const SearchResult: FC<SearchResultProps> = ({count}) => {
-  return <StyledText>Found {count} companies</StyledText>
+export const Counter: FC<CounterProps> = ({count}) => {
+  return (
+    <StyledText>
+      {count} companies
+    </StyledText>
+  )
 };
 
 const StyledText = styled.p`
