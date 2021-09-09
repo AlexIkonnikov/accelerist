@@ -5,6 +5,7 @@ import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
 import {ReactComponent as Linkedin} from './../assets/icons/linkedin.svg';
 import { TitleBlock } from '../ui/TitleBlock';
+import { AppText } from '../ui/AppText';
 
 const ProfilePage: FC = () => {
   return (
@@ -15,7 +16,7 @@ const ProfilePage: FC = () => {
           <Wrapper>
             <Avatar isBig={true}/>
             <InfoBlock>
-              <BoldText>Apple</BoldText>
+              <Name type="Headline">Apple</Name>
               <ShortDescription>Administration, Business Support and Waste Management Services</ShortDescription>
               <IconWrapper>
                 <LinkedinIcon></LinkedinIcon>
@@ -27,7 +28,13 @@ const ProfilePage: FC = () => {
           </Wrapper>
         </ProfileHeader>
         <ProfileBody>
-          <BoldText>Business Description Products</BoldText>
+          <Title type="Headline" tagName="h3">Business Description Products</Title>
+          <SubTitle type="BodySelect">Description</SubTitle>
+          <Text type="BodyBlack">We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</Text>
+          <SubTitle type="BodySelect">Products & Brand Descriptions</SubTitle>
+          <Text type="BodyBlack">We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</Text>
+          <SubTitle type="BodySelect">Structure</SubTitle>
+          <Text type="BodyBlack">Sole proprietorship</Text>
         </ProfileBody>
       </Container>
     </>
@@ -66,18 +73,11 @@ const BlockButton = styled(Button)`
   color: ${({theme}) => theme.colors.red};
 `;
 
-const BoldText = styled.p`
-  font-size: 24px;
-  line-height: 35px;
-  font-family: Rubik-Medium;
-  color: ${({theme}) => theme.colors.black};
+const Name = styled(AppText)`
   margin-bottom: 4px;
 `;
 
-const ShortDescription = styled.p`
-  font-size: 12px;
-  line-height: 18px;
-  color: ${({theme}) => theme.colors.darkGray};
+const ShortDescription = styled(AppText)`
   margin-bottom: 20px;
 `;
 
@@ -92,5 +92,17 @@ const LinkedinIcon = styled(Linkedin)`
   height: 20px;
   margin-right: 12px;
 `;
+
+const Title = styled(AppText)`
+  margin-bottom: 24px;
+`;
+
+const SubTitle = styled(AppText)`
+  margin-bottom: 16px;
+`;
+
+const Text = styled(AppText)`
+  margin-bottom: 24px;
+`
 
 export default ProfilePage;
