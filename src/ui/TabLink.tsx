@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { NavLinkProps, NavLink } from 'react-router-dom';
 
 export const TabLink: FC<NavLinkProps> = ({ title, ...outerProps }) => {
-  return <Tab {...outerProps}>{title}</Tab>;
+  return (
+    <Tab {...outerProps}>{title}</Tab>
+  )
 };
 
 const Tab = styled(NavLink)`

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Field, Form, FormProps } from 'react-final-form';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
 import { CheckBox } from '../../ui/CheckBox';
 import { FormWrapper } from '../../ui/FormWrapper';
@@ -28,7 +29,7 @@ const SignInForm: FC = () => {
               />
               <Wrapper>
                 <Field name="remember" type="checkbox" render={CheckBox} />
-                <ForgotLink to="/reset">Forgot Password?</ForgotLink>
+                <NavLink to="/reset"><AppText>Forgot Password?</AppText></NavLink>
               </Wrapper>
               <Button onClick={handleSubmit}>Login</Button>
             </>
@@ -56,11 +57,6 @@ const Wrapper = styled.div`
   @media (max-width: 375px) {
     margin-bottom: 49px;
   }
-`;
-
-const ForgotLink = styled(NavLink)`
-  font-size: 12px;
-  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 export default SignInForm;

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
+import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
 import { InputField } from '../InputField/';
 
@@ -10,8 +11,8 @@ const ResetForm: FC = () => {
   };
   return (
     <StyledWrapper>
-      <BoldText>Password Reset</BoldText>
-      <Text>Enter your email to receive instructions on how to reset your password.</Text>
+      <BoldText type="Headline" tagName="h3">Password Reset</BoldText>
+      <Text type="Body">Enter your email to receive instructions on how to reset your password.</Text>
       <Form
         onSubmit={handleFormSubmit}
         render={({ handleSubmit }) => {
@@ -36,19 +37,12 @@ const InputWrapper = styled.div`
   margin: 32px 0 40px;
 `;
 
-const BoldText = styled.h3`
-  font-size: 24px;
-  line-height: 36px;
-  font-size: Rubik-Medium;
+const BoldText = styled(AppText)`
   text-align: left;
-  color: ${({ theme }) => theme.colors.black};
   margin-bottom: 20px;
 `;
 
-const Text = styled.p`
-  font-size: 16px;
-  line-height: 24px;
-  color: ${({ theme }) => theme.colors.black};
+const Text = styled(AppText)`
   margin-top: 8px;
 `;
 

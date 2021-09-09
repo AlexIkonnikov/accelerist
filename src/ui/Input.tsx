@@ -27,11 +27,11 @@ const StyledInput = styled.input<{ $isValid?: boolean }>`
   ${({ $isValid }) =>
     $isValid &&
     `
-    background-color: #f3d6d6;
-    border: 1px solid #F05658;
-    &:focus {
+      background-color: #f3d6d6;
       border: 1px solid #F05658;
-    }
+      &:focus {
+        border: 1px solid #F05658;
+      }
   `};
 
   &:disabled {

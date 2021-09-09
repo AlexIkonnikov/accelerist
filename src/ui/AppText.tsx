@@ -1,5 +1,11 @@
 import React, { FC, HTMLAttributes, ComponentType } from 'react';
-import styled, { css, FlattenInterpolation, ThemeProps, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components';
+import styled, {
+  css,
+  FlattenInterpolation,
+  ThemeProps,
+  DefaultTheme,
+  FlattenSimpleInterpolation,
+} from 'styled-components';
 
 interface AppTextProps extends HTMLAttributes<HTMLElement> {
   type?: 'Footnote' | 'FootnoteBlack' | 'FootnoteSelect' | 'Body' | 'BodyBlack' | 'BodySelect' | 'Headline' | 'Title';
@@ -23,7 +29,7 @@ const Text = styled.p<{ $type: string }>`
 const Footnote = css`
   font-size: 12px;
   line-height: 18px;
-  color: ${({theme}) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 const FootnoteBlack = css`

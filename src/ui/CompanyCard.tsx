@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { HeartIcon } from './icons/HeartIcon';
 import { Button } from './Button';
+import { AppText } from './AppText';
+import { TagList } from './TagList';
 
 export const CompanyCard: FC = () => {
   return (
@@ -12,26 +14,22 @@ export const CompanyCard: FC = () => {
             <div>Аватар</div>
           </AvatarWrapper>
           <Rating>
-            <RatingText>Priority Ranking</RatingText>
-            <RatingNum>12</RatingNum>
+            <AppText>Priority Ranking</AppText>
+            <AppText type="BodySelect">12</AppText>
           </Rating>
         </CompanyFace>
         <CompanyInfo>
-          <Name>Apple</Name>
+          <Name type="BodySelect">Apple</Name>
           <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
           <Phone>(671) 555-0110</Phone>
           <BorderWrapper>
             <Focus>
               <FocusText>CSR Focus</FocusText>
-              <TagWrapper>
-                <Tag className="tag">Health</Tag>
-                <Tag className="tag">Animals</Tag>
-                <Tag className="tag">Education</Tag>
-              </TagWrapper>
+              <TagList tags={['Health', 'Animals', 'Education']}/>
             </Focus>
             <Revenue>
               <RevenueText>Revenue</RevenueText>
-              <RevenueNum>$ 434,476</RevenueNum>
+              <AppText type="FootnoteSelect" tagName="span">$ 434,476</AppText>
             </Revenue>
           </BorderWrapper>
         </CompanyInfo>
@@ -112,39 +110,19 @@ const Rating = styled.div`
   text-align: center;
 `;
 
-const grayText = css`
-  color: ${({ theme }) => theme.colors.darkGray};
-  font-size: 12px;
-  line-height: 18px;
-`;
-
-const boldText = css`
-  font-size: 16px;
-  line-height: 24px;
-  font-family: Rubik-Medium;
-  color: ${({ theme }) => theme.colors.black};
-`;
-
-const RatingText = styled.p`
-  ${grayText}
-`;
-
-const RatingNum = styled.span`
-  ${boldText}
-`;
-
-const Name = styled.p`
-  ${boldText}
+const Name = styled(AppText)`
   margin-bottom: 12px;
 `;
 
-const Address = styled.p`
-  ${grayText}
+const FocusText = styled(AppText)`
   margin-bottom: 4px;
 `;
 
-const Phone = styled.p`
-  ${grayText}
+const Address = styled(AppText)`
+  margin-bottom: 4px;
+`;
+
+const Phone = styled(AppText)`
   margin-bottom: 28px;
   @media (max-width: 768px) {
     margin-bottom: 16px;
@@ -181,66 +159,9 @@ const Revenue = styled.div`
   }
 `;
 
-const FocusText = styled.p`
-  ${grayText}
-  margin-bottom: 4px;
-`;
-
-const RevenueText = styled.p`
-  ${grayText}
+const RevenueText = styled(AppText)`
   margin-bottom: 4px;
   text-align: right;
-`;
-
-const smallBoldText = css`
-  ${boldText}
-  font-size: 12px;
-  line-height: 18px;
-`;
-
-const TagWrapper = styled.div`
-  ${smallBoldText}
-  font-size: 12px;
-  line-height: 18px;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-wrap: wrap;
-  }
-`;
-
-const Tag = styled.span`
-  padding-right: 16px;
-  position: relative;
-
-  &:after {
-    content: '';
-    position: absolute;
-    right: 6px;
-    top: 5px;
-    display: block;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: #c4c4c4;
-  }
-
-  &.tag:last-child {
-    padding: 0;
-    &:after {
-      display: none;
-    }
-  }
-  @media (max-width: 768px) {
-    padding-right: 11px;
-    &:after {
-      right: 4px;
-      top: 7px;
-    }
-  }
-`;
-
-const RevenueNum = styled.span`
-  ${smallBoldText}
 `;
 
 const HeartWrapper = styled.div`

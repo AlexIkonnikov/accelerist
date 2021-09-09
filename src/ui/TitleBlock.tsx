@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Container } from './Container';
+import { AppText } from './AppText';
 
 interface TitleBlockProps {
   title: string
@@ -12,7 +13,7 @@ export const TitleBlock: FC<TitleBlockProps> = ({ title, render }) => {
     <Background>
       <Container variant={2}>
         <ContentWrapper>
-          <TitleText>{title}</TitleText>
+          <TitleText type="Title" tagName="h2">{title}</TitleText>
           {render && render()}
         </ContentWrapper>
       </Container>
@@ -29,11 +30,7 @@ const Background = styled.div`
   }
 `;
 
-const TitleText = styled.h2`
-  color: ${({theme}) => theme.colors.black};
-  font-family: Rubik-Medium;
-  font-size: 32px;
-  line-height: 48px;
+const TitleText = styled(AppText)`
   @media (max-width: 768px) {
     font-size: 28px;
     line-height: 42px;

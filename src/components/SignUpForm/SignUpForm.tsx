@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Field, Form } from 'react-final-form';
 import styled from 'styled-components';
+import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
 import { FormWrapper } from '../../ui/FormWrapper';
 import { InputField } from '../InputField';
@@ -51,10 +52,8 @@ const InputWrapper = styled.div`
   }
 `;
 
-const TextWrapper = styled.p`
+const TextWrapper = styled(AppText)`
   text-align: center;
-  font-size: 12px;
-  line-height: 18px;
   margin: 40px 0 16px;
   padding: 0 7px;
 `;

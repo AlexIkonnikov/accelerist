@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { AppText }  from './AppText';
 
 export const Filters: FC = () => {
   return (
@@ -14,10 +15,7 @@ export const Filters: FC = () => {
   );
 };
 
-const Text = styled.p`
-  color: ${({ theme }) => theme.colors.darkGray};
-  font-size: 12px;
-  line-height: 18px;
+const Text = styled(AppText)`
   margin-bottom: 8px;
 `;
 
