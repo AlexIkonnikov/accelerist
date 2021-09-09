@@ -1,17 +1,22 @@
-import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FC, HTMLAttributes, ComponentType } from 'react';
+import styled, { css, FlattenInterpolation, ThemeProps, DefaultTheme, FlattenSimpleInterpolation } from 'styled-components';
 
-interface AppTextProps {
-  type?: 'Footnote' | 'FootnoteBlack' | 'FootnoteSelect' | 'Body' | 'BodyBlack' | 'BodySelect' | 'Headline' | 'Title'
+interface AppTextProps extends HTMLAttributes<HTMLElement> {
+  type?: 'Footnote' | 'FootnoteBlack' | 'FootnoteSelect' | 'Body' | 'BodyBlack' | 'BodySelect' | 'Headline' | 'Title';
+  tagName?: string | ComponentType<any> | undefined;
 }
 
-export const AppText: FC<AppTextProps> = ({children, type = 'Footnote'}) => {
-  return <Text $type={type} >{children}</Text>;
+export const AppText: FC<AppTextProps> = ({ children, className, type = 'Footnote', tagName = 'p' }) => {
+  return (
+    <Text $type={type} className={className} as={tagName}>
+      {children}
+    </Text>
+  );
 };
 
-const Text = styled.p<{$type: string}>`
-  ${({$type}) => {
-    return `${$type}`;
+const Text = styled.p<{ $type: string }>`
+  ${({ $type }) => {
+    return typeText[$type];
   }}
 `;
 
@@ -23,7 +28,7 @@ const Footnote = css`
 
 const FootnoteBlack = css`
   ${Footnote}
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const FootnoteSelect = css`
@@ -34,12 +39,12 @@ const FootnoteSelect = css`
 const Body = css`
   font-size: 16px;
   line-height: 25px;
-  color: ${({theme}) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.darkGray};
 `;
 
 const BodyBlack = css`
   ${Body}
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const BodySelect = css`
@@ -58,3 +63,14 @@ const Title = css`
   line-height: 48px;
   font-family: Rubik-Medium;
 `;
+
+const typeText: Record<string, FlattenSimpleInterpolation | FlattenInterpolation<ThemeProps<DefaultTheme>>> = {
+  Footnote,
+  FootnoteBlack,
+  FootnoteSelect,
+  Body,
+  BodyBlack,
+  BodySelect,
+  Headline,
+  Title,
+};

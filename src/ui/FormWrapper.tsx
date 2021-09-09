@@ -1,18 +1,19 @@
 import React, {Children, FC} from 'react';
 import styled from 'styled-components';
+import { AppText } from './AppText';
 import LinkedinIcon from './icons/LinkedinIcon';
 import { TabLink } from './TabLink';
 
 export const FormWrapper: FC = ({children}) => {
   return (
     <StyledWrapper>
-      <WelcomeText>Welcome to Accelerist</WelcomeText>
+      <WelcomeText type="Headline" tagName="h3">Welcome to Accelerist</WelcomeText>
       <TabWrapper>
         <TabLink to="signup" title="Register"/>
         <TabLink to="signin" title="Login"/>
       </TabWrapper>
       {children}
-      <TextWrapper>or continue with</TextWrapper>
+      <TextWrapper type="Footnote">or continue with</TextWrapper>
       <IconWrapper>
         <LinkedinIcon/>
       </IconWrapper>
@@ -32,12 +33,9 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const TextWrapper = styled.p`
-  font-size: 12px;
-  line-height: 18px;
+const TextWrapper = styled(AppText)`
   text-align: center;
   margin: 32px 0 24px;
-  color: ${({ theme }) => theme.colors.darkGray};
   @media (max-width: 375px) {
     margin: 16px 0 16px;
   }
@@ -53,12 +51,8 @@ const TabWrapper = styled.div`
   }
 `;
 
-const WelcomeText = styled.h3`
-  font-size: 24px;
-  line-height: 36px;
-  font-family: Rubik-Medium;
+const WelcomeText = styled(AppText)`
   text-align: center;
-  color: ${({ theme }) => theme.colors.black};
   margin-bottom: 25px;
   @media (max-width: 375px) {
     margin-bottom: 20px;
