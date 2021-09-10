@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Field, Form, FormProps } from 'react-final-form';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { actions } from '../../store/ducks';
+import { useAppDispatch } from '../../store/hooks';
 import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
 import { CheckBox } from '../../ui/CheckBox';
@@ -9,8 +11,9 @@ import { FormWrapper } from '../../ui/FormWrapper';
 import { InputField } from '../InputField';
 
 const SignInForm: FC = () => {
-  const handleFormSubmit = (values: FormProps) => {
-    console.log(values);
+  const dispatch = useAppDispatch();
+  const handleFormSubmit = ({email, password}: FormProps) => {
+    dispatch(actions.user.signInRequest({email, password}));
   };
   return (
     <FormWrapper>
