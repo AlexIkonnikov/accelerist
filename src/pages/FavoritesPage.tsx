@@ -17,10 +17,12 @@ const FavoritesPage: FC = () => {
           <Pagination />
         </Wrapper>
         <CardWrapper>
-          {/* <CompanyCard/>
-          <CompanyCard/>
-          <CompanyCard/> */}
-          <EmptyFavorites/>
+          <CompanyCard />
+          <CompanyCard />
+          <CompanyCard />
+          {/* <EmptyWrapper>
+            <EmptyFavorites />
+          </EmptyWrapper> */}
         </CardWrapper>
       </Container>
     </>
@@ -38,9 +40,19 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-bottom: 25px;
   @media (max-width: 375px) {
     display: block;
   }
+`;
+
+const EmptyWrapper = styled.div`
+  padding: 242px 426px 224px 426px;
+  border-radius: 6px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default FavoritesPage;

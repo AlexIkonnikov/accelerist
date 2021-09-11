@@ -5,29 +5,44 @@ import { Avatar } from './Avatar';
 
 export const LastLogin: FC = () => {
   return (
-    <div>
-      <Title>Last Login</Title>
-      <UserWrapper>
+    <Wrapper>
+      <Title type="BodySelect">Last Login</Title>
+      <UserWrapper className="user-wrapper">
         <AvatarWrapper>
           <Avatar type="rounded"/>
         </AvatarWrapper>
-        <UserInfo>
+        <UserInfo className="user-info">
           <AppText type="FootnoteSelect">User Name</AppText>
           <AppText>12 Aug 2020</AppText>
         </UserInfo>
       </UserWrapper>
-      <UserWrapper>
+      <UserWrapper className="user-wrapper">
         <AvatarWrapper>
           <Avatar type="rounded"/>
         </AvatarWrapper>
-        <UserInfo>
+        <UserInfo className="user-info">
           <AppText type="FootnoteSelect">User Name</AppText>
           <AppText>12 Aug 2020</AppText>
         </UserInfo>
       </UserWrapper>
-    </div>
+      <UserWrapper className="user-wrapper">
+        <AvatarWrapper>
+          <Avatar type="rounded"/>
+        </AvatarWrapper>
+        <UserInfo className="user-info">
+          <AppText type="FootnoteSelect">User Name</AppText>
+          <AppText>12 Aug 2020</AppText>
+        </UserInfo>
+      </UserWrapper>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  .user-wrapper:last-child .user-info {
+    border: none;
+  }
+`
 
 const Title = styled(AppText)`
   margin-bottom: 16px;

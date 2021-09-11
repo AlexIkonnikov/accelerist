@@ -4,7 +4,8 @@ import { MainLayout } from '../layouts/MainLayout';
 import DashboardPage from '../pages/DashboardPage';
 import FavoritesPage from '../pages/FavoritesPage';
 import ProfilePage from '../pages/ProfilePage';
-import ProspectsPage from '../pages/ProspectsPage';
+import ProspectListPage from '../pages/ProspectListPage';
+import ProspectPage from '../pages/ProspectPage';
 import SearchPage from '../pages/SearchPage';
 
 export const PrivateRoute: FC = () => {
@@ -13,7 +14,8 @@ export const PrivateRoute: FC = () => {
       <Switch>
         <Route path="/search" component={SearchPage} />
         <Route path="/favorites" component={FavoritesPage} />
-        <Route path="/prospecting" component={ProspectsPage} />
+        <Route path="/prospect" component={ProspectPage} />
+        <Route path="/prospect-list" component={ProspectListPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/dashboard" component={DashboardPage} />
         <Redirect to="/search" />

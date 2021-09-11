@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Favorites } from '../components/Favorites';
 import { ProspectsCard } from '../components/ProspectsCard';
 import { Reports } from '../components/Reports';
@@ -18,7 +18,7 @@ const DashboardPage: FC = () => {
             <AppText type="Headline" tagName="h3">
               Prospecting Sessions
             </AppText>
-            <SeeMoreLink to="/" />
+            <SeeMoreLink to="/prospect-list" />
           </Wrapper>
           <Grid>
             <ProspectsCard />
@@ -27,7 +27,7 @@ const DashboardPage: FC = () => {
         </Section>
         <Grid>
           <Section>
-            <Favorites company={[1, 2, 3]} />
+            <Favorites company={[1, 2, 3, 4, 5, 6]} />
           </Section>
           <Section>
             <Reports />

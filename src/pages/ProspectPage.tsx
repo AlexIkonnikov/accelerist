@@ -7,14 +7,14 @@ import { ReactComponent as Upload } from '../assets/icons/upload.svg';
 import styled from 'styled-components';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Pagination } from '../components/Pagination';
-import { Button } from './../ui/Button';
+import { Button } from '../ui/Button';
 import { ReactComponent as Pen } from './../assets/icons/pen.svg';
 
-const ProspectsPage: FC = () => {
+const ProspectPage: FC = () => {
   return (
     <>
       <TitleBlock
-        title="Prospects"
+        title="Prospect"
         render={() => {
           return (
             <ButtonWrapper>
@@ -109,4 +109,4 @@ const CardWrapper = styled.div`
   }
 `;
 
-export default ProspectsPage;
+export default ProspectPage;

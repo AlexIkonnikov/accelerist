@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
 import {ReactComponent as Linkedin} from './../assets/icons/linkedin.svg';
 import { TitleBlock } from '../ui/TitleBlock';
 import { AppText } from '../ui/AppText';
+import { Avatar } from '../ui/Avatar';
 
 const ProfilePage: FC = () => {
   return (
@@ -13,7 +14,9 @@ const ProfilePage: FC = () => {
       <Container variant={2}>
         <ProfileHeader>
           <Wrapper>
-            {/* <Avatar isBig={true}/> */}
+            <AvatarWrapper>
+              <Avatar/>
+            </AvatarWrapper>
             <InfoBlock>
               <Name type="Headline">Apple</Name>
               <ShortDescription>Administration, Business Support and Waste Management Services</ShortDescription>
@@ -29,11 +32,11 @@ const ProfilePage: FC = () => {
         <ProfileBody>
           <Title type="Headline" tagName="h3">Business Description Products</Title>
           <SubTitle type="BodySelect">Description</SubTitle>
-          <Text type="BodyBlack">We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</Text>
+          <AppText type="BodyBlack" CSS={mb24}>We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</AppText>
           <SubTitle type="BodySelect">Products & Brand Descriptions</SubTitle>
-          <Text type="BodyBlack">We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</Text>
+          <AppText type="BodyBlack" CSS={mb24}>We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</AppText>
           <SubTitle type="BodySelect">Structure</SubTitle>
-          <Text type="BodyBlack">Sole proprietorship</Text>
+          <AppText type="BodyBlack" CSS={mb24}>Sole proprietorship</AppText>
         </ProfileBody>
       </Container>
     </>
@@ -47,8 +50,14 @@ const ProfileHeader = styled.div`
   border-top-right-radius: 6px;
 `;
 
+const AvatarWrapper = styled.div`
+  width: 100px;
+  height: 100px;
+  margin-right: 24px;
+`;
+
 const ProfileBody = styled.div`
-  padding: 32px 40px 0 40px;
+  padding: 32px 40px;
   border-right: 1px solid ${({theme}) => theme.colors.line};
   background-color: white;
   margin-right: 366px;
@@ -60,7 +69,6 @@ const Wrapper = styled.div`
 `;
 
 const InfoBlock = styled.div`
-  margin-left: 24px;
   flex-grow: 1;
 `;
 
@@ -92,16 +100,16 @@ const LinkedinIcon = styled(Linkedin)`
   margin-right: 12px;
 `;
 
-const Title = styled(AppText)`
+const mb24 = css`
   margin-bottom: 24px;
+`;
+
+const Title = styled(AppText)`
+  ${mb24}
 `;
 
 const SubTitle = styled(AppText)`
   margin-bottom: 16px;
 `;
-
-const Text = styled(AppText)`
-  margin-bottom: 24px;
-`
 
 export default ProfilePage;
