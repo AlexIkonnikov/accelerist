@@ -45,4 +45,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const userSliceActions = {...userSlice.actions };
+export const userSliceActions = userSlice.actions;

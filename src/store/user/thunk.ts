@@ -11,4 +11,3 @@ export const signInRequest = createAsyncThunk('user/signInRequest', async (data:
   const response = await signIn(data);
   return response.data;
 });
-

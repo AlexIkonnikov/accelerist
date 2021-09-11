@@ -3,6 +3,6 @@ import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
 
 export const RootRouter: FC = () => {
-  const isAuth = true;
+  const isAuth = false;
   return isAuth ? <PrivateRoute/> : <PublicRoute/>
 };

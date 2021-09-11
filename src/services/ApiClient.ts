@@ -1,6 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { RootState, store } from '../store/store';
+import { StoreType } from '../store/store';
 const baseUrl = 'https://accelerist.herokuapp.com/api';
+
+let store: StoreType;
+
+export const injectStore = (_store: StoreType): void => {
+  store = _store
+}
 
 class ApiClient {
   private api: AxiosInstance;
