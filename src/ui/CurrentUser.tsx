@@ -2,28 +2,29 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { AppText } from './AppText';
 import { Avatar } from './Avatar';
-import { UserIcon } from './icons/UserIcon';
 
 interface CurrentUserProps {
-  name?: string
+  name?: string;
 }
 
 export const CurrentUser: FC<CurrentUserProps> = ({ name = 'No name' }) => {
   return (
     <Wrapper>
-      <Avatar>
-        <UserIcon />
-      </Avatar>
-      <UserName type="FootnoteBlack">{name}</UserName>
+      <AvatarWrapper>
+        <Avatar type="square" />
+      </AvatarWrapper>
+      <AppText type="FootnoteBlack">{name}</AppText>
     </Wrapper>
   );
 };
 
+const AvatarWrapper = styled.div`
+  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const UserName = styled(AppText)`
-  margin-left: 12px;
 `;

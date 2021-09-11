@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
 import {ReactComponent as Linkedin} from './../assets/icons/linkedin.svg';
@@ -14,7 +13,7 @@ const ProfilePage: FC = () => {
       <Container variant={2}>
         <ProfileHeader>
           <Wrapper>
-            <Avatar isBig={true}/>
+            {/* <Avatar isBig={true}/> */}
             <InfoBlock>
               <Name type="Headline">Apple</Name>
               <ShortDescription>Administration, Business Support and Waste Management Services</ShortDescription>

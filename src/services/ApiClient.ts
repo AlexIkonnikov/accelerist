@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { store } from '../store/store';
+import { RootState, store } from '../store/store';
 const baseUrl = 'https://accelerist.herokuapp.com/api';
 
 class ApiClient {
@@ -14,12 +14,13 @@ class ApiClient {
     });
 
     this.api.interceptors.request.use((config) => {
-      const token = null /*store.getState().user.accessToken*/;
+      const token = store.getState().user.accessToken;
       if (token !== null) {
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     });
+
   }
 
   post(url: string, { data }: AxiosRequestConfig) {
@@ -37,6 +38,8 @@ class ApiClient {
   delete(url: string) {
     return this.api.delete(url);
   }
+
 }
 
-export default new ApiClient();
+export default new ApiClient;
+

@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { signIn, signUp } from './../../services/api';
-import type { UserCredential, UserInitialState } from './types';
+import { createSlice } from '@reduxjs/toolkit';
+import type { UserInitialState } from './types';
+import {signUpRequest, signInRequest} from './thunk';
 
 const initialState: UserInitialState = {
   accessToken: null,
@@ -24,16 +24,6 @@ const initialState: UserInitialState = {
   },
 };
 
-const signUpRequest = createAsyncThunk('user/signUpRequest', async (data: UserCredential) => {
-  const response = await signUp(data);
-  return response.data;
-});
-
-const signInRequest = createAsyncThunk('user/signInRequest', async (data: UserCredential) => {
-  const response = await signIn(data);
-  return response.data;
-});
-
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -48,10 +38,11 @@ const userSlice = createSlice({
     });
     builder.addCase(signInRequest.fulfilled, (state, action) => {
       const { user, accessToken } = action.payload;
-      return { accessToken, ...user };
+      state = { accessToken, ...user };
+      return state;
     });
   },
 });
 
-export const userSliceActions = {...userSlice.actions, signUpRequest, signInRequest};
 export default userSlice.reducer;
+export const userSliceActions = {...userSlice.actions };

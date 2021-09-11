@@ -5,25 +5,29 @@ import styled, {
   ThemeProps,
   DefaultTheme,
   FlattenSimpleInterpolation,
+  CSSProp,
 } from 'styled-components';
 
 interface AppTextProps extends HTMLAttributes<HTMLElement> {
   type?: 'Footnote' | 'FootnoteBlack' | 'FootnoteSelect' | 'Body' | 'BodyBlack' | 'BodySelect' | 'Headline' | 'Title';
   tagName?: string | ComponentType<any> | undefined;
+  CSS?: CSSProp
 }
 
-export const AppText: FC<AppTextProps> = ({ children, className, type = 'Footnote', tagName = 'p' }) => {
+export const AppText: FC<AppTextProps> = ({ children, className, type = 'Footnote', tagName = 'p', CSS = {} }) => {
   return (
-    <Text $type={type} className={className} as={tagName}>
+    <Text $type={type} className={className} as={tagName} $CSS={CSS}>
       {children}
     </Text>
   );
 };
 
-const Text = styled.p<{ $type: string }>`
-  ${({ $type }) => {
+const Text = styled.p<{ $type: string, $CSS: CSSProp }>`
+  ${({ $type}) => {
     return typeText[$type];
   }}
+
+  ${({$CSS}) => $CSS};
 `;
 
 const Footnote = css`

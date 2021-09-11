@@ -13,5 +13,5 @@ export const MainLayout: FC = ({ children }) => {
 
 const Background = styled.div`
   background-color: #f9f9f9;
-  height: 100vh;
+  min-height: 100vh;
 `;
