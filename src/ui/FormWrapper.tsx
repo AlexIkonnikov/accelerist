@@ -4,19 +4,27 @@ import { AppText } from './AppText';
 import LinkedinIcon from './icons/LinkedinIcon';
 import { TabLink } from './TabLink';
 
-export const FormWrapper: FC = ({children}) => {
+interface FormWrapperProps {
+  render?: () => JSX.Element
+}
+
+export const FormWrapper: FC<FormWrapperProps> = ({children, render}) => {
   return (
     <StyledWrapper>
-      <WelcomeText type="Headline" tagName="h3">Welcome to Accelerist</WelcomeText>
-      <TabWrapper>
-        <TabLink to="signup" title="Register"/>
-        <TabLink to="signin" title="Login"/>
-      </TabWrapper>
-      {children}
-      <TextWrapper type="Footnote">or continue with</TextWrapper>
-      <IconWrapper>
-        <LinkedinIcon/>
-      </IconWrapper>
+      {render ? render() :
+      <>
+        <WelcomeText type="Headline" tagName="h3">Welcome to Accelerist</WelcomeText>
+        <TabWrapper>
+          <TabLink to="signup" title="Register"/>
+          <TabLink to="signin" title="Login"/>
+        </TabWrapper>
+        {children}
+        <TextWrapper type="Footnote">or continue with</TextWrapper>
+        <IconWrapper>
+          <LinkedinIcon/>
+        </IconWrapper>
+      </>
+      }
     </StyledWrapper>
   );
 };

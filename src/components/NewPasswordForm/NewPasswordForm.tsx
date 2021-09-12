@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { passwordChangeRequest } from '../../services/api';
 import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
+import { FormWrapper } from '../../ui/FormWrapper';
 import { confirm, requireField } from '../../utils/validators';
 import { InputField } from '../InputField';
 
@@ -23,56 +24,48 @@ const NewPasswordForm: FC = () => {
     }
   };
   return (
-    <StyledWrapper>
-      <BoldText type="Headline">New Password</BoldText>
-      <Text type="BodyBlack">Сome up with a new password</Text>
-      <Form
-        onSubmit={handleSubmitForm}
-        render={({ handleSubmit, invalid }) => {
-          return (
-            <>
-              <InputWrapper>
-                <Field
-                  name="password"
-                  type="password"
-                  validate={requireField}
-                  render={({ input, meta }) => {
-                    return <InputField label="Password" input={input} meta={meta} />;
-                  }}
-                />
-              </InputWrapper>
-              <InputWrapper>
-                <Field
-                  name="confirmPassword"
-                  type="password"
-                  validate={confirm}
-                  render={({ input, meta }) => {
-                    return <InputField label="Confirm password" input={input} meta={meta} />;
-                  }}
-                />
-              </InputWrapper>
-              <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
-                Done
-              </Button>
-            </>
-          );
-        }}
-      />
-    </StyledWrapper>
+    <FormWrapper
+      render={() => (
+        <>
+          <BoldText type="Headline">New Password</BoldText>
+          <Text type="BodyBlack">Сome up with a new password</Text>
+          <Form
+            onSubmit={handleSubmitForm}
+            render={({ handleSubmit, invalid }) => {
+              return (
+                <>
+                  <InputWrapper>
+                    <Field
+                      name="password"
+                      type="password"
+                      validate={requireField}
+                      render={({ input, meta }) => {
+                        return <InputField label="Password" input={input} meta={meta} />;
+                      }}
+                    />
+                  </InputWrapper>
+                  <InputWrapper>
+                    <Field
+                      name="confirmPassword"
+                      type="password"
+                      validate={confirm}
+                      render={({ input, meta }) => {
+                        return <InputField label="Confirm password" input={input} meta={meta} />;
+                      }}
+                    />
+                  </InputWrapper>
+                  <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
+                    Done
+                  </Button>
+                </>
+              );
+            }}
+          />
+        </>
+      )}
+    />
   );
 };
-
-const StyledWrapper = styled.div`
-  max-width: 454px;
-  margin: 0 auto;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: 6px;
-  padding: 40px;
-  @media (max-width: 375px) {
-    max-width: 343px;
-    padding: 24px 16px 30px 16px;
-  }
-`;
 
 const InputWrapper = styled.div`
   margin-bottom: 24px;

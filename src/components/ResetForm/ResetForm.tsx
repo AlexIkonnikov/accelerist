@@ -7,6 +7,7 @@ import { mailValidator } from '../../utils/validators';
 import { InputField } from '../InputField/';
 import { useHistory } from 'react-router-dom';
 import { sendLinkToEmail } from '../../services/api';
+import { FormWrapper } from '../../ui/FormWrapper';
 
 const ResetForm: FC = () => {
   const history = useHistory();
@@ -23,31 +24,35 @@ const ResetForm: FC = () => {
     }
   };
   return (
-    <StyledWrapper>
-      <BoldText type="Headline" tagName="h3">
-        Password Reset
-      </BoldText>
-      <Text type="Body">Enter your email to receive instructions on how to reset your password.</Text>
-      <Form
-        onSubmit={handleFormSubmit}
-        render={({ handleSubmit, invalid }) => {
-          return (
-            <>
-              <InputWrapper>
-                <Field
-                  name="email"
-                  validate={mailValidator}
-                  render={({ input, meta }) => <InputField label="Email" input={input} meta={meta} />}
-                />
-              </InputWrapper>
-              <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
-                Reset
-              </Button>
-            </>
-          );
-        }}
-      />
-    </StyledWrapper>
+    <FormWrapper
+      render={() => (
+        <>
+          <BoldText type="Headline" tagName="h3">
+            Password Reset
+          </BoldText>
+          <Text type="Body">Enter your email to receive instructions on how to reset your password.</Text>
+          <Form
+            onSubmit={handleFormSubmit}
+            render={({ handleSubmit, invalid }) => {
+              return (
+                <>
+                  <InputWrapper>
+                    <Field
+                      name="email"
+                      validate={mailValidator}
+                      render={({ input, meta }) => <InputField label="Email" input={input} meta={meta} />}
+                    />
+                  </InputWrapper>
+                  <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
+                    Reset
+                  </Button>
+                </>
+              );
+            }}
+          />
+        </>
+      )}
+    />
   );
 };
 
@@ -62,14 +67,6 @@ const BoldText = styled(AppText)`
 
 const Text = styled(AppText)`
   margin-top: 8px;
-`;
-
-const StyledWrapper = styled.div`
-  max-width: 454px;
-  margin: 0 auto;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: 6px;
-  padding: 40px;
 `;
 
 export default ResetForm;
