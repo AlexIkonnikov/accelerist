@@ -12,13 +12,13 @@ export const PrivateRoute: FC = () => {
   return (
     <MainLayout>
       <Switch>
+        <Route path="/dashboard" component={DashboardPage} />
         <Route path="/search" component={SearchPage} />
         <Route path="/favorites" component={FavoritesPage} />
         <Route path="/prospect" component={ProspectPage} />
         <Route path="/prospect-list" component={ProspectListPage} />
         <Route path="/profile" component={ProfilePage} />
-        <Route path="/dashboard" component={DashboardPage} />
-        <Redirect to="/search" />
+        <Redirect to="/dashboard" />
       </Switch>
     </MainLayout>
   );

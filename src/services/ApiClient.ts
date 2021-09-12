@@ -1,6 +1,11 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { StoreType } from '../store/store';
+
 const baseUrl = 'https://accelerist.herokuapp.com/api';
+
+const getToken = () => {
+  return new URLSearchParams(location.search).get('passwordResetToken');
+}
 
 let store: StoreType;
 
@@ -20,13 +25,12 @@ class ApiClient {
     });
 
     this.api.interceptors.request.use((config) => {
-      const token = store.getState().user.accessToken;
+      const token = store.getState().user.accessToken || getToken();
       if (token !== null) {
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     });
-
   }
 
   post(url: string, { data }: AxiosRequestConfig) {

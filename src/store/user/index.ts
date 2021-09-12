@@ -1,4 +1,3 @@
 export { default as userReducer, userSliceActions } from './userSlice';
 export { userSliceSelectors } from './selectors';
-export type {IUser, UserCredential} from './types'
-export {signInRequest} from './thunk'
+export type { IUser, UserCredential, EmailPayload, ChangePasswordPayload } from './types';

@@ -1,7 +1,13 @@
 export interface UserInitialState {
-  accessToken: null | string
-  user: IUser
-  status: 'init' | 'pending' | 'done'
+  error: IErrors;
+  accessToken: null | string;
+  user: IUser;
+  status: 'init' | 'pending' | 'done';
+}
+
+export interface IErrors {
+  signInError: string,
+  signUpError: string
 }
 
 export interface UserCredential {
@@ -32,7 +38,7 @@ export interface ChangePasswordPayload {
   passwordConfirmation: string;
 }
 
-export interface sendMailPayload {
+export interface EmailPayload {
   email: string;
 }
 
