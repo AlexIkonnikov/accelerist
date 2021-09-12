@@ -16,7 +16,7 @@ const SignUpForm: FC = () => {
   const error = useAppSelector(selectors.user.selectError).signUpError;
 
   const handleFormSubmit = ({ email, password }: FormProps) => {
-    dispatch(actions.user.signUpRequest({ email, password }));
+   // dispatch(actions.user.signUpRequest({ email, password }));
   };
 
   return (

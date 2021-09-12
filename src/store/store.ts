@@ -1,4 +1,4 @@
-import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
+import { configureStore, EnhancedStore, combineReducers } from '@reduxjs/toolkit';
 import { userReducer } from './user';
 
 export const store = configureStore({

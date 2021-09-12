@@ -8,9 +8,9 @@ import { RootRouter } from './route/RootRouter';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
-import {injectStore} from './services/ApiClient';
+import { injectStore } from './services/ApiClient';
 
-injectStore(store)
+injectStore(store);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { CurrentUser } from './../../ui/CurrentUser';
+import { CurrentUser } from './../CurrentUser';
 import { NavList } from '../../ui/NavList';
 import { Burger } from '../../ui/Burger';
 import { Closure } from '../../ui/Closure';

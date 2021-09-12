@@ -17,7 +17,7 @@ const SignInForm: FC = () => {
   const status = useAppSelector(selectors.user.selectStatus);
   const isLoading = status === 'pending';
   const handleFormSubmit = ({ email, password }: FormProps) => {
-    dispatch(actions.user.signInRequest({ email, password }));
+    dispatch(actions.user.signInRequest({email, password}));
   };
   return (
     <FormWrapper>
