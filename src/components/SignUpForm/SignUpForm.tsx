@@ -11,12 +11,10 @@ import { InputField } from '../InputField';
 
 const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
-
   const isLoading = useAppSelector(selectors.user.selectStatus) === 'pending';
-  const error = useAppSelector(selectors.user.selectError).signUpError;
 
   const handleFormSubmit = ({ email, password }: FormProps) => {
-   // dispatch(actions.user.signUpRequest({ email, password }));
+    dispatch(actions.user.signUpRequest({ email, password }));
   };
 
   return (
@@ -46,7 +44,6 @@ const SignUpForm: FC = () => {
               <TextWrapper>
                 I agree that by clicking <b>“Registration”</b> I accept the Terms Of Service and Privacy Policy
               </TextWrapper>
-              {error && <ErrorText>{error}</ErrorText>}
               <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
                 Registration
               </Button>
@@ -70,10 +67,5 @@ const TextWrapper = styled(AppText)`
   margin: 40px 0 16px;
   padding: 0 7px;
 `;
-
-const ErrorText = styled(AppText)`
-  text-align: center;
-  color: ${({theme}) => theme.colors.red};
-`
 
 export default SignUpForm;

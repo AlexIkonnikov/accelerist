@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { Field, Form, FormProps } from 'react-final-form';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { passwordChangeRequest } from '../../services/api';
 import { AppText } from '../../ui/AppText';
@@ -8,19 +7,19 @@ import { Button } from '../../ui/Button';
 import { FormWrapper } from '../../ui/FormWrapper';
 import { confirm, requireField } from '../../utils/validators';
 import { InputField } from '../InputField';
+import toast from './../../utils/Toaster';
 
 const NewPasswordForm: FC = () => {
-  const history = useHistory();
   const [isLoading, setLoading] = useState(false);
   const handleSubmitForm = async ({ password, confirmPassword }: FormProps) => {
     setLoading(true);
     try {
       await passwordChangeRequest({ password, passwordConfirmation: confirmPassword });
+      toast.success('Password changed successfully!');
     } catch (e) {
-      console.error(e);
+      toast.error(e + '');
     } finally {
       setLoading(false);
-      history.push('/signin');
     }
   };
   return (

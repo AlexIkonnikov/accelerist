@@ -13,11 +13,10 @@ import { mailValidator, requireField } from '../../utils/validators';
 
 const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
-  const error = useAppSelector(selectors.user.selectError).signInError;
   const status = useAppSelector(selectors.user.selectStatus);
   const isLoading = status === 'pending';
   const handleFormSubmit = ({ email, password }: FormProps) => {
-    dispatch(actions.user.signInRequest({email, password}));
+    dispatch(actions.user.signInRequest({ email, password }));
   };
   return (
     <FormWrapper>
@@ -45,7 +44,6 @@ const SignInForm: FC = () => {
                   <AppText>Forgot Password?</AppText>
                 </NavLink>
               </Wrapper>
-              {error && <ErrorText>{error}</ErrorText>}
               <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
                 Login
               </Button>
@@ -74,11 +72,6 @@ const Wrapper = styled.div`
   @media (max-width: 375px) {
     margin-bottom: 49px;
   }
-`;
-
-const ErrorText = styled(AppText)`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.red};
 `;
 
 export default SignInForm;

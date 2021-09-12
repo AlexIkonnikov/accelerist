@@ -9,7 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { injectStore } from './services/ApiClient';
-import toast from './utils/Toaster';
 import { ToastContainer } from './ui/ToastContainer';
 
 injectStore(store);

@@ -1,13 +1,7 @@
 export interface UserInitialState {
-  error: IErrors;
   accessToken: null | string;
   user: IUser;
   status: 'init' | 'pending' | 'done';
-}
-
-export interface IErrors {
-  signInError: string,
-  signUpError: string
 }
 
 export interface UserCredential {

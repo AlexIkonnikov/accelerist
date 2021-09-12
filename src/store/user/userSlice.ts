@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { UserInitialState } from './types';
 import {signUpRequest, signInRequest} from './thunk';
+import toast from './../../utils/Toaster';
 
 const initialState: UserInitialState = {
-  error: {
-    signInError: '',
-    signUpError: ''
-  },
   accessToken: null,
   status: 'init',
   user: {
@@ -38,11 +35,10 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signInRequest.pending, (state) => {
-      state.error.signInError = '';
       state.status = 'pending';
     });
     builder.addCase(signInRequest.rejected, (state) => {
-      state.error.signInError = 'Email or password incorrect. Please try again.';
+      toast.error('Email or password incorrect. Please try again.');
       state.status = 'done';
     });
     builder.addCase(signInRequest.fulfilled, (state, action) => {
@@ -51,11 +47,10 @@ const userSlice = createSlice({
     });
 
     builder.addCase(signUpRequest.pending, (state) => {
-      state.error.signUpError = '';
       state.status = 'pending';
     });
     builder.addCase(signUpRequest.rejected, (state) => {
-      state.error.signUpError = 'User already exists';
+      toast.error('User already exists.');
       state.status = 'done';
     });
     builder.addCase(signUpRequest.fulfilled, (state, action) => {

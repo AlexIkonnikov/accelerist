@@ -1,26 +1,37 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Field, Form, FormProps } from 'react-final-form';
 import styled from 'styled-components';
 import { AppText } from '../../ui/AppText';
 import { Button } from '../../ui/Button';
 import { mailValidator } from '../../utils/validators';
 import { InputField } from '../InputField/';
-import { useHistory } from 'react-router-dom';
 import { sendLinkToEmail } from '../../services/api';
 import { FormWrapper } from '../../ui/FormWrapper';
+import toast from './../../utils/Toaster';
 
 const ResetForm: FC = () => {
-  const history = useHistory();
+  const [timer, setTimer] = useState(0);
+  const timerTemplate = timer < 10 ? `00:0${timer}` : `00:${timer}`;
   const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (timer > 0) {
+      setTimeout(() => {
+        setTimer(timer - 1);
+      }, 1000);
+    }
+  }, [timer]);
+
   const handleFormSubmit = async ({ email }: FormProps) => {
     setLoading(true);
     try {
       await sendLinkToEmail({ email });
+      toast.info('A link has been sent to your email. Check your mail.');
     } catch (e) {
-      console.error(e);
+      toast.error(e + '');
     } finally {
       setLoading(false);
-      history.push('/signin');
+      setTimer(40);
     }
   };
   return (
@@ -36,15 +47,17 @@ const ResetForm: FC = () => {
             render={({ handleSubmit, invalid }) => {
               return (
                 <>
-                  <InputWrapper>
-                    <Field
-                      name="email"
-                      validate={mailValidator}
-                      render={({ input, meta }) => <InputField label="Email" input={input} meta={meta} />}
-                    />
-                  </InputWrapper>
-                  <Button onClick={handleSubmit} disabled={invalid} isLoading={isLoading}>
-                    Reset
+                  {timer === 0 && (
+                    <InputWrapper>
+                      <Field
+                        name="email"
+                        validate={mailValidator}
+                        render={({ input, meta }) => <InputField label="Email" input={input} meta={meta} />}
+                      />
+                    </InputWrapper>
+                  )}
+                  <Button onClick={handleSubmit} disabled={invalid || timer > 0} isLoading={isLoading}>
+                    {timer > 0 ? timerTemplate : 'Reset'}
                   </Button>
                 </>
               );
