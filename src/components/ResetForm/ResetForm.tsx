@@ -11,6 +11,8 @@ import toast from './../../utils/Toaster';
 
 const ResetForm: FC = () => {
   const [timer, setTimer] = useState(0);
+  const textBeforeSubmit = 'Enter your email to receive instructions on how to reset your password.'
+  const textAfterSubmit = 'A link was sent to your email to confirm password reset and create a new one';
   const timerTemplate = timer < 10 ? `00:0${timer}` : `00:${timer}`;
   const [isLoading, setLoading] = useState(false);
 
@@ -26,7 +28,7 @@ const ResetForm: FC = () => {
     setLoading(true);
     try {
       await sendLinkToEmail({ email });
-      toast.info('A link has been sent to your email. Check your mail.');
+      toast.info(textAfterSubmit);
     } catch (e) {
       toast.error(e + '');
     } finally {
@@ -41,7 +43,7 @@ const ResetForm: FC = () => {
           <BoldText type="Headline" tagName="h3">
             Password Reset
           </BoldText>
-          <Text type="Body">Enter your email to receive instructions on how to reset your password.</Text>
+          <Text type="Body">{timer === 0 ? textBeforeSubmit : textAfterSubmit}</Text>
           <Form
             onSubmit={handleFormSubmit}
             render={({ handleSubmit, invalid }) => {
