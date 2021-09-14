@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { FavoritesList } from './../components/FavoritesList';
-import { ProspectsCard } from '../components/ProspectsCard';
 import { Reports } from '../components/Reports';
 import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';

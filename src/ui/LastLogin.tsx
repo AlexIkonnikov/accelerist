@@ -9,7 +9,7 @@ export const LastLogin: FC = () => {
       <Title type="BodySelect">Last Login</Title>
       <UserWrapper className="user-wrapper">
         <AvatarWrapper>
-          <Avatar type="rounded"/>
+          <Avatar type="rounded" />
         </AvatarWrapper>
         <UserInfo className="user-info">
           <AppText type="FootnoteSelect">User Name</AppText>
@@ -18,7 +18,7 @@ export const LastLogin: FC = () => {
       </UserWrapper>
       <UserWrapper className="user-wrapper">
         <AvatarWrapper>
-          <Avatar type="rounded"/>
+          <Avatar type="rounded" />
         </AvatarWrapper>
         <UserInfo className="user-info">
           <AppText type="FootnoteSelect">User Name</AppText>
@@ -27,7 +27,7 @@ export const LastLogin: FC = () => {
       </UserWrapper>
       <UserWrapper className="user-wrapper">
         <AvatarWrapper>
-          <Avatar type="rounded"/>
+          <Avatar type="rounded" />
         </AvatarWrapper>
         <UserInfo className="user-info">
           <AppText type="FootnoteSelect">User Name</AppText>
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   .user-wrapper:last-child .user-info {
     border: none;
   }
-`
+`;
 
 const Title = styled(AppText)`
   margin-bottom: 16px;
@@ -66,5 +66,5 @@ const UserInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 15px;
-  border-bottom: 1px solid ${({theme}) => theme.colors.line};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
 `;
