@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { AppText } from '../../ui/AppText';
-import { EmptyFavorites } from '../../ui/EmptyFavorites';
+import { EmptyList } from '../../ui/EmptyList';
 import { SeeMoreLink } from '../../ui/SeeMoreLink';
 import { ShortCard } from '../../ui/ShortCard';
+import { ReactComponent as Heart } from './../../assets/icons/heart.svg';
 
-interface FavoritesProps {
-  company?: Array<any>;
+interface FavoritesListProps {
+  company?: Array<string>;
 }
 
-const Favorites: FC<FavoritesProps> = ({ company = [] }) => {
+const FavoritesList: FC<FavoritesListProps> = ({ company = [] }) => {
   return (
     <>
       <TitleWrapper>
@@ -25,7 +26,7 @@ const Favorites: FC<FavoritesProps> = ({ company = [] }) => {
         </Grid>
           :
         <EmptyWrapper>
-          <EmptyFavorites/>
+          <EmptyList text="No favorite company" render={() => <Heart/>}/>
         </EmptyWrapper>
       }
     </>
@@ -54,4 +55,4 @@ const EmptyWrapper = styled.div`
 `
 
 
-export default Favorites;
+export default FavoritesList;

@@ -29,11 +29,11 @@ const SearchPage: FC = () => {
               <SaveIcon />
               <Text>Save List</Text>
             </BtnIcon>
-            <BtnIcon>
+            <BtnIcon disabled={true}>
               <UploadIcon/>
               <Text>Export to Excel</Text>
             </BtnIcon>
-            <BtnIcon>
+            <BtnIcon disabled={true}>
               <MailIcon/>
               <Text>Accelerist Support</Text>
             </BtnIcon>
@@ -96,6 +96,9 @@ const BtnIcon = styled.button`
   justify-content: center;
   align-items: center;
   margin-right: 35px;
+  &:disabled {
+    cursor: no-drop;
+  }
 `;
 
 const SaveIcon = styled(Save)`

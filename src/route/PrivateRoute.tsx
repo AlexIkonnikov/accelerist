@@ -18,7 +18,7 @@ export const PrivateRoute: FC = () => {
         <Route path="/prospect" component={ProspectPage} />
         <Route path="/prospect-list" component={ProspectListPage} />
         <Route path="/profile" component={ProfilePage} />
-        <Redirect to="/dashboard" />
+        <Redirect to="/search" />
       </Switch>
     </MainLayout>
   );

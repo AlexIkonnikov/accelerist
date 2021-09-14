@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Pagination } from '../components/Pagination';
-import { ProspectsCard } from '../components/ProspectsCard';
+import { ProspectsList } from '../components/ProspectsList';
 import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';
 import { TitleBlock } from '../ui/TitleBlock';
@@ -28,12 +28,7 @@ const ProspectListPage: FC = () => {
           </SortingList>
           <Pagination/>
         </Row>
-        <Grid>
-          <ProspectsCard />
-          <ProspectsCard />
-          <ProspectsCard />
-          <ProspectsCard />
-        </Grid>
+        <ProspectsList items={[]} />
       </Container>
     </>
   );

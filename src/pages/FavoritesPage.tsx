@@ -4,7 +4,7 @@ import { Pagination } from '../components/Pagination';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Container } from '../ui/Container';
 import { Counter } from '../ui/Counter';
-import { EmptyFavorites } from '../ui/EmptyFavorites';
+import { EmptyList } from '../ui/EmptyList';
 import { TitleBlock } from '../ui/TitleBlock';
 
 const FavoritesPage: FC = () => {
@@ -21,7 +21,7 @@ const FavoritesPage: FC = () => {
           <CompanyCard />
           <CompanyCard />
           {/* <EmptyWrapper>
-            <EmptyFavorites />
+            <EmptyList />
           </EmptyWrapper> */}
         </CardWrapper>
       </Container>

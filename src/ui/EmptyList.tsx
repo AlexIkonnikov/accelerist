@@ -1,18 +1,22 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { ReactComponent as Heart } from './../assets/icons/heart.svg';
 import { AppText } from './AppText';
 import { Button } from './Button';
 
-export const EmptyFavorites: FC = () => {
+interface EmptyListProps {
+  text: string
+  render: () => JSX.Element
+}
+
+export const EmptyList: FC<EmptyListProps> = ({text, render}) => {
   return (
     <Wrapper>
-      <HeartIcon />
+      {render()}
       <AppText type="BodySelect" CSS={mb8}>
-        No favorite company
+        {text}
       </AppText>
-      <AppText CSS={mb32}>Go to the search page and add to favorites</AppText>
+      <AppText CSS={mb32}>Go to the search page and add to list</AppText>
       <CustomLink to="/search">
         <Button variant="secondary">Search</Button>
       </CustomLink>
@@ -28,11 +32,8 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const HeartIcon = styled(Heart)`
-  margin-bottom: 40px;
-`;
-
 const mb8 = css`
+  margin-top: 40px;
   margin-bottom: 8px;
 `;
 

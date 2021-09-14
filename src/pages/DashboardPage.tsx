@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Favorites } from '../components/Favorites';
+import { FavoritesList } from './../components/FavoritesList';
 import { ProspectsCard } from '../components/ProspectsCard';
 import { Reports } from '../components/Reports';
 import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';
 import { SeeMoreLink } from '../ui/SeeMoreLink';
 import { TitleBlock } from '../ui/TitleBlock';
+import { ProspectsList } from '../components/ProspectsList';
 
 const DashboardPage: FC = () => {
   return (
@@ -20,14 +21,11 @@ const DashboardPage: FC = () => {
             </AppText>
             <SeeMoreLink to="/prospect-list" />
           </Wrapper>
-          <Grid>
-            <ProspectsCard />
-            <ProspectsCard />
-          </Grid>
+          <ProspectsList items={[]}/>
         </Section>
         <Grid>
           <Section>
-            <Favorites company={[1, 2, 3, 4, 5, 6]} />
+            <FavoritesList company={[]}/>
           </Section>
           <Section>
             <Reports />
