@@ -1,14 +1,17 @@
-import React, { FC } from 'react';
-import { FieldRenderProps } from 'react-final-form';
+import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import Check from './../assets/icons/check.svg';
 
-export const CheckBox: FC<FieldRenderProps<string>> = ({input}) => {
+interface CheckBoxInterface extends InputHTMLAttributes<HTMLInputElement> {
+  text?: string
+}
+
+export const CheckBox: FC<CheckBoxInterface> = ({text, ...outerProps}) => {
   return (
     <StyledLabel>
-      <StyledCheckbox type="checkbox" {...input}/>
+      <StyledCheckbox type="checkbox" {...outerProps}/>
       <Indicator />
-      Remember
+      {text ?  text : null}
     </StyledLabel>
   );
 };

@@ -39,7 +39,7 @@ const SignInForm: FC = () => {
                 render={({ ...outerProps }) => <InputField label="Password" {...outerProps} />}
               />
               <Wrapper>
-                <Field name="remember" type="checkbox" render={CheckBox} />
+                <Field name="remember" type="checkbox" render={({input}) => <CheckBox text="Remember" {...input}/>} />
                 <NavLink to="/reset">
                   <AppText>Forgot Password?</AppText>
                 </NavLink>

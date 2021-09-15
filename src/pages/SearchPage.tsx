@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Counter } from '../ui/Counter';
@@ -10,18 +10,24 @@ import { Pagination } from '../components/Pagination';
 import { SlidersIcon } from '../ui/icons/SlidersIcon';
 import { SearchBar } from '../components/SearchBar';
 import { Container } from '../ui/Container';
+import { FiltersForm } from '../components/FiltersForm';
 
 const SearchPage: FC = () => {
+
+  const [isFiltersShow, setFiltersState] = useState(false);
+  const handlerToggleFilters = () => {setFiltersState(!isFiltersShow)};
+
   return (
     <>
       <TitleBlock title="Search" render={() => {
         return (
           <SearchBarWrapper>
-            <SearchBar render={() => <StyledSlidersIcon/>}/>
+            <SearchBar render={() => <StyledSlidersIcon onClick={handlerToggleFilters} />}/>
           </SearchBarWrapper>
         )
       }}/>
       <Container variant={2}>
+        {isFiltersShow && <FiltersForm/>}
         <Counter count={0} />
         <Wrapper>
           <BtnWrapper>
