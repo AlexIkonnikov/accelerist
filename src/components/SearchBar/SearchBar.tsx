@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent, ChangeEvent, InputHTMLAttributes } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { SearchIcon } from '../../ui/icons/SearchIcon';
 
@@ -7,21 +7,19 @@ interface SearchBarProps  {
 }
 
 const SearchBar: FC<SearchBarProps> = ({render}) => {
-
-  const [inputText, setInputText] = useState('');
+  const [query, setQuery] = useState('');
 
   const handleInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    setInputText(target.value);
+    setQuery(target.value);
   }
 
   const handleSearch = () => {
-    console.log(inputText);
-    setInputText('');
+    console.log(query)
   }
 
   return (
     <SearchBox>
-      <SearchInput type="text" placeholder="Search" value={inputText} onChange={handleInputChange} />
+      <SearchInput type="text" placeholder="Search" value={query} onChange={handleInputChange} />
       <IconWrapper>
         {render && render()}
         <SearchIcon onClick={handleSearch}/>

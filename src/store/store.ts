@@ -1,9 +1,11 @@
-import { configureStore, EnhancedStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { userReducer } from './user';
+import { companyReducer } from './company';
 
 export const store = configureStore({
   reducer: {
-    user: userReducer
+    user: userReducer,
+    company: companyReducer
   },
   devTools: true,
 });
