@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Button } from '../../ui/Button';
 import { AppSelect } from '../../ui/AppSelect';
 import { AppText } from '../../ui/AppText';
+import { AppRange } from '../../ui/AppRange';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -25,7 +26,8 @@ const FiltersForm: FC = () => {
               name="lol"
               render={({input}) => <AppSelect options={options} {...input} />}
             />
-            <Button onClick={handleSubmit}>Send</Button>
+            <AppRange/>
+
             </>
           )
         }}
