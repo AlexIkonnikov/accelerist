@@ -8,6 +8,8 @@ import { ethnicities } from './data';
 import { MultiSelect } from '../MultiSelect';
 import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
+import { TabRadio } from '../../ui/TabRadio';
+import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -17,8 +19,8 @@ const options = [
 
 const FiltersForm: FC = () => {
   const handleFormSubmit = (values: FormProps) => {
-    const query = { ...values, revenue: undefined, maxRevenue: values.revenue[1], minRevenue: values.revenue[0] };
-    console.log(query);
+    //const query = { ...values, revenue: undefined, maxRevenue: values.revenue[1], minRevenue: values.revenue[0] };
+    console.log(values);
   };
   return (
     <Wrapper>
@@ -51,13 +53,49 @@ const FiltersForm: FC = () => {
                     <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
                   )}
                 />
+              </Grid>
+              <Row>
                 <Field
                   name="revenue"
                   type="range"
                   render={({ ...outerProps }) => <InputRange label="Revenue" value={[0, 50]} {...outerProps} />}
                 />
-              </Grid>
+              </Row>
               <SubTitle type="BodySelect">Customer Demographics</SubTitle>
+              <Grid>
+                <Field
+                  name="gender"
+                  type="radio"
+                  value={['Male', 'Female', 'Both']}
+                  render={({ input }) => <TabRadioGroupe label="Gender" {...input} />}
+                />
+                <Field
+                  name="relations"
+                  type="radio"
+                  value={['Single', 'Married']}
+                  render={({ input }) => <TabRadioGroupe label="Relations" {...input} />}
+                />
+                <Field
+                  name="j"
+                  render={({ ...outerProps }) => (
+                    <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
+                  )}
+                />
+                <Field
+                  name="k"
+                  render={({ ...outerProps }) => (
+                    <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
+                  )}
+                />
+              </Grid>
+              <Row>
+                <Field
+                  name="age"
+                  type="range"
+                  render={({ ...outerProps }) => <InputRange label="Age" value={[0, 50]} {...outerProps} />}
+                />
+              </Row>
+              <Button onClick={handleSubmit}>Send</Button>
             </>
           );
         }}
@@ -87,7 +125,15 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 23px;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+`;
+
+const Row = styled.div`
+  width: 48.2%;
+  margin-bottom: 31px;
+  @media(max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export default FiltersForm;
