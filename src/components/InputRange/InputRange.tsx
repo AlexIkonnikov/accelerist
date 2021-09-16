@@ -20,7 +20,7 @@ const InputRange: FC<InputRangeProps> = ({ input, value, label= '' }) => {
   };
 
   return (
-    <div>
+    <RangeWrapper>
       <Label>{label}</Label>
       <StyledSlider
         min={value[0]}
@@ -31,13 +31,18 @@ const InputRange: FC<InputRangeProps> = ({ input, value, label= '' }) => {
         aria-labelledby="range-slider"
         valueLabelFormat={(str: number) => `$${str}M`}
       />
-    </div>
+    </RangeWrapper>
   );
 };
 
+const RangeWrapper = styled.div`
+  padding: 0 36px;
+`
+
 const Label = styled(AppText)`
   margin-bottom: 12px;
-`
+  margin-left: -36px;
+`;
 
 const StyledSlider = styled(Slider)`
   & .MuiSlider-track {
@@ -46,6 +51,8 @@ const StyledSlider = styled(Slider)`
 
   & .MuiSlider-rail {
     background-color: ${({ theme }) => theme.colors.line};
+    margin-left: -32px;
+    padding-right: 64px;
   }
 
   & .MuiSlider-thumb {
@@ -55,7 +62,7 @@ const StyledSlider = styled(Slider)`
     border-radius: 6px;
     background: white;
     margin-top: -14px;
-    margin-left: 0px;
+    margin-left: -36px;
     &:after {
       display: none;
     }

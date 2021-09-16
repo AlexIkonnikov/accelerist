@@ -57,6 +57,7 @@ const FiltersForm: FC = () => {
                   render={({ ...outerProps }) => <InputRange label="Revenue" value={[0, 50]} {...outerProps} />}
                 />
               </Grid>
+              <SubTitle type="BodySelect">Customer Demographics</SubTitle>
             </>
           );
         }}
