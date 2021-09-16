@@ -1,8 +1,8 @@
-import React, { FC, ComponentProps, HTMLAttributes } from 'react';
-import Select, { components, OptionTypeBase, OptionsType, SelectComponentsConfig, CommonProps } from 'react-select';
+import React, { FC, ComponentProps } from 'react';
+import Select, { components, OptionsType } from 'react-select';
 import styled from 'styled-components';
 import { ReactComponent as ArrowDown } from './../assets/icons/arrow-down.svg';
-import { CheckBox } from './CheckBox';
+import { FieldRenderProps } from 'react-final-form';
 
 const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>> = ({ ...outerProps }) => {
   return (
@@ -12,42 +12,30 @@ const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>>
   );
 };
 
-const Option: FC<ComponentProps<typeof components.Option>> = (props) => {
-  return (
-    <components.Option {...props}>
-      <Flex>
-        {props.children}
-        <CheckBox checked={props.isSelected}/>
-      </Flex>
-    </components.Option>
-  );
-};
-
-interface SelectProps extends HTMLAttributes<HTMLInputElement> {
-  options: OptionsType<OptionTypeBase>;
-  isMulti?: boolean;
+interface SelectProps extends FieldRenderProps<Array<string>> {
+  options: OptionsType<Field>;
 }
 
-export const AppSelect: FC<SelectProps> = ({ options, isMulti = false, ...outerProps }) => {
+interface Field {
+  value: string;
+  label: string;
+}
+
+export const AppSelect: FC<SelectProps> = ({ options, input, ...outerProps }) => {
+  const handleChangeEvent = (result: Field) => {
+    input.onChange([result.value]);
+  };
+
   return (
     <StyledSelect
       classNamePrefix="react-select"
       options={options}
-      defaultInputValue= {options[0].value}
+      onChange={handleChangeEvent}
       components={{ DropdownIndicator }}
-      isMulti={isMulti}
-      setValue={() => {console.log()}}
-
       {...outerProps}
     />
   );
 };
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
 const StyledSelect = styled(Select)`
   & .react-select__indicator-separator {

@@ -1,29 +1,45 @@
-import React, { FC, useState, ChangeEvent, InputHTMLAttributes } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { Slider } from '@material-ui/core';
+import { FieldRenderProps } from 'react-final-form';
+import {AppText} from './../../ui/AppText';
 
-export const AppRange: FC = () => {
-  const [value, setValue] = useState([20,70]);
+interface InputRangeProps extends FieldRenderProps<Array<number>> {
+  value: Array<number>;
+  label?: string
+}
 
-  const handleChange = (evt: ChangeEvent<unknown>, value: Array<number>| number) => {
+const InputRange: FC<InputRangeProps> = ({ input, value, label= '' }) => {
+  const [initValue, setValue] = useState(value);
+
+  const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
     if (Array.isArray(value)) {
       setValue(value);
+      input.onChange(value);
     }
   };
+
   return (
-    <StyledSlider
-      defaultValue={30}
-      value={value}
-      onChange={handleChange}
-      valueLabelDisplay="auto"
-      aria-labelledby="range-slider"
-      valueLabelFormat={(str: number) => `$${str}M`}
-    />
+    <div>
+      <Label>{label}</Label>
+      <StyledSlider
+        min={value[0]}
+        max={value[1]}
+        value={initValue}
+        valueLabelDisplay="auto"
+        onChange={handleChange}
+        aria-labelledby="range-slider"
+        valueLabelFormat={(str: number) => `$${str}M`}
+      />
+    </div>
   );
 };
 
-const StyledSlider = styled(Slider)`
+const Label = styled(AppText)`
+  margin-bottom: 12px;
+`
 
+const StyledSlider = styled(Slider)`
   & .MuiSlider-track {
     background-color: ${({ theme }) => theme.colors.blue};
   }
@@ -39,10 +55,12 @@ const StyledSlider = styled(Slider)`
     border-radius: 6px;
     background: white;
     margin-top: -14px;
+    margin-left: 0px;
     &:after {
       display: none;
     }
-    &:hover, &.Mui-focusVisible {
+    &:hover,
+    &.Mui-focusVisible {
       box-shadow: unset;
     }
   }
@@ -56,10 +74,6 @@ const StyledSlider = styled(Slider)`
   & .PrivateValueLabel-thumb-1.PrivateValueLabel-open-2 .PrivateValueLabel-offset-3 {
     transform: unset;
   }
-
-  /* & .PrivateValueLabel-offset-3 {
-    transform: unset;
-  } */
 
   & .PrivateValueLabel-label-5 {
     color: ${({ theme }) => theme.colors.black};
@@ -76,3 +90,5 @@ const StyledSlider = styled(Slider)`
     background-color: unset;
   }
 `;
+
+export default InputRange;

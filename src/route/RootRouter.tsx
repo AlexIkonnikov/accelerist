@@ -6,6 +6,6 @@ import { selectors } from '../store/ducks';
 
 export const RootRouter: FC = () => {
   const token = useAppSelector(selectors.user.selectUserToken);
-  const isAuth = true/*token ? true : false*/;
+  const isAuth =true /*token ? true : false*/;
   return isAuth ? <PrivateRoute/> : <PublicRoute/>
 };

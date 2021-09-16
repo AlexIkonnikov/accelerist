@@ -64,6 +64,10 @@ const MenuWrapper = styled.div`
   position: absolute;
   border-radius: 6px;
   bottom: -60px;
+  @media(max-width: 768px) {
+    bottom: 30px;
+    padding: 5px;
+  }
 `;
 
 const DangerText = styled(AppText)`

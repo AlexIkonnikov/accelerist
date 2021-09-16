@@ -21,6 +21,7 @@ const StyledLabel = styled.label`
   font-size: 12px;
   line-height: 20px;
   color: ${({theme}) => theme.colors.black};
+  position: relative;
 `;
 
 const StyledCheckbox = styled.input`
@@ -30,7 +31,7 @@ const StyledCheckbox = styled.input`
 `;
 
 const Indicator = styled.span`
-  margin-left: -30px;
+  margin-left: -20px;
   position: absolute;
   width: 20px;
   height: 20px;
