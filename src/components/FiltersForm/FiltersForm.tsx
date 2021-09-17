@@ -8,7 +8,6 @@ import { ethnicities } from './data';
 import { MultiSelect } from '../MultiSelect';
 import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
-import { TabRadio } from '../../ui/TabRadio';
 import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
 
 const options = [
@@ -18,7 +17,7 @@ const options = [
 ];
 
 const FiltersForm: FC = () => {
-  const initialValue = {relations: 'married', gender: 'male'};
+  const initialValue = {relations: 'married', gender: 'male', scope: ['first']};
   const handleFormSubmit = (values: FormProps) => {
     //const query = { ...values, revenue: undefined, maxRevenue: values.revenue[1], minRevenue: values.revenue[0] };
     console.log(values);
@@ -36,25 +35,11 @@ const FiltersForm: FC = () => {
               <Grid>
                 <SearchableMultiSelect label="Industry" />
                 <SearchableMultiSelect label="Geographic Location" />
-                <Field
+                {/* <Field
                   name="a"
                   render={({ ...outerProps }) => <MultiSelect label="Scope" data={ethnicities} {...outerProps} />}
-                />
-
-                <Field
-                  name="s"
-                  render={({ ...outerProps }) => <MultiSelect label="SDG Goals" data={ethnicities} {...outerProps} />}
-                />
-                <Field
-                  name="d"
-                  render={({ ...outerProps }) => <MultiSelect label="CDR Focus" data={ethnicities} {...outerProps} />}
-                />
-                <Field
-                  name="f"
-                  render={({ ...outerProps }) => (
-                    <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
-                  )}
-                />
+                /> */}
+                <MultiSelect name="scope" label="Scope" items={['first', 'second', 'last']} />
               </Grid>
               <Row>
                 <Field
@@ -67,18 +52,6 @@ const FiltersForm: FC = () => {
               <Grid>
                 <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']}/>
                 <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']}/>
-                <Field
-                  name="j"
-                  render={({ ...outerProps }) => (
-                    <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
-                  )}
-                />
-                <Field
-                  name="k"
-                  render={({ ...outerProps }) => (
-                    <MultiSelect label="Total Annual Contributions" data={ethnicities} {...outerProps} />
-                  )}
-                />
               </Grid>
               <Row>
                 <Field

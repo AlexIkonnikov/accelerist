@@ -1,50 +1,43 @@
-import React, { FC, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
 import { AppText } from './../../ui/AppText';
 import { ReactComponent as ArrowDown } from './../../assets/icons/arrow-down.svg';
 import { CheckBox } from './../../ui/CheckBox';
-import { FieldRenderProps } from 'react-final-form';
+import { FieldRenderProps, FieldProps, Field, FieldInputProps } from 'react-final-form';
 
-interface MultiSelectProps extends FieldRenderProps<Array<ItemsProps>> {
+interface MultiSelectProps extends FieldProps<string, FieldRenderProps<string>> {
   label?: string;
-  data: Array<ItemsProps>;
+  items: Array<string>;
 }
 
-interface ItemsProps {
-  item: string;
-  isChecked: boolean;
-}
-
-const MultiSelect: FC<MultiSelectProps> = ({ label = '', data, input }) => {
+const MultiSelect: FC<MultiSelectProps> = ({ label = '', items, name }) => {
   const [isListShow, setListShow] = useState(false);
-  const [selectedItem, setItemsState] = useState(data);
+  const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
 
   const handleToggleList = () => {
     setListShow(!isListShow);
   };
 
-  const handleToggleChecked = (item: string) => {
-    const idx = selectedItem.findIndex((el) => el.item === item);
-    if (idx !== -1) {
-      const newState = [...selectedItem];
-      newState.splice(idx, 1, { ...newState[idx], isChecked: !newState[idx].isChecked });
-      setItemsState(newState);
-      const result: Array<string> = [];
-      newState.forEach((el) => {
-        el.isChecked ? result.push(el.item) : null;
-      });
-      input.onChange(result);
+  const handleSetSelectedItem = (str: string, isChecked: boolean) => {
+    const newArray = [...selectedItems];
+    if (isChecked) {
+      newArray.push(str);
+      setSelectedItems(newArray);
+    } else {
+      const idx = selectedItems.findIndex((item) => item === str);
+      newArray.splice(idx, 1);
+      setSelectedItems(newArray);
     }
   };
 
   const showResult = () => {
-    const result: Array<string> = [];
-    selectedItem.map((el) => {
-      if (el.isChecked) {
-        result.push(el.item);
-      }
-    });
-    return result.length > 0 ? result.join(', ') : undefined;
+    return selectedItems.join(', ');
+  }
+
+  const handleChangeField = (event: ChangeEvent<HTMLInputElement>, input: FieldInputProps<string>) => {
+    console.log(event)
+    handleSetSelectedItem(event.target.value, event.target.checked);
+    input.onChange(event);
   };
 
   return (
@@ -57,17 +50,17 @@ const MultiSelect: FC<MultiSelectProps> = ({ label = '', data, input }) => {
         </SelectedItem>
         {isListShow && (
           <OptionList>
-            {selectedItem.map((el, idx) => {
+            {items.map((item, idx) => {
               return (
-                <OptionItem key={el.item + idx} className="selected-item">
+                <OptionItem key={item + idx} className="selected-item">
                   <Label>
-                    <AppText type="BodyBlack">{el.item}</AppText>
+                    <AppText type="BodyBlack">{item}</AppText>
                     <CheckBoxWrapper>
-                      <CheckBox
-                        checked={selectedItem[idx].isChecked}
-                        onChange={() => {
-                          handleToggleChecked(el.item);
-                        }}
+                      <Field
+                        type="checkbox"
+                        name={name}
+                        value={item}
+                        render={({input}) => <CheckBox {...input} onChange={(e) => {handleChangeField(e, input)}}/>}
                       />
                     </CheckBoxWrapper>
                   </Label>
