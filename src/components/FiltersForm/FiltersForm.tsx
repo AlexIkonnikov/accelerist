@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Field, Form, FormProps } from 'react-final-form';
+import { Field, Form, FormProps, FormSpy } from 'react-final-form';
 import styled from 'styled-components';
 import { Button } from '../../ui/Button';
 import { AppText } from '../../ui/AppText';
@@ -9,65 +9,64 @@ import { MultiSelect } from '../MultiSelect';
 import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
 import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+import { useAppDispatch } from '../../store/hooks';
+import { actions } from '../../store/ducks';
 
 const FiltersForm: FC = () => {
-  const initialValue = {relations: 'married', gender: 'male', scope: ['first']};
+  const initialValue = { relations: 'married', gender: 'male'};
+  const dispatch = useAppDispatch();
   const handleFormSubmit = (values: FormProps) => {
     //const query = { ...values, revenue: undefined, maxRevenue: values.revenue[1], minRevenue: values.revenue[0] };
     console.log(values);
+    dispatch(actions.company.getCompaniesRequest(stringify(values) + `&limit=12&page=1`))
   };
   return (
-    <Wrapper>
-      <Title type="Headline">Filters</Title>
-      <Form
-        onSubmit={handleFormSubmit}
-        initialValues={initialValue}
-        render={({ handleSubmit, pristine }) => {
-          return (
-            <>
-              <SubTitle type="BodySelect">Company</SubTitle>
-              <Grid>
-                <SearchableMultiSelect label="Industry" />
-                <SearchableMultiSelect label="Geographic Location" />
-                {/* <Field
-                  name="a"
-                  render={({ ...outerProps }) => <MultiSelect label="Scope" data={ethnicities} {...outerProps} />}
-                /> */}
-                <MultiSelect name="scope" label="Scope" items={['first', 'second', 'last']} />
-              </Grid>
-              <Row>
-                <Field
-                  name="revenue"
-                  type="range"
-                  render={({ ...outerProps }) => <InputRange value={[0, 50]} label="Revenue" {...outerProps} />}
-                />
-              </Row>
-              <SubTitle type="BodySelect">Customer Demographics</SubTitle>
-              <Grid>
-                <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']}/>
-                <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']}/>
-              </Grid>
-              <Row>
-                <Field
-                  name="age"
-                  type="range"
-                  render={({ ...outerProps }) => <InputRange label="Age" value={[0, 50]} {...outerProps} />}
-                />
-              </Row>
-              <ButtonWrapper>
-                <SearchButton onClick={handleSubmit}>Search</SearchButton>
-              </ButtonWrapper>
-            </>
-          );
-        }}
-      />
-    </Wrapper>
+    <Form
+      onSubmit={handleFormSubmit}
+      initialValues={initialValue}
+      keepDirtyOnReinitialize={true}
+      render={({ handleSubmit, values }) => {
+        return (
+          <Wrapper>
+            <Title type="Headline">Filters</Title>
+            <SubTitle type="BodySelect">Company</SubTitle>
+            {/* <Grid>
+              <SearchableMultiSelect label="Industry" />
+              <SearchableMultiSelect label="Geographic Location" />
+              <MultiSelect name="scope" label="Scope" items={['first', 'second', 'last']} />
+            </Grid>
+            <Row>
+              <Field
+                name="revenue"
+                type="range"
+                min={0}
+                max={50}
+                render={({ ...outerProps }) => (
+                  <InputRange value={values.revenue || [0, 50]} {...outerProps} label="Revenue" />
+                )}
+              />
+            </Row> */}
+            <SubTitle type="BodySelect">Customer Demographics</SubTitle>
+            <Grid>
+              <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']} />
+              <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']} />
+            </Grid>
+            <Row>
+              <Field
+                name="age"
+                type="range"
+                min={0}
+                max={50}
+                render={({ ...outerProps }) => <InputRange label="Age" value={values.age || [0, 50]} {...outerProps} />}
+              />
+            </Row>
+            <ButtonWrapper>
+              <SearchButton onClick={handleSubmit}>Search</SearchButton>
+            </ButtonWrapper>
+          </Wrapper>
+        );
+      }}
+    />
   );
 };
 
@@ -98,7 +97,7 @@ const Grid = styled.div`
 const Row = styled.div`
   width: 48.2%;
   margin-bottom: 31px;
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;

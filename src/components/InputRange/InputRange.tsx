@@ -8,7 +8,7 @@ interface InputRangeProps extends FieldRenderProps<Array<number>> {
   label?: string
 }
 
-const InputRange: FC<InputRangeProps> = ({ input, label= '', value }) => {
+const InputRange: FC<InputRangeProps> = ({ input, label= '', value, max, min}) => {
   const [initValue, setValue] = useState<Array<number>>(value);
 
   const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
@@ -22,8 +22,8 @@ const InputRange: FC<InputRangeProps> = ({ input, label= '', value }) => {
     <RangeWrapper>
       <Label>{label}</Label>
       <StyledSlider
-        min={value[0]}
-        max={value[1]}
+        min={min}
+        max={max}
         value={initValue}
         valueLabelDisplay="auto"
         onChange={handleChange}

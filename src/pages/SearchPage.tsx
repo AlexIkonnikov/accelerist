@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Counter } from '../ui/Counter';
@@ -13,7 +13,6 @@ import { Container } from '../ui/Container';
 import { FiltersForm } from '../components/FiltersForm';
 
 const SearchPage: FC = () => {
-
   const [isFiltersShow, setFiltersState] = useState(false);
   const handlerToggleFilters = () => {setFiltersState(!isFiltersShow)};
 
