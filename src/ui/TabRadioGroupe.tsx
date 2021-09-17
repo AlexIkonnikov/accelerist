@@ -1,25 +1,30 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { AppText } from './AppText';
 import { TabRadio } from './TabRadio';
+import { FieldRenderProps, FieldProps, Field } from 'react-final-form';
 
-interface TabRadioGroupeProps extends InputHTMLAttributes<HTMLInputElement> {
-  value: Array<string>;
+interface TabRadioGroupeProps extends FieldProps<string, FieldRenderProps<string>> {
   label?: string;
+  items: Array<string>;
 }
 
-export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ value, label = '', ...outerProps }) => {
+export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ label = '', name, items }) => {
   return (
     <div>
       <Label>{label}</Label>
       <Flex>
-        {value.map((val, idx) => {
-            return (
-              <TabRadio key={val + idx} value={val} {...outerProps}>
-                {val}
-              </TabRadio>
-            );
-          })}
+        {items.map((item, idx) => {
+          return (
+            <Field
+              type="radio"
+              key={item + idx}
+              name={name}
+              value={item.toLowerCase()}
+              render={({ input }) => <TabRadio {...input}>{item}</TabRadio>}
+            />
+          );
+        })}
       </Flex>
     </div>
   );

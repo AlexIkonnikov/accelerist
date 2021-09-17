@@ -18,6 +18,7 @@ const options = [
 ];
 
 const FiltersForm: FC = () => {
+  const initialValue = {relations: 'married', gender: 'male'};
   const handleFormSubmit = (values: FormProps) => {
     //const query = { ...values, revenue: undefined, maxRevenue: values.revenue[1], minRevenue: values.revenue[0] };
     console.log(values);
@@ -27,6 +28,7 @@ const FiltersForm: FC = () => {
       <Title type="Headline">Filters</Title>
       <Form
         onSubmit={handleFormSubmit}
+        initialValues={initialValue}
         render={({ handleSubmit, pristine }) => {
           return (
             <>
@@ -58,23 +60,13 @@ const FiltersForm: FC = () => {
                 <Field
                   name="revenue"
                   type="range"
-                  render={({ ...outerProps }) => <InputRange label="Revenue" value={[0, 50]} {...outerProps} />}
+                  render={({ ...outerProps }) => <InputRange value={[0, 50]} label="Revenue" {...outerProps} />}
                 />
               </Row>
               <SubTitle type="BodySelect">Customer Demographics</SubTitle>
               <Grid>
-                <Field
-                  name="gender"
-                  type="radio"
-                  value={['Male', 'Female', 'Both']}
-                  render={({ input }) => <TabRadioGroupe label="Gender" {...input} />}
-                />
-                <Field
-                  name="relations"
-                  type="radio"
-                  value={['Single', 'Married']}
-                  render={({ input }) => <TabRadioGroupe label="Relations" {...input} />}
-                />
+                <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']}/>
+                <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']}/>
                 <Field
                   name="j"
                   render={({ ...outerProps }) => (
@@ -95,7 +87,9 @@ const FiltersForm: FC = () => {
                   render={({ ...outerProps }) => <InputRange label="Age" value={[0, 50]} {...outerProps} />}
                 />
               </Row>
-              <Button onClick={handleSubmit}>Send</Button>
+              <ButtonWrapper>
+                <SearchButton onClick={handleSubmit}>Search</SearchButton>
+              </ButtonWrapper>
             </>
           );
         }}
@@ -134,6 +128,17 @@ const Row = styled.div`
   @media(max-width: 768px) {
     width: 100%;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 48.2%;
+  margin-top: 40px;
+`;
+
+const SearchButton = styled(Button)`
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Rubik-Medium;
 `;
 
 export default FiltersForm;

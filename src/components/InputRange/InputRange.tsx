@@ -5,12 +5,11 @@ import { FieldRenderProps } from 'react-final-form';
 import {AppText} from './../../ui/AppText';
 
 interface InputRangeProps extends FieldRenderProps<Array<number>> {
-  value: Array<number>;
   label?: string
 }
 
-const InputRange: FC<InputRangeProps> = ({ input, value, label= '' }) => {
-  const [initValue, setValue] = useState(value);
+const InputRange: FC<InputRangeProps> = ({ input, label= '', value }) => {
+  const [initValue, setValue] = useState<Array<number>>(value);
 
   const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
     if (Array.isArray(value)) {

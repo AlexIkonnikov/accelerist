@@ -1,12 +1,12 @@
 import React, { FC, InputHTMLAttributes, ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-export const TabRadio: FC<InputHTMLAttributes<HTMLInputElement>> = ({children, checked,...outerProps}) => {
+export const TabRadio: FC<InputHTMLAttributes<HTMLInputElement>> = ({children,...outerProps}) => {
 
   return (
     <StyledLabel>
       <StyledRadio type="radio" {...outerProps}/>
-      <Indicator $isChecked={checked}>{children}</Indicator>
+      <Indicator>{children}</Indicator>
     </StyledLabel>
   );
 };
@@ -27,7 +27,7 @@ const StyledRadio = styled.input`
   position: absolute;
 `;
 
-const Indicator = styled.span<{$isChecked: boolean | undefined}>`
+const Indicator = styled.span`
   background-color: #f8f8f8;
   width: 100%;
   display: block;
