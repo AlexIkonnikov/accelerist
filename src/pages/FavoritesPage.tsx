@@ -1,29 +1,60 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { Pagination } from '../components/Pagination';
+import { actions, selectors } from '../store/ducks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Container } from '../ui/Container';
 import { Counter } from '../ui/Counter';
 import { EmptyList } from '../ui/EmptyList';
 import { TitleBlock } from '../ui/TitleBlock';
+import { stringify, parse } from 'query-string';
+import { Loader } from './../ui/Loader';
 
 const FavoritesPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const company = useAppSelector(selectors.company.selectCompany);
+  const meta = useAppSelector(selectors.company.selectMeta);
+  const status = useAppSelector(selectors.company.selectStatus);
+
+  const togglePage = (page?: number) => {
+    const params = parse(location.search);
+    const query = stringify({ ...params, page: page || 1, limit: 12 });
+    history.replaceState(location.search, '', '?' + query);
+    dispatch(actions.company.getFavoritesCompanyRequest(query));
+  };
+
+  useEffect(() => {
+    togglePage();
+  }, []);
+
   return (
     <>
       <TitleBlock title="Favorites" />
       <Container variant={2}>
-        <Wrapper>
-          <Counter count={0} />
-          <Pagination />
-        </Wrapper>
-        <CardWrapper>
-          <CompanyCard />
-          <CompanyCard />
-          <CompanyCard />
-          {/* <EmptyWrapper>
-            <EmptyList />
-          </EmptyWrapper> */}
-        </CardWrapper>
+        {status === 'pending' ? (
+          <LoaderWrapper>
+            <Loader size="big" />
+          </LoaderWrapper>
+        ) : (
+          <>
+            <Wrapper>
+              <Counter count={meta.totalItems} />
+              <Pagination meta={meta} onToggle={togglePage} />
+            </Wrapper>
+            <CardWrapper>
+              {company.length > 0 ? (
+                company.map((item) => {
+                  return <CompanyCard key={item.id} company={item} />;
+                })
+              ) : (
+                <EmptyWrapper>
+                  <EmptyList text="Not favorites company" render={() => <></>} />
+                </EmptyWrapper>
+              )}
+            </CardWrapper>
+          </>
+        )}
       </Container>
     </>
   );
@@ -53,6 +84,13 @@ const EmptyWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default FavoritesPage;

@@ -44,7 +44,7 @@ const DashboardPage: FC = () => {
             <AppText type="Headline" tagName="h3">
               Prospecting Sessions
             </AppText>
-            <SeeMoreLink to="/prospect-list" />
+            <SeeMoreLink to="/prospects" />
           </Wrapper>
           <ProspectsList items={savedList} isLoading={isLoading}/>
         </Section>

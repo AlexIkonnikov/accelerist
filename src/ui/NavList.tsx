@@ -15,7 +15,7 @@ export const NavList: FC = () => {
         <Link to="/pricing">Pricing</Link>
       </Item>
       <Item>
-        <Link to="/prospect">Prospecting</Link>
+        <Link to="/prospects">Prospecting</Link>
       </Item>
       <Item>
         <Link to="/roi">ROI</Link>

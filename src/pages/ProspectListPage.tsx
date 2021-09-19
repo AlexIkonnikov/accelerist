@@ -28,7 +28,7 @@ const ProspectListPage: FC = () => {
           </SortingList>
           <Pagination/>
         </Row>
-        <ProspectsList items={[]} />
+        <ProspectsList items={[]} isLoading={false}/>
       </Container>
     </>
   );

@@ -22,6 +22,10 @@ const Pagination: FC<PaginationProps> = ({className, meta, onToggle}) => {
     onToggle && onToggle(currentPage - 1);
   }
 
+  if (totalPage && totalPage === 1) {
+    return null;
+  }
+
   return (
     <PaginationWrapper className={className}>
       {currentPage !== 1 && <button onClick={handlePrevPage}><LeftArrow /></button>}

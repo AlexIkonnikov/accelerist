@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getCompaniesRequest } from './thunk';
+import { getCompaniesRequest, getFavoritesCompanyRequest } from './thunk';
 import { CompanySliceInitialState } from './types';
 
 const initialState: CompanySliceInitialState = {
@@ -28,8 +28,17 @@ const companySlice = createSlice({
       state.company = payload.items;
       state.meta = payload.meta;
     });
+
+    builder.addCase(getFavoritesCompanyRequest.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(getFavoritesCompanyRequest.fulfilled, (state, {payload}) => {
+      state.status = 'end';
+      state.company = payload.items;
+      state.meta = payload.meta;
+    });
   }
 });
 
 export default companySlice.reducer;
-export const companySliceActions = {...companySlice.actions, getCompaniesRequest};
+export const companySliceActions = {...companySlice.actions, getCompaniesRequest, getFavoritesCompanyRequest};
