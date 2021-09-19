@@ -14,7 +14,7 @@ export interface IFilters {
 
 export interface IList {
   id: string;
-  filters: Array<IFilters>;
+  filters: IFilters;
   name: string | null;
   prospectsAvailable: number;
   createdAt: string;
@@ -33,6 +33,7 @@ export interface IMeta {
 export interface SavedListSliceInitialState {
   list: Array<IList>;
   meta: IMeta;
+  status: 'init' | 'pending' | 'end'
 }
 
 export interface GetSavedListResponse {

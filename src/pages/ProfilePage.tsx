@@ -1,43 +1,62 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
-import {ReactComponent as Linkedin} from './../assets/icons/linkedin.svg';
+import { ReactComponent as Linkedin } from './../assets/icons/linkedin.svg';
 import { TitleBlock } from '../ui/TitleBlock';
 import { AppText } from '../ui/AppText';
 import { Avatar } from '../ui/Avatar';
+import { useParams } from 'react-router-dom';
+import { getCompanyById } from '../services/api';
+import { ICompany } from '../store/company/types';
+import { Loader } from '../ui/Loader';
+import {ReactComponent as Arrow} from './../assets/icons/arrow.svg';
 
 const ProfilePage: FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const [company, setCompany] = useState<ICompany | undefined>(undefined);
+
+  useEffect(() => {
+    const getCompany = async () => {
+      const response = await getCompanyById(id);
+      setCompany(response.data);
+    };
+    getCompany();
+  }, []);
   return (
     <>
-      <TitleBlock title="Corparate Profile"/>
+      <TitleBlock title="Corparate Profile" renderBefore={() => <BackArrow onClick={() => {history.back()}} />} />
       <Container variant={2}>
-        <ProfileHeader>
-          <Wrapper>
-            <AvatarWrapper>
-              <Avatar/>
-            </AvatarWrapper>
-            <InfoBlock>
-              <Name type="Headline">Apple</Name>
-              <ShortDescription>Administration, Business Support and Waste Management Services</ShortDescription>
-              <IconWrapper>
-                <LinkedinIcon></LinkedinIcon>
-                <LinkedinIcon></LinkedinIcon>
-                <LinkedinIcon></LinkedinIcon>
-              </IconWrapper>
-            </InfoBlock>
-            <BlockButton variant="secondary">Block</BlockButton>
-          </Wrapper>
-        </ProfileHeader>
-        <ProfileBody>
-          <Title type="Headline" tagName="h3">Business Description Products</Title>
-          <SubTitle type="BodySelect">Description</SubTitle>
-          <AppText type="BodyBlack" CSS={mb24}>We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</AppText>
-          <SubTitle type="BodySelect">Products & Brand Descriptions</SubTitle>
-          <AppText type="BodyBlack" CSS={mb24}>We are a national, award-winning nonprofit that provides the most flexible and accountable funding for K-12 teachers and schools with our proprietary, easy-to-use education fundraising platform. Through local impact, our goal is to give every child the tools they deserve to succeed in school.</AppText>
-          <SubTitle type="BodySelect">Structure</SubTitle>
-          <AppText type="BodyBlack" CSS={mb24}>Sole proprietorship</AppText>
-        </ProfileBody>
+        {company === undefined ? (
+          <Loader size="big" />
+        ) : (
+          <>
+            <ProfileHeader>
+              <Wrapper>
+                <AvatarWrapper>
+                  <Avatar />
+                </AvatarWrapper>
+                <InfoBlock>
+                  <Name type="Headline">{company?.name}</Name>
+                  <ShortDescription>{company?.primaryIndustry.join(',')}</ShortDescription>
+                  <IconWrapper>
+                    <LinkedinIcon></LinkedinIcon>
+                    <LinkedinIcon></LinkedinIcon>
+                    <LinkedinIcon></LinkedinIcon>
+                  </IconWrapper>
+                </InfoBlock>
+                <BlockButton variant="secondary">Block</BlockButton>
+              </Wrapper>
+            </ProfileHeader>
+            <ProfileBody>
+              <Title type="Headline" tagName="h3">
+                Business Description Products
+              </Title>
+              <SubTitle type="BodySelect">Description</SubTitle>
+              <AppText type="BodyBlack" CSS={mb24}>{company?.descriptionList}</AppText>
+            </ProfileBody>
+          </>
+        )}
       </Container>
     </>
   );
@@ -45,7 +64,7 @@ const ProfilePage: FC = () => {
 
 const ProfileHeader = styled.div`
   padding: 40px 33px 40px 40px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 `;
@@ -58,10 +77,10 @@ const AvatarWrapper = styled.div`
 
 const ProfileBody = styled.div`
   padding: 32px 40px;
-  border-right: 1px solid ${({theme}) => theme.colors.line};
+  border-right: 1px solid ${({ theme }) => theme.colors.line};
   background-color: white;
   margin-right: 366px;
-`
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -77,7 +96,7 @@ const BlockButton = styled(Button)`
   border: none;
   padding: 9px 37px;
   width: auto;
-  color: ${({theme}) => theme.colors.red};
+  color: ${({ theme }) => theme.colors.red};
 `;
 
 const Name = styled(AppText)`
@@ -110,6 +129,12 @@ const Title = styled(AppText)`
 
 const SubTitle = styled(AppText)`
   margin-bottom: 16px;
+`;
+
+const BackArrow = styled(Arrow)`
+  transform: rotate(-180deg);
+  margin-right: 22px;
+  cursor: pointer;
 `;
 
 export default ProfilePage;

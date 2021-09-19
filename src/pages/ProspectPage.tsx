@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Container } from '../ui/Container';
 import { Counter } from '../ui/Counter';
 import { Filters } from '../ui/Filters';
@@ -9,8 +9,35 @@ import { CompanyCard } from '../ui/CompanyCard';
 import { Pagination } from '../components/Pagination';
 import { Button } from '../ui/Button';
 import { ReactComponent as Pen } from './../assets/icons/pen.svg';
+import { useParams } from 'react-router-dom';
+import { getSaveListById } from '../services/api';
+import { IFilters } from '../store/savedList/types';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { actions, selectors } from '../store/ducks';
+import { stringify, parse } from 'query-string';
 
 const ProspectPage: FC = () => {
+  const {id} = useParams<{id: string}>();
+  const dispatch = useAppDispatch();
+  const company = useAppSelector(selectors.company.selectCompany)
+  const meta = useAppSelector(selectors.company.selectMeta)
+  const status = useAppSelector(selectors.company.selectStatus)
+  const [filters, setFilters] = useState<IFilters>()
+
+  useEffect(() => {
+    const getList = async () => {
+      const response = await getSaveListById(id);
+      setFilters(response.data.filters)
+    }
+    getList();
+
+  }, [])
+
+  useEffect(() => {
+    const query = stringify({page: 1, limit:12, ...filters});
+    dispatch(actions.company.getCompaniesRequest(query));
+  }, [filters])
+
   return (
     <>
       <TitleBlock
@@ -28,7 +55,7 @@ const ProspectPage: FC = () => {
         }}
       />
       <Container variant={2}>
-        <Counter count={0} />
+        <Counter count={meta.totalItems} />
         <FiltersWrapper>
           <Filters />
         </FiltersWrapper>
@@ -37,12 +64,10 @@ const ProspectPage: FC = () => {
             <UploadIcon />
             <Text>Export to Excel</Text>
           </BtnIcon>
-          <Pagination />
+          <Pagination meta={meta} />
         </Row>
         <CardWrapper>
-          <CompanyCard />
-          <CompanyCard />
-          <CompanyCard />
+          {company.map((item) => <CompanyCard key={item.id} company={item} />)}
         </CardWrapper>
       </Container>
     </>

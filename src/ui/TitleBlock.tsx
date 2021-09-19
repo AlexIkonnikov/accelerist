@@ -6,13 +6,15 @@ import { AppText } from './AppText';
 interface TitleBlockProps {
   title: string
   render?: () => JSX.Element
+  renderBefore?: () => JSX.Element
 }
 
-export const TitleBlock: FC<TitleBlockProps> = ({ title, render }) => {
+export const TitleBlock: FC<TitleBlockProps> = ({ title, render, renderBefore }) => {
   return (
     <Background>
       <Container variant={2}>
         <ContentWrapper>
+          {renderBefore && renderBefore()}
           <TitleText type="Title" tagName="h2">{title}</TitleText>
           {render && render()}
         </ContentWrapper>

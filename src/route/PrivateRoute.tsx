@@ -17,7 +17,7 @@ export const PrivateRoute: FC = () => {
         <Route path="/favorites" component={FavoritesPage} />
         <Route path="/prospects/:id" exact component={ProspectPage} />
         <Route path="/prospects" exact component={ProspectListPage} />
-        <Route path="/profile" component={ProfilePage} />
+        <Route path="/profile/:id" component={ProfilePage} />
         <Redirect to="/search" />
       </Switch>
     </MainLayout>

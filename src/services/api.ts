@@ -3,7 +3,7 @@ import { AxiosPromise, AxiosResponse } from 'axios';
 import ApiClient from './ApiClient';
 import { SearchCompanyResponse } from '../store/company';
 import { ICompany } from '../store/company/types';
-import { GetSavedListResponse } from '../store/savedList/types';
+import { GetSavedListResponse, IList } from '../store/savedList/types';
 
 export const signUp = (data: UserCredential): AxiosPromise => {
   return ApiClient.post('v1/auth/sign_up', { data });
@@ -31,5 +31,13 @@ export const getSavedList = (query: string): AxiosPromise<GetSavedListResponse> 
 
 export const getFavoritesCompany = (query: string):  AxiosPromise<SearchCompanyResponse> => {
   return ApiClient.get(`v1/companies/favorites?${query}`);
+}
+
+export const getCompanyById = (id: string):  AxiosPromise<ICompany> => {
+  return ApiClient.get(`v1/companies/${id}`);
+}
+
+export const getSaveListById = (id: string):  AxiosPromise<IList> => {
+  return ApiClient.get(`v1/saved-list/${id}`);
 }
 

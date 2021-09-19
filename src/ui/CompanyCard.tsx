@@ -5,7 +5,7 @@ import { Button } from './Button';
 import { AppText } from './AppText';
 import { TagList } from './TagList';
 import { ICompany } from '../store/company/types';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface CompanyCardProps {
   company?: ICompany
@@ -25,7 +25,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
           </Rating>
         </CompanyFace>
         <CompanyInfo>
-          <Name type="BodySelect">{company?.name}</Name>
+          <Name type="BodySelect"><StyledLink to={`/profile/${company?.id}`}>{company?.name}</StyledLink></Name>
           <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
           <Phone>{company?.phone}</Phone>
           <BorderWrapper>
@@ -186,3 +186,11 @@ const HeartWrapper = styled.div`
     margin-right: 15px;
   }
 `;
+
+const StyledLink = styled(Link)`
+  color: ${({theme}) => theme.colors.black};
+  padding-bottom: 2px;
+  &:hover {
+    border-bottom: 1px solid ${({theme}) => theme.colors.black};
+  }
+`

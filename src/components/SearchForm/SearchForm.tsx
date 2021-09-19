@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Field, Form, FormProps } from 'react-final-form';
 import { TitleBlock } from '../../ui/TitleBlock';
@@ -11,16 +11,20 @@ import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
 import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
 import { Button } from '../../ui/Button';
-import { stringify } from 'query-string';
 import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
+import { stringify, parse } from 'query-string';
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
+  const [initialState, setInitialState] = useState({});
   const dispatch = useAppDispatch();
   const toggleFilters = () => {
     setFiltersState(!isFiltersShow);
   };
+  useEffect(() => {
+    setInitialState(parse(location.search));
+  }, [])
   const handleSubmitForm = (values: FormProps) => {
     const params = stringify({...values, page: 1, limit: 12});
     history.replaceState(location.search,' ', '?'+params);
@@ -29,6 +33,7 @@ const SearchForm: FC = () => {
   return (
     <Form
       onSubmit={handleSubmitForm}
+      initialValues={initialState}
       render={({ handleSubmit, values }) => {
         return (
           <>
