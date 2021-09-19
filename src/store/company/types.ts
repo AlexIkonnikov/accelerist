@@ -1,16 +1,3 @@
-
-export interface IFilters {
-  page: number;
-  limit: number;
-  sdgGoals?: Array<string>;
-  income?: Array<string>;
-  ageRanges?: Array<string>;
-  gender?: 'male' | 'female' | 'both';
-  q?: string;
-  revenueMin?: number;
-  revenueMax?: number;
-}
-
 export interface ICompany {
   id: string;
   zoomInfoId: null;
@@ -72,8 +59,9 @@ export interface ICompany {
 }
 
 export interface CompanySliceInitialState {
-  filters: IFilters;
-  company: Array<ICompany | []>;
+  company: Array<ICompany>;
+  meta: IMeta
+  status: 'init' | 'pending' | 'end'
 }
 
 export interface IMeta {

@@ -1,10 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { ICompany } from '../store/company/types';
 import { AppText } from './AppText';
 import { Avatar } from './Avatar';
 import { TagList } from './TagList';
 
-export const ShortCard: FC = () => {
+interface ShortCardProps {
+  company: ICompany
+}
+
+export const ShortCard: FC<ShortCardProps> = ({company}) => {
   return (
     <Wrapper>
       <CompanyWrapper>
@@ -12,7 +17,7 @@ export const ShortCard: FC = () => {
           <Avatar type="square" />
         </AvatarWrapper>
         <CompanyInfoWrapper>
-          <CompanyName type="FootnoteSelect">Samsung</CompanyName>
+          <CompanyName type="FootnoteSelect">{company.name}</CompanyName>
           <AppText>Priority Ranking 43</AppText>
         </CompanyInfoWrapper>
       </CompanyWrapper>

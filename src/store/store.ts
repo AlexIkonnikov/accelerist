@@ -1,11 +1,13 @@
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { userReducer } from './user';
 import { companyReducer } from './company';
+import { savedListReducer } from './savedList';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    company: companyReducer
+    company: companyReducer,
+    savedList: savedListReducer,
   },
   devTools: true,
 });

@@ -51,5 +51,6 @@ const Normalize = createGlobalStyle`
     cursor: pointer;
     border: none;
     background: none;
+    padding: 0;
   }
 `;

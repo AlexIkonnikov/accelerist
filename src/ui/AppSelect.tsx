@@ -3,6 +3,7 @@ import Select, { components, OptionsType } from 'react-select';
 import styled from 'styled-components';
 import { ReactComponent as ArrowDown } from './../assets/icons/arrow-down.svg';
 import { FieldRenderProps } from 'react-final-form';
+import { AppText } from './AppText';
 
 const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>> = ({ ...outerProps }) => {
   return (
@@ -11,6 +12,20 @@ const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>>
     </components.DropdownIndicator>
   );
 };
+
+const MultiValue: FC<ComponentProps<typeof components.MultiValue>> = ({selectProps, data, innerProps, ...all}) => {
+  const values = selectProps.value;
+  if (values) {
+   const idx = values.length - 1;
+    return (
+      <components.MultiValue data={data} innerProps={innerProps}  selectProps={selectProps} {...all}>
+        {values && <AppText tagName="span">{idx}</AppText>}
+      </components.MultiValue>
+    )
+  } else {
+    return null;
+  }
+}
 
 interface SelectProps extends FieldRenderProps<Array<string>> {
   options: OptionsType<Field>;
@@ -21,18 +36,18 @@ interface Field {
   label: string;
 }
 
-export const AppSelect: FC<SelectProps> = ({ options, input, ...outerProps }) => {
-  const handleChangeEvent = (result: Field) => {
-    input.onChange([result.value]);
-  };
+export const AppSelect: FC = () => {
+  // const handleChangeEvent = (result: Field) => {
+  //   input.onChange([result.value]);
+  // };
 
   return (
     <StyledSelect
       classNamePrefix="react-select"
-      options={options}
-      onChange={handleChangeEvent}
+      options={[{value: 'first', label: 'first'}, {value: 'second', label: 'second'}, {value: 'last', label: 'last'}]}
       components={{ DropdownIndicator }}
-      {...outerProps}
+      isMulti
+      isSearchable={false}
     />
   );
 };
@@ -89,9 +104,13 @@ const StyledSelect = styled(Select)`
     border-radius: 6px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    margin-top: -4px;
+    margin-top: -17px;
     margin-bottom: 0;
     box-shadow: unset;
+  }
+
+  & .react-select__multi-value {
+    background: none;
   }
 
   & .react-select__menu-list {
@@ -111,7 +130,7 @@ const StyledSelect = styled(Select)`
     color: ${({ theme }) => theme.colors.black};
   }
 
-  & .react-select__clear-indicator {
+  /* & .react-select__clear-indicator {
     display: none;
-  }
+  } */
 `;

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FavoritesList } from './../components/FavoritesList';
 import { Reports } from '../components/Reports';
@@ -7,8 +7,34 @@ import { Container } from '../ui/Container';
 import { SeeMoreLink } from '../ui/SeeMoreLink';
 import { TitleBlock } from '../ui/TitleBlock';
 import { ProspectsList } from '../components/ProspectsList';
+import { Loader } from '../ui/Loader';
+import { ICompany } from '../store/company/types';
+import { getFavoritesCompany, getSavedList } from '../services/api';
+import { IList } from '../store/savedList/types';
 
 const DashboardPage: FC = () => {
+  const [company, setCompany] = useState<Array<ICompany>>([]);
+  const [savedList, setSavedList] = useState<Array<IList>>([]);
+  const [isLoading, setStatus] = useState(true);
+
+  const getData =  () => {
+    const favoritesCompany = getFavoritesCompany(`page=1&limit=6`);
+    const savedSearchList = getSavedList(`page=1&limit=2`);
+    return Promise.allSettled([favoritesCompany, savedSearchList]);
+  }
+
+  useEffect(() => {
+    getData().then((response) => {
+      if (response[0].status === 'fulfilled') {
+        setCompany(response[0].value.data.items);
+      }
+      if (response[1].status === 'fulfilled') {
+        setSavedList(response[1].value.data.items);
+      }
+      setStatus(false);
+    })
+  }, [])
+
   return (
     <>
       <TitleBlock title="Dashboard" />
@@ -20,11 +46,11 @@ const DashboardPage: FC = () => {
             </AppText>
             <SeeMoreLink to="/prospect-list" />
           </Wrapper>
-          <ProspectsList items={[]}/>
+          <ProspectsList items={savedList} isLoading={isLoading}/>
         </Section>
         <Grid>
           <Section>
-            <FavoritesList company={[]}/>
+            <FavoritesList company={company} isLoading={isLoading}/>
           </Section>
           <Section>
             <Reports />

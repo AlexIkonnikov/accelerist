@@ -2,77 +2,75 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Counter } from '../ui/Counter';
-import { TitleBlock } from '../ui/TitleBlock';
 import { ReactComponent as Save } from './../assets/icons/folder-plus.svg';
 import { ReactComponent as Mail } from './../assets/icons/mail.svg';
 import { ReactComponent as Upload } from '../assets/icons/upload.svg';
 import { Pagination } from '../components/Pagination';
-import { SlidersIcon } from '../ui/icons/SlidersIcon';
-import { SearchBar } from '../components/SearchBar';
 import { Container } from '../ui/Container';
-import { FiltersForm } from '../components/FiltersForm';
+import { SearchForm } from '../components/SearchForm';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { actions, selectors } from '../store/ducks';
+import { Loader } from '../ui/Loader';
+import { stringify, parse } from 'query-string';
 
 const SearchPage: FC = () => {
-  const [isFiltersShow, setFiltersState] = useState(false);
-  const handlerToggleFilters = () => {setFiltersState(!isFiltersShow)};
+  const dispatch = useAppDispatch();
+  const [page, setPage] = useState(1);
+
+  const company = useAppSelector(selectors.company.selectCompany);
+  const meta = useAppSelector(selectors.company.selectMeta);
+  const status = useAppSelector(selectors.company.selectStatus);
+
+  const getCompanies = (page?: number) => {
+    const params = parse(location.search);
+    const query = stringify({ ...params, page: page || 1, limit: 12 });
+    history.replaceState(location.search, '', '?' + query);
+    dispatch(actions.company.getCompaniesRequest(query));
+  };
+
+  useEffect(() => {
+    getCompanies();
+  }, []);
 
   return (
     <>
-      <TitleBlock title="Search" render={() => {
-        return (
-          <SearchBarWrapper>
-            <SearchBar render={() => <StyledSlidersIcon onClick={handlerToggleFilters} />}/>
-          </SearchBarWrapper>
-        )
-      }}/>
+      <SearchForm />
       <Container variant={2}>
-        {isFiltersShow && <FiltersForm/>}
-        <Counter count={0} />
-        <Wrapper>
-          <BtnWrapper>
-            <BtnIcon>
-              <SaveIcon />
-              <Text>Save List</Text>
-            </BtnIcon>
-            <BtnIcon disabled={true}>
-              <UploadIcon/>
-              <Text>Export to Excel</Text>
-            </BtnIcon>
-            <BtnIcon disabled={true}>
-              <MailIcon/>
-              <Text>Accelerist Support</Text>
-            </BtnIcon>
-          </BtnWrapper>
-          <DesktopPagination/>
-        </Wrapper>
-        <CardWrapper>
-          <CompanyCard />
-          <CompanyCard />
-          <CompanyCard />
-          <MobilePagination/>
-        </CardWrapper>
+        {status === 'pending' ? (
+          <LoaderWrapper>
+            <Loader size="big" />
+          </LoaderWrapper>
+        ) : (
+          <>
+            <Counter count={meta.totalItems} />
+            <Wrapper>
+              <BtnWrapper>
+                <BtnIcon>
+                  <SaveIcon />
+                  <Text>Save List</Text>
+                </BtnIcon>
+                <BtnIcon disabled={true}>
+                  <UploadIcon />
+                  <Text>Export to Excel</Text>
+                </BtnIcon>
+                <BtnIcon disabled={true}>
+                  <MailIcon />
+                  <Text>Accelerist Support</Text>
+                </BtnIcon>
+              </BtnWrapper>
+              <DesktopPagination meta={meta} onToggle={getCompanies} />
+            </Wrapper>
+            <CardWrapper>
+              {company.map((cmp) => {
+                return <CompanyCard key={cmp.id} company={cmp} />;
+              })}
+            </CardWrapper>
+          </>
+        )}
       </Container>
     </>
   );
 };
-
-const SearchBarWrapper = styled.div`
-  margin-left: 82px;
-  width: 100%;
-  margin-right: 173px;
-  min-width: 200px;
-  @media (max-width: 768px) {
-    margin-left: 32px;
-    margin-right: 0;
-  }
-  @media (max-width: 375px) {
-    margin: 8px 0 0 0;
-  }
-`;
-
-const StyledSlidersIcon = styled(SlidersIcon)`
-  margin-right: 15px;
-`;
 
 const CardWrapper = styled.div`
   display: flex;
@@ -124,7 +122,7 @@ const Text = styled.span`
 `;
 
 const DesktopPagination = styled(Pagination)`
-  @media(max-width: 375px) {
+  @media (max-width: 375px) {
     display: none;
   }
 `;
@@ -132,11 +130,18 @@ const DesktopPagination = styled(Pagination)`
 const MobilePagination = styled(Pagination)`
   display: none;
   text-align: center;
-  @media(max-width: 375px) {
+  @media (max-width: 375px) {
     display: flex;
     justify-content: center;
     padding-bottom: 27px;
   }
+`;
+
+const LoaderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default SearchPage;

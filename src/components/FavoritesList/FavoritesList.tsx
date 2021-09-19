@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { ICompany } from '../../store/company/types';
 import { AppText } from '../../ui/AppText';
 import { EmptyList } from '../../ui/EmptyList';
+import { Loader } from '../../ui/Loader';
 import { SeeMoreLink } from '../../ui/SeeMoreLink';
 import { ShortCard } from '../../ui/ShortCard';
 import { ReactComponent as Heart } from './../../assets/icons/heart.svg';
 
 interface FavoritesListProps {
-  company?: Array<string>;
+  company?: Array<ICompany>;
+  isLoading?: boolean;
 }
 
-const FavoritesList: FC<FavoritesListProps> = ({ company = [] }) => {
+const FavoritesList: FC<FavoritesListProps> = ({ company = [], isLoading = true }) => {
   return (
     <>
       <TitleWrapper>
@@ -22,11 +25,11 @@ const FavoritesList: FC<FavoritesListProps> = ({ company = [] }) => {
       {
         company.length > 0 ?
         <Grid>
-          {company.map((company, idx) => <ShortCard key={company + idx}/>)}
+          {company.map((company, idx) => <ShortCard key={company.id + idx} company={company} />)}
         </Grid>
           :
         <EmptyWrapper>
-          <EmptyList text="No favorite company" render={() => <Heart/>}/>
+          {isLoading ? <Loader size="big"/> :<EmptyList text="No favorite company" render={() => <Heart/>}/>}
         </EmptyWrapper>
       }
     </>
@@ -52,6 +55,8 @@ const EmptyWrapper = styled.div`
   padding: 136px 146px 119px 146px;
   background-color: ${({theme}) => theme.colors.white};
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
 `
 
 

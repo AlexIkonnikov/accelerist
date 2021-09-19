@@ -1,26 +1,29 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { IList } from '../../store/savedList/types';
 import { EmptyList } from '../../ui/EmptyList';
+import { Loader } from '../../ui/Loader';
 import { ProspectsCard } from '../ProspectsCard';
 import { ReactComponent as FolderIcon } from './../../assets/icons/folder.svg';
 
 interface ProspectsListProps {
-  items: Array<any>;
+  items: Array<IList>;
+  isLoading?: boolean
 }
 
-const ProspectsList: FC<ProspectsListProps> = ({ items }) => {
+const ProspectsList: FC<ProspectsListProps> = ({ items, isLoading = true }) => {
   if (items.length > 0) {
     return (
       <Grid>
         {items.map((item) => (
-          <ProspectsCard key={item} />
+          <ProspectsCard key={item.id} list={item} />
         ))}
       </Grid>
     );
   }
   return (
     <EmptyWrapper>
-      <EmptyList text="No lists saved" render={() => <FolderIcon />} />
+      {isLoading ? <Loader size="big"/> :<EmptyList text="No lists saved" render={() => <FolderIcon />} />}
     </EmptyWrapper>
   );
 };

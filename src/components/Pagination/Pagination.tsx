@@ -1,33 +1,48 @@
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Arrow} from '../../assets/icons/arrow.svg';
+import { IMeta } from '../../store/company';
 import { AppText } from './../../ui/AppText';
 
-const Pagination: FC<HTMLAttributes<HTMLDivElement>> = ({className}) => {
+interface PaginationProps extends HTMLAttributes<HTMLDivElement> {
+  meta?: IMeta,
+  onToggle?: (page: number) => void
+}
+
+const Pagination: FC<PaginationProps> = ({className, meta, onToggle}) => {
+  const currentPage = Number(meta?.currentPage);
+  const limit = Number(meta?.itemsPerPage);
+  const totalPage = meta?.totalPages;
+  const totalItems = meta?.totalItems;
+  const handleNextPage = () => {
+    onToggle && onToggle(currentPage + 1);
+  }
+
+  const handlePrevPage = () => {
+    onToggle && onToggle(currentPage - 1);
+  }
+
   return (
     <PaginationWrapper className={className}>
-      <LeftArrow />
-      <Text type="FootnoteBlack" tagName="span">1-12 of 32</Text>
-      <RightArrow />
+      {currentPage !== 1 && <button onClick={handlePrevPage}><LeftArrow /></button>}
+      <Text type="FootnoteBlack" tagName="span">{1 + (limit * currentPage - limit)}-{(currentPage * limit)} of {totalItems}</Text>
+      {currentPage !== totalPage && <button onClick={handleNextPage}><Arrow/></button>}
     </PaginationWrapper>
   );
 };
 
-const RightArrow = styled(Arrow)`
-  cursor: pointer;
-`;
-
-const LeftArrow = styled(RightArrow)`
+const LeftArrow = styled(Arrow)`
   transform: rotate(-180deg);
-  margin-right: 19px;
 `;
 
 const PaginationWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const Text = styled(AppText)`
   margin-right: 12px;
+  margin-left: 12px;
 `;
 
 export default Pagination;

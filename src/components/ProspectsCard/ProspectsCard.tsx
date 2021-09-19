@@ -1,17 +1,22 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
+import { IList } from '../../store/savedList/types';
 import { IndicatorBlock } from '../IndicatorBlock';
 import { AppText } from './../../ui/AppText';
 import { Filters } from './../../ui/Filters';
 import { Owner } from './../../ui/Owner';
 
-const ProspectsCard: FC = () => {
+interface ProspectsCardProps {
+  list?: IList
+}
+
+const ProspectsCard: FC<ProspectsCardProps> = ({list}) => {
   return (
     <Wrapper>
-      <CardName type="BodySelect">CardName</CardName>
+      <CardName type="BodySelect">{list?.name ?? 'No name'}</CardName>
       <Filters />
       <InnerWrapper>
-        <IndicatorBlock index="№ of Prospects Available" value={236}/>
+        <IndicatorBlock index="№ of Prospects Available" value={list?.prospectsAvailable ?? 0}/>
         <IndicatorBlock index="№ of Contacts Pursued" value={72}/>
       </InnerWrapper>
       <InnerWrapper>

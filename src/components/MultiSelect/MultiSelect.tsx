@@ -1,16 +1,15 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AppText } from './../../ui/AppText';
 import { ReactComponent as ArrowDown } from './../../assets/icons/arrow-down.svg';
 import { CheckBox } from './../../ui/CheckBox';
-import { FieldRenderProps, FieldProps, Field, FieldInputProps } from 'react-final-form';
+import { FieldRenderProps, FieldProps, Field, FieldInputProps, RenderableProps } from 'react-final-form';
 
-interface MultiSelectProps extends FieldProps<string, FieldRenderProps<string>> {
+interface MultiSelectProps extends FieldProps<Array<string>, FieldRenderProps<Array<string>>> {
   label?: string;
-  items: Array<string>;
 }
 
-const MultiSelect: FC<MultiSelectProps> = ({ label = '', items, name }) => {
+const MultiSelect: FC<MultiSelectProps> = ({ label = '', name, value }) => {
   const [isListShow, setListShow] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
 
@@ -35,7 +34,6 @@ const MultiSelect: FC<MultiSelectProps> = ({ label = '', items, name }) => {
   }
 
   const handleChangeField = (event: ChangeEvent<HTMLInputElement>, input: FieldInputProps<string>) => {
-    console.log(event)
     handleSetSelectedItem(event.target.value, event.target.checked);
     input.onChange(event);
   };
@@ -45,12 +43,30 @@ const MultiSelect: FC<MultiSelectProps> = ({ label = '', items, name }) => {
       {label && <AppText>{label}</AppText>}
       <SelectWrapper>
         <SelectedItem onClick={handleToggleList}>
-          <SelectedText type="BodyBlack">{showResult() || 'Select'}</SelectedText>
+          <SelectedText type="BodyBlack">
+          {/* {value && value.map((item, idx) => {
+            return (
+              <Field
+                key={item + idx}
+                name={name}
+                type="checkbox"
+                value={item}
+                render={({input}) => {
+                  if (input.checked) {
+                    return item;
+                  }
+                  return null;
+                }}
+              />
+            )
+          })} */}
+          {showResult() || 'Select'}
+          </SelectedText>
           <Toggler>{isListShow ? <ArrowTop /> : <ArrowDown />}</Toggler>
         </SelectedItem>
         {isListShow && (
           <OptionList>
-            {items.map((item, idx) => {
+            {value && value.map((item, idx) => {
               return (
                 <OptionItem key={item + idx} className="selected-item">
                   <Label>
@@ -60,7 +76,7 @@ const MultiSelect: FC<MultiSelectProps> = ({ label = '', items, name }) => {
                         type="checkbox"
                         name={name}
                         value={item}
-                        render={({input}) => <CheckBox {...input} onChange={(e) => {handleChangeField(e, input)}}/>}
+                        render={({input}) => {console.log(input); return <CheckBox {...input} onChange={(e) => {handleChangeField(e, input)}}/>}}
                       />
                     </CheckBoxWrapper>
                   </Label>

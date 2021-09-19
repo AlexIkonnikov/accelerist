@@ -1,23 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCompaniesRequest } from './thunk';
-import { CompanySliceInitialState, IFilters } from './types';
+import { CompanySliceInitialState } from './types';
 
 const initialState: CompanySliceInitialState = {
-  filters: { page: 1, limit: 12 },
-  company: []
+  company: [],
+  meta: {
+    totalItems: 0,
+    itemCount: 0,
+    itemsPerPage: '',
+    totalPages: 0,
+    currentPage: '',
+  },
+  status: 'init'
 };
 
 const companySlice = createSlice({
   name: 'company',
   initialState,
   reducers: {
-    setFilters(state, {payload}) {
-      console.log('test')
-    }
   },
   extraReducers: (builder) => {
+    builder.addCase(getCompaniesRequest.pending, (state) => {
+      state.status = 'pending';
+    });
     builder.addCase(getCompaniesRequest.fulfilled, (state, {payload}) => {
+      state.status = 'end';
       state.company = payload.items;
+      state.meta = payload.meta;
     });
   }
 });

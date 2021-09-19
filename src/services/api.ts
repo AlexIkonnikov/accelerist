@@ -1,7 +1,9 @@
 import { ChangePasswordPayload, EmailPayload, UserCredential } from '../store/user';
-import { AxiosPromise} from 'axios';
+import { AxiosPromise, AxiosResponse } from 'axios';
 import ApiClient from './ApiClient';
 import { SearchCompanyResponse } from '../store/company';
+import { ICompany } from '../store/company/types';
+import { GetSavedListResponse } from '../store/savedList/types';
 
 export const signUp = (data: UserCredential): AxiosPromise => {
   return ApiClient.post('v1/auth/sign_up', { data });
@@ -22,3 +24,12 @@ export const passwordChangeRequest = (data: ChangePasswordPayload): AxiosPromise
 export const getCompanies = (query: string): AxiosPromise<SearchCompanyResponse> => {
   return ApiClient.get(`v1/companies?${query}`);
 }
+
+export const getSavedList = (query: string): AxiosPromise<GetSavedListResponse> => {
+  return ApiClient.get(`v1/saved-list?${query}`);
+}
+
+export const getFavoritesCompany = (query: string):  AxiosPromise<SearchCompanyResponse> => {
+  return ApiClient.get(`v1/companies/favorites?${query}`);
+}
+

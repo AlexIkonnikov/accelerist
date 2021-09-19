@@ -4,8 +4,14 @@ import { HeartIcon } from './icons/HeartIcon';
 import { Button } from './Button';
 import { AppText } from './AppText';
 import { TagList } from './TagList';
+import { ICompany } from '../store/company/types';
+import { NavLink } from 'react-router-dom';
 
-export const CompanyCard: FC = () => {
+interface CompanyCardProps {
+  company?: ICompany
+}
+
+export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
   return (
     <Wrapper>
       <Body>
@@ -19,9 +25,9 @@ export const CompanyCard: FC = () => {
           </Rating>
         </CompanyFace>
         <CompanyInfo>
-          <Name type="BodySelect">Apple</Name>
+          <Name type="BodySelect">{company?.name}</Name>
           <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
-          <Phone>(671) 555-0110</Phone>
+          <Phone>{company?.phone}</Phone>
           <BorderWrapper>
             <Focus>
               <FocusText>CSR Focus</FocusText>
@@ -29,7 +35,7 @@ export const CompanyCard: FC = () => {
             </Focus>
             <Revenue>
               <RevenueText>Revenue</RevenueText>
-              <AppText type="FootnoteSelect" tagName="span">$ 434,476</AppText>
+              <AppText type="FootnoteSelect" tagName="span">{company?.revenue}</AppText>
             </Revenue>
           </BorderWrapper>
         </CompanyInfo>
@@ -37,7 +43,7 @@ export const CompanyCard: FC = () => {
           <HeartWrapper>
             <HeartIcon />
           </HeartWrapper>
-          <Button variant="secondary">Profile</Button>
+            <Button variant="secondary">Profile</Button>
         </Buttons>
       </Body>
     </Wrapper>
