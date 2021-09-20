@@ -33,7 +33,7 @@ const StyledSvg = styled.svg<{ $size: Size }>`
     switch ($size) {
       case 'small':
         return `width: 24px; height: 24px;`;
-      case 'small':
+      case 'big':
         return `width: 55px; height: 55px;`;
     }
   }}

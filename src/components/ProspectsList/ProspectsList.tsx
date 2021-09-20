@@ -23,7 +23,7 @@ const ProspectsList: FC<ProspectsListProps> = ({ items, isLoading = true }) => {
   }
   return (
     <EmptyWrapper>
-      {isLoading ? <Loader size="big"/> :<EmptyList text="No lists saved" render={() => <FolderIcon />} />}
+      {isLoading ? <Loader size="big" variant="secondary"/> :<EmptyList text="No lists saved" render={() => <FolderIcon />} />}
     </EmptyWrapper>
   );
 };

@@ -7,7 +7,6 @@ import { Container } from '../ui/Container';
 import { SeeMoreLink } from '../ui/SeeMoreLink';
 import { TitleBlock } from '../ui/TitleBlock';
 import { ProspectsList } from '../components/ProspectsList';
-import { Loader } from '../ui/Loader';
 import { ICompany } from '../store/company/types';
 import { getFavoritesCompany, getSavedList } from '../services/api';
 import { IList } from '../store/savedList/types';

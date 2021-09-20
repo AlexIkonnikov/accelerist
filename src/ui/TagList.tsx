@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import { AppText } from './AppText';
 
 interface TagListInterface {
-  tags: Array<string>;
+  tags: Array<string> | undefined;
 }
 
 export const TagList: FC<TagListInterface> = ({ tags }) => {
+  if (tags && tags.length === 0) {
+    return <AppText type="FootnoteSelect">No information</AppText>
+  }
   return (
     <TagWrapper>
-      {tags.map((tag, idx) => (
+      {tags && tags.map((tag, idx) => (
         <TagItem className="tag" tagName="li" type="FootnoteSelect" key={tag + idx}>
           {tag}
         </TagItem>

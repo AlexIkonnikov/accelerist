@@ -28,7 +28,7 @@ const ProfilePage: FC = () => {
       <TitleBlock title="Corparate Profile" renderBefore={() => <BackArrow onClick={() => {history.back()}} />} />
       <Container variant={2}>
         {company === undefined ? (
-          <Loader size="big" />
+          <Loader size="big" variant="secondary" />
         ) : (
           <>
             <ProfileHeader>

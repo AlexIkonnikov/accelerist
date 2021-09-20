@@ -4,14 +4,16 @@ import { ICompany } from '../store/company/types';
 import { AppText } from './AppText';
 import { Avatar } from './Avatar';
 import { TagList } from './TagList';
+import { Link } from 'react-router-dom';
 
 interface ShortCardProps {
   company: ICompany
 }
 
 export const ShortCard: FC<ShortCardProps> = ({company}) => {
+  console.log(company.crsFocus)
   return (
-    <Wrapper>
+    <Wrapper to={`/profile/${company?.id}`}>
       <CompanyWrapper>
         <AvatarWrapper>
           <Avatar type="square" />
@@ -22,15 +24,18 @@ export const ShortCard: FC<ShortCardProps> = ({company}) => {
         </CompanyInfoWrapper>
       </CompanyWrapper>
       <Text>CSR Focus</Text>
-      <TagList tags={['Health', 'Foo', 'Bar']} />
+      <TagList tags={company.crsFocus} />
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(Link)`
   padding: 24px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 6px;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.line};
+  }
 `;
 
 const CompanyWrapper = styled.div`

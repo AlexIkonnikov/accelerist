@@ -29,7 +29,7 @@ const FavoritesList: FC<FavoritesListProps> = ({ company = [], isLoading = true 
         </Grid>
           :
         <EmptyWrapper>
-          {isLoading ? <Loader size="big"/> :<EmptyList text="No favorite company" render={() => <Heart/>}/>}
+          {isLoading ? <Loader size="big" variant="secondary"/> :<EmptyList text="No favorite company" render={() => <Heart/>}/>}
         </EmptyWrapper>
       }
     </>

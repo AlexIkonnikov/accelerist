@@ -31,7 +31,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
           <BorderWrapper>
             <Focus>
               <FocusText>CSR Focus</FocusText>
-              <TagList tags={['Health', 'Animals', 'Education']}/>
+              <TagList tags={company?.crsFocus}/>
             </Focus>
             <Revenue>
               <RevenueText>Revenue</RevenueText>

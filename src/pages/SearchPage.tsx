@@ -38,7 +38,7 @@ const SearchPage: FC = () => {
       <Container variant={2}>
         {status === 'pending' ? (
           <LoaderWrapper>
-            <Loader size="big" />
+            <Loader size="big" variant="secondary" />
           </LoaderWrapper>
         ) : (
           <>
