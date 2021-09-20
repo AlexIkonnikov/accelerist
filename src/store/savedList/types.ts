@@ -1,8 +1,6 @@
 import { IUser } from '../user';
 
 export interface IFilters {
-  page: number;
-  limit: number;
   sdgGoals?: Array<string>;
   income?: Array<string>;
   ageRanges?: Array<string>;
@@ -33,10 +31,14 @@ export interface IMeta {
 export interface SavedListSliceInitialState {
   list: Array<IList>;
   meta: IMeta;
-  status: 'init' | 'pending' | 'end'
+  status: 'init' | 'pending' | 'end';
 }
 
 export interface GetSavedListResponse {
   items: Array<IList>;
   meta: IMeta;
+}
+
+export interface CreateSavedListPayload {
+  filters: IFilters
 }

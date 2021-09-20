@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GetSavedListResponse } from './types';
-import { getSavedList } from '../../services/api';
+import { CreateSavedListPayload, GetSavedListResponse } from './types';
+import { createSavedList, getSavedList } from '../../services/api';
 
 export const getSavedListRequest = createAsyncThunk<GetSavedListResponse, string>(
   'savedList/getSavedListRequest',
@@ -9,3 +9,11 @@ export const getSavedListRequest = createAsyncThunk<GetSavedListResponse, string
     return response.data;
   },
 );
+
+export const createSavedListRequest = createAsyncThunk(
+  'savedList/createSavedListRequest',
+  async (data: CreateSavedListPayload) => {
+    const response = await createSavedList(data);
+    return response.data;
+  }
+)

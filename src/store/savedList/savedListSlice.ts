@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SavedListSliceInitialState } from './types';
-import {getSavedListRequest} from './thunk';
+import {getSavedListRequest, createSavedListRequest} from './thunk';
 
 const initialState: SavedListSliceInitialState = {
   list: [],
@@ -27,8 +27,16 @@ const savedListSlice = createSlice({
       state.list = payload.items;
       state.meta = payload.meta;
     });
+
+    builder.addCase(createSavedListRequest.pending, (state) => {
+      console.log('save...')
+    });
+
+    builder.addCase(createSavedListRequest.fulfilled, (state) => {
+      console.log('fulfilled')
+    });
   },
 });
 
 export default savedListSlice.reducer;
-export const savedListActions = {...savedListSlice.actions, getSavedListRequest};
+export const savedListActions = {...savedListSlice.actions, getSavedListRequest, createSavedListRequest};

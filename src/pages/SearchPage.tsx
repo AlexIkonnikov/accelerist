@@ -15,7 +15,6 @@ import { stringify, parse } from 'query-string';
 
 const SearchPage: FC = () => {
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(1);
 
   const company = useAppSelector(selectors.company.selectCompany);
   const meta = useAppSelector(selectors.company.selectMeta);
@@ -27,6 +26,11 @@ const SearchPage: FC = () => {
     history.replaceState(location.search, '', '?' + query);
     dispatch(actions.company.getCompaniesRequest(query));
   };
+
+  const handleSaveList = () => {
+    const params = parse(location.search);
+    const {page, limit, ...outerFilters} = params;
+  }
 
   useEffect(() => {
     getCompanies();

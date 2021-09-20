@@ -31,11 +31,12 @@ const companySlice = createSlice({
 
     builder.addCase(getFavoritesCompanyRequest.pending, (state) => {
       state.status = 'pending';
+      state.company = [];
     });
     builder.addCase(getFavoritesCompanyRequest.fulfilled, (state, {payload}) => {
-      state.status = 'end';
       state.company = payload.items;
       state.meta = payload.meta;
+      state.status = 'end';
     });
   }
 });

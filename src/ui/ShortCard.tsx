@@ -11,7 +11,6 @@ interface ShortCardProps {
 }
 
 export const ShortCard: FC<ShortCardProps> = ({company}) => {
-  console.log(company.crsFocus)
   return (
     <Wrapper to={`/profile/${company?.id}`}>
       <CompanyWrapper>

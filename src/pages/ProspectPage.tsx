@@ -10,33 +10,38 @@ import { Pagination } from '../components/Pagination';
 import { Button } from '../ui/Button';
 import { ReactComponent as Pen } from './../assets/icons/pen.svg';
 import { useParams } from 'react-router-dom';
-import { getSaveListById } from '../services/api';
-import { IFilters } from '../store/savedList/types';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { actions, selectors } from '../store/ducks';
-import { stringify, parse } from 'query-string';
+import { getCompanies, getSaveListById } from '../services/api';
+import { IFilters, IMeta } from '../store/savedList/types';
+import { stringify } from 'query-string';
+import { Loader } from '../ui/Loader';
+import { ICompany } from '../store/company/types';
 
 const ProspectPage: FC = () => {
-  const {id} = useParams<{id: string}>();
-  const dispatch = useAppDispatch();
-  const company = useAppSelector(selectors.company.selectCompany)
-  const meta = useAppSelector(selectors.company.selectMeta)
-  const status = useAppSelector(selectors.company.selectStatus)
-  const [filters, setFilters] = useState<IFilters>()
+  const { id } = useParams<{ id: string }>();
+  const [company, setCompany] = useState<Array<ICompany>>();
+  const [meta, setMeta] = useState<IMeta>();
+  const [isLoading, setLoading] = useState(true);
+  const [filters, setFilters] = useState<IFilters>();
 
   useEffect(() => {
     const getList = async () => {
       const response = await getSaveListById(id);
-      setFilters(response.data.filters)
-    }
+      setFilters(response.data.filters);
+    };
     getList();
-
-  }, [])
+  }, []);
 
   useEffect(() => {
-    const query = stringify({page: 1, limit:12, ...filters});
-    dispatch(actions.company.getCompaniesRequest(query));
-  }, [filters])
+    if (filters !== undefined) {
+      setLoading(true);
+      const query = stringify({...filters, page: 1, limit: 12});
+      getCompanies(query).then(({data}) => {
+        setCompany(data.items);
+        setMeta(data.meta);
+        setLoading(false);
+      });
+    }
+  }, [filters]);
 
   return (
     <>
@@ -55,20 +60,28 @@ const ProspectPage: FC = () => {
         }}
       />
       <Container variant={2}>
-        <Counter count={meta.totalItems} />
-        <FiltersWrapper>
-          <Filters />
-        </FiltersWrapper>
-        <Row>
-          <BtnIcon>
-            <UploadIcon />
-            <Text>Export to Excel</Text>
-          </BtnIcon>
-          <Pagination meta={meta} />
-        </Row>
-        <CardWrapper>
-          {company.map((item) => <CompanyCard key={item.id} company={item} />)}
-        </CardWrapper>
+        {isLoading ? (
+          <Loader size="big" variant="secondary" />
+        ) : (
+          <>
+            <Counter count={meta?.totalItems || 0}/>
+            <FiltersWrapper>
+              <Filters filters={filters} />
+            </FiltersWrapper>
+            <Row>
+              <BtnIcon>
+                <UploadIcon />
+                <Text>Export to Excel</Text>
+              </BtnIcon>
+              <Pagination meta={meta}/>
+            </Row>
+            <CardWrapper>
+              {company && company.map((item) => (
+                <CompanyCard key={item.id} company={item} />
+              ))}
+            </CardWrapper>
+          </>
+        )}
       </Container>
     </>
   );
