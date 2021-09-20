@@ -23,7 +23,7 @@ const IndicatorBlock: FC<indicatorProps> = ({ title, index, value }) => {
 const SmallCard = styled.div`
   padding: 5px 0;
   min-width: 235px;
-  background: #f9f9f9;
+  background: ${({theme}) => theme.colors.substrate};
   border-radius: 4px;
   text-align: center;
 `;

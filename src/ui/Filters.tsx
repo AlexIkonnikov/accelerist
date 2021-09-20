@@ -1,28 +1,26 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { IFilters } from '../store/savedList/types';
-import { AppText }  from './AppText';
+import { AppText } from './AppText';
 
 interface FiltersProps {
-  filters?: IFilters
+  filters?: IFilters;
 }
 
-export const Filters: FC<FiltersProps> = ({filters}) => {
+export const Filters: FC<FiltersProps> = ({ filters }) => {
   const showFilters = () => {
     if (filters) {
       return Object.entries(filters).map(([key, ...value], index) => {
-        return <Filter key={key + index} className="filter-item">{`${key}: ${value}`}</Filter>
-      })
+        return <Filter key={key + index} className="filter-item">{`${key}: ${value}`}</Filter>;
+      });
     }
     return null;
-  }
+  };
 
   return (
     <>
       <Text>Filters</Text>
-      <FilterWrapper>
-        {showFilters()}
-      </FilterWrapper>
+      <FilterWrapper>{showFilters()}</FilterWrapper>
     </>
   );
 };

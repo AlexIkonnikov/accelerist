@@ -53,7 +53,7 @@ const TabWrapper = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 34px;
-  background-color: #f8f8f8;
+  background-color: ${({theme}) => theme.colors.substrate};
   @media (max-width: 375px) {
     margin-bottom: 22px;
   }
@@ -72,7 +72,7 @@ const IconWrapper = styled.div`
   height: 44px;
   margin: 0 auto;
   border-radius: 50%;
-  background-color: #f8f8f8;
+  background-color: ${({theme}) => theme.colors.substrate};
   display: flex;
   justify-content: center;
   align-items: center;

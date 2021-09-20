@@ -99,7 +99,7 @@ const StyledSelect = styled(Select)`
   }
 
   & .react-select__menu {
-    border: 1px solid #e8e8e8;
+    border: 1px solid ${({theme}) => theme.colors.line};
     border-top: none;
     border-radius: 6px;
     border-top-left-radius: 0;
@@ -121,16 +121,16 @@ const StyledSelect = styled(Select)`
   & .react-select__option {
     padding: 11px 16px;
     &:hover {
-      background-color: #e9f9ff;
+      background-color: ${({theme}) => theme.colors.selected};
     }
   }
 
   & .react-select__option--is-selected {
-    background-color: #e9f9ff;
-    color: ${({ theme }) => theme.colors.black};
+    ${({theme}) => {
+      return `
+        background-color: ${theme.colors.selected}
+        color: ${theme.colors.black}
+      `
+    }}
   }
-
-  /* & .react-select__clear-indicator {
-    display: none;
-  } */
 `;

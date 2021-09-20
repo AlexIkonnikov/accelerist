@@ -1,12 +1,12 @@
-import React, {FC, InputHTMLAttributes} from 'react';
+import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  isValid: boolean
+  isValid: boolean;
 }
 
-export const Input: FC<InputProps> = ({isValid, ...outerProps}) => {
-  return <StyledInput $isValid={isValid} {...outerProps}/>
+export const Input: FC<InputProps> = ({ isValid, ...outerProps }) => {
+  return <StyledInput $isValid={isValid} {...outerProps} />;
 };
 
 const StyledInput = styled.input<{ $isValid?: boolean }>`
@@ -24,18 +24,19 @@ const StyledInput = styled.input<{ $isValid?: boolean }>`
     border: 1px solid ${({ theme }) => theme.colors.blue};
   }
 
-  ${({ $isValid }) =>
+  ${({ $isValid, theme }) =>
     $isValid &&
     `
       background-color: #f3d6d6;
-      border: 1px solid #F05658;
-      &:focus {
-        border: 1px solid #F05658;
-      }
+      border: 1px solid ${theme.colors.red};
   `};
 
   &:disabled {
-    background-color: #f9f9f9;
-    color: ${({ theme }) => theme.colors.gray};
+    ${({ theme }) => {
+      return `
+        background-color: ${theme.colors.substrate};
+        color: ${theme.colors.gray}
+      `;
+    }}
   }
 `;

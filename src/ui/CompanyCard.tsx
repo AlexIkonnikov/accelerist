@@ -81,7 +81,7 @@ const Body = styled.div`
 `;
 
 const CompanyFace = styled.div`
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${({theme}) => theme.colors.line};
   border-radius: 6px;
   grid-area: avatar;
   display: flex;
@@ -111,7 +111,7 @@ const AvatarWrapper = styled.div`
 `;
 
 const Rating = styled.div`
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid ${({theme}) => theme.colors.line};
   padding: 9px 0;
   text-align: center;
 `;
@@ -173,7 +173,7 @@ const RevenueText = styled(AppText)`
 const HeartWrapper = styled.div`
   width: 36px;
   height: 36px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${({theme}) => theme.colors.line};
   border-radius: 6px;
   display: flex;
   justify-content: center;

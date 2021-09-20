@@ -61,7 +61,7 @@ const Label = styled(AppText)`
 const InputWrapper = styled.div`
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${({theme}) => theme.colors.line};
   border-radius: 6px;
   margin-bottom: 16px;
 `;
@@ -88,7 +88,7 @@ const List = styled.ul`
     width: 4px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #c4c4c4;
+    background-color: ${({ theme }) => theme.colors.lightGray};
     border-radius: 4px;
   }
 `;

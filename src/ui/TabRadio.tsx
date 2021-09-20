@@ -28,7 +28,7 @@ const StyledRadio = styled.input`
 `;
 
 const Indicator = styled.span`
-  background-color: #f8f8f8;
+  background-color: ${({theme}) => theme.colors.substrate};
   width: 100%;
   display: block;
   padding: 9px 0;
@@ -39,6 +39,6 @@ const Indicator = styled.span`
   }
 
   ${StyledRadio}:disabled + & {
-    background-color: #f0f0f0;
+    background-color: ${({theme}) => theme.colors.disabledGray};
   }
 `;

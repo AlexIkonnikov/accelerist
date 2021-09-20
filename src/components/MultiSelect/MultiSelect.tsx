@@ -106,14 +106,14 @@ const SelectedItem = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px 9px 16px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${({theme}) => theme.colors.line};
   border-radius: 8px;
 `;
 
 const OptionList = styled.ul`
   position: absolute;
   background-color: ${({ theme }) => theme.colors.white};
-  border: 1px solid #e8e8e8;
+  border: 1px solid ${({theme}) => theme.colors.line};
   border-top: none;
   top: 42px;
   border-bottom-left-radius: 8px;

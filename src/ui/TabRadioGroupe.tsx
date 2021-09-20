@@ -37,5 +37,5 @@ const Label = styled(AppText)`
 const Flex = styled.div`
   display: flex;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: ${({theme}) => theme.colors.substrate};
 `;

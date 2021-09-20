@@ -42,7 +42,7 @@ const Indicator = styled.span`
   }
 
   ${StyledCheckbox}:disabled + & {
-    background-color: #f0f0f0;
+    background-color: ${({theme}) => theme.colors.disabledGray};
   }
 
   &:after {

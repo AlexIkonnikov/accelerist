@@ -15,7 +15,7 @@ const Tab = styled(NavLink)`
   padding: 9px 0px;
   border-radius: 6px;
   color: ${({theme}) => theme.colors.darkGray};
-  background-color: #F8F8F8;
+  background-color: ${({theme}) => theme.colors.substrate};
   &:hover {
     color: ${({theme}) => theme.colors.black};
   }

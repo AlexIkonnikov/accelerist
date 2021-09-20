@@ -9,11 +9,3 @@ export const getSavedListRequest = createAsyncThunk<GetSavedListResponse, string
     return response.data;
   },
 );
-
-export const createSavedListRequest = createAsyncThunk(
-  'savedList/createSavedListRequest',
-  async (data: CreateSavedListPayload) => {
-    const response = await createSavedList(data);
-    return response.data;
-  }
-)

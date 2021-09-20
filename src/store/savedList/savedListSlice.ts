@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { SavedListSliceInitialState } from './types';
-import {getSavedListRequest, createSavedListRequest} from './thunk';
+import { getSavedListRequest } from './thunk';
 
 const initialState: SavedListSliceInitialState = {
   list: [],
@@ -12,7 +12,7 @@ const initialState: SavedListSliceInitialState = {
     currentPage: '',
   },
   status: 'init',
-}
+};
 
 const savedListSlice = createSlice({
   name: 'savedList',
@@ -20,23 +20,15 @@ const savedListSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getSavedListRequest.pending, (state) => {
-      state.status = 'pending'
+      state.status = 'pending';
     });
-    builder.addCase(getSavedListRequest.fulfilled, (state, {payload}) => {
-      state.status = 'end'
+    builder.addCase(getSavedListRequest.fulfilled, (state, { payload }) => {
+      state.status = 'end';
       state.list = payload.items;
       state.meta = payload.meta;
-    });
-
-    builder.addCase(createSavedListRequest.pending, (state) => {
-      console.log('save...')
-    });
-
-    builder.addCase(createSavedListRequest.fulfilled, (state) => {
-      console.log('fulfilled')
     });
   },
 });
 
 export default savedListSlice.reducer;
-export const savedListActions = {...savedListSlice.actions, getSavedListRequest, createSavedListRequest};
+export const savedListActions = { ...savedListSlice.actions, getSavedListRequest };

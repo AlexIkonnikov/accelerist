@@ -57,9 +57,9 @@ const StyledSlider = styled(Slider)`
   & .MuiSlider-thumb {
     width: 72px;
     height: 32px;
-    border: 1px solid #caf0ff;
+    border: 1px solid ${({ theme }) => theme.colors.secondaryBlue};
     border-radius: 6px;
-    background: white;
+    background: ${({ theme }) => theme.colors.white};
     margin-top: -14px;
     margin-left: -36px;
     &:after {

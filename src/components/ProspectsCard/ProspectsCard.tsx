@@ -17,7 +17,7 @@ const ProspectsCard: FC<ProspectsCardProps> = ({ list }) => {
       <CardName type="BodySelect">
         <StyledLink to={`/prospects/${list?.id}`}>{list?.name ?? 'No name'}</StyledLink>
       </CardName>
-      <Filters />
+      <Filters filters={list?.filters} />
       <InnerWrapper>
         <IndicatorBlock index="№ of Prospects Available" value={list?.prospectsAvailable ?? 0} />
         <IndicatorBlock index="№ of Contacts Pursued" value={72} />

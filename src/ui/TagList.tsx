@@ -42,7 +42,7 @@ const TagItem = styled(AppText)`
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background-color: #c4c4c4;
+    background-color: ${({ theme }) => theme.colors.lightGray};
   }
 
   &.tag:last-child {
