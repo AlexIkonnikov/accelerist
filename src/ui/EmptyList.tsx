@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { AppText } from './AppText';
-import { Button } from './Button';
+import { AppLink } from './AppLink';
 
 interface EmptyListProps {
-  text: string
-  render: () => JSX.Element
+  text: string;
+  render: () => JSX.Element;
 }
 
-export const EmptyList: FC<EmptyListProps> = ({text, render}) => {
+export const EmptyList: FC<EmptyListProps> = ({ text, render }) => {
   return (
     <Wrapper>
       {render()}
@@ -17,9 +16,7 @@ export const EmptyList: FC<EmptyListProps> = ({text, render}) => {
         {text}
       </AppText>
       <AppText CSS={mb32}>Go to the search page and add to list</AppText>
-      <CustomLink to="/search">
-        <Button variant="secondary">Search</Button>
-      </CustomLink>
+      <StyledLink to="/search">Search</StyledLink>
     </Wrapper>
   );
 };
@@ -41,6 +38,6 @@ const mb32 = css`
   margin-bottom: 32px;
 `;
 
-const CustomLink = styled(Link)`
-  min-width: 244px;
+const StyledLink = styled(AppLink)`
+  width: 244px;
 `;
