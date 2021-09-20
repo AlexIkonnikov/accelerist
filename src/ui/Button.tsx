@@ -4,7 +4,7 @@ import { Loader } from './Loader';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -16,14 +16,14 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton $variant={variant} $isLoading={isLoading} disabled={disabled || isLoading} {...outerProps}>
-      {isLoading ? <Loader /> : children}
+      {isLoading ? <Loader variant={variant} /> : children}
     </StyledButton>
   );
 };
 
 interface StyledButtonProps {
   $isLoading: boolean;
-  $variant: 'primary' | 'secondary';
+  $variant: 'primary' | 'secondary' | 'danger';
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -37,17 +37,20 @@ const StyledButton = styled.button<StyledButtonProps>`
           background-color: ${theme.colors.blue};
           color: ${theme.colors.white};
           font-family: Rubik-Medium;
-          padding: 12px 0;
+          height: 46px;
       `;
       case 'secondary':
         return `
           background-color: transparent;
           color: ${theme.colors.black};
-          padding: 8px 0;
-          border: 1px solid ${theme.colors.blue};
-          font-size: 12px;
-          line-height: 18px;
+          height: 36px;
+          border: 1px solid ${theme.colors.line};
         `;
+      case 'danger':
+        return `
+          color:${theme.colors.red};
+          border: 1px solid ${theme.colors.line};
+        `
     }
   }}
 
@@ -58,9 +61,12 @@ const StyledButton = styled.button<StyledButtonProps>`
           return `background-color: #51c2ee;`;
         case 'secondary':
           return `
-            background-color: #ebf9ff;
-            color: ${theme.colors.blue};
+            border-color: ${theme.colors.gray};
           `;
+        case 'danger':
+          return `
+            border-color: ${theme.colors.gray};
+          `
       }
     }}
   }
@@ -72,8 +78,11 @@ const StyledButton = styled.button<StyledButtonProps>`
           return `background-color: #1da7dc;`;
         case 'secondary':
           return `
-            color: ${theme.colors.blue};
-            background-color: ${theme.colors.secondaryBlue};
+            border-color: ${theme.colors.blue};
+          `;
+        case 'danger':
+          return `
+            border-color: ${theme.colors.red};
           `;
       }
     }}
@@ -81,11 +90,27 @@ const StyledButton = styled.button<StyledButtonProps>`
 
   &:disabled {
     cursor: no-drop;
-    ${({ $isLoading, $variant,theme }) => {
+    ${({ $isLoading, $variant, theme }) => {
       if ($isLoading) {
-        return $variant ==='primary' ? `background-color: ${theme.colors.blue};` : `background-color: transparent;`;
+        switch ($variant) {
+          case 'primary':
+            return `background-color: ${theme.colors.blue};`;
+          case 'secondary':
+            return `
+            color: #BDBDBD;;
+          `;
+          case 'danger':
+            return `border-color: #EAEAEA; color: #EEBCBD;`;
+        }
       } else {
-        return ` background-color: #ceedf9; color:${theme.colors.blue};`;
+        switch ($variant) {
+          case 'primary':
+            return `background-color: #ceedf9;`;
+          case 'secondary':
+            return `color:${theme.colors.blue};`;
+          case 'danger':
+            return `border-color: #EAEAEA;`;
+        }
       }
     }}
   }

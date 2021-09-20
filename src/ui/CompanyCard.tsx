@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { HeartIcon } from './icons/HeartIcon';
-import { Button } from './Button';
 import { AppText } from './AppText';
 import { TagList } from './TagList';
 import { ICompany } from '../store/company/types';
 import { Link } from 'react-router-dom';
+import { AppLink } from './AppLink';
 
 interface CompanyCardProps {
   company?: ICompany
@@ -43,7 +43,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
           <HeartWrapper>
             <HeartIcon />
           </HeartWrapper>
-            <Button variant="secondary">Profile</Button>
+            <AppLink to={`/profile/${company?.id}`}>Profile</AppLink>
         </Buttons>
       </Body>
     </Wrapper>

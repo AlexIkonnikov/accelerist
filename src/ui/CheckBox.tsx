@@ -3,24 +3,24 @@ import styled from 'styled-components';
 import Check from './../assets/icons/check.svg';
 
 interface CheckBoxInterface extends InputHTMLAttributes<HTMLInputElement> {
-  text?: string
+  text?: string;
 }
 
-export const CheckBox: FC<CheckBoxInterface> = ({text, ...outerProps}) => {
+export const CheckBox: FC<CheckBoxInterface> = ({ text, ...outerProps }) => {
   return (
     <StyledLabel>
-      <StyledCheckbox type="checkbox" {...outerProps}/>
+      <StyledCheckbox type="checkbox" {...outerProps} />
       <Indicator />
-      {text ?  text : null}
+      {text ? <TextWrapper>{text}</TextWrapper> : null}
     </StyledLabel>
   );
 };
 
 const StyledLabel = styled.label`
-  padding-left: 30px;
+  padding-left: 20px;
   font-size: 12px;
   line-height: 20px;
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
   position: relative;
 `;
 
@@ -57,3 +57,7 @@ const Indicator = styled.span`
     background: url(${Check}) no-repeat center center;
   }
 `;
+
+const TextWrapper = styled.span`
+  margin-left: 11px;
+`
