@@ -11,7 +11,7 @@ import { SearchForm } from '../components/SearchForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { actions, selectors } from '../store/ducks';
 import { Loader } from '../ui/Loader';
-import { getQueryParams, createInitParams } from '../utils/queryParams';
+import { getQueryParams, createInitParams, setQueryParams } from '../utils/queryParams';
 import { createSavedList } from '../services/api';
 import { useHistory } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ const SearchPage: FC = () => {
   const status = useAppSelector(selectors.company.selectStatus);
 
   const getCompanies = (queryString: string) => {
+    setQueryParams(queryString);
     dispatch(actions.company.getCompaniesRequest(queryString));
   };
 

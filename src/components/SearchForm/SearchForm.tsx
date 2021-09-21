@@ -14,7 +14,7 @@ import { Button } from '../../ui/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
-import { getQueryParams, mergeParams } from '../../utils/queryParams';
+import { getQueryParams, mergeParams, setQueryParams } from '../../utils/queryParams';
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
@@ -27,6 +27,7 @@ const SearchForm: FC = () => {
 
   const handleSubmitForm = (values: IFilters) => {
     const params = mergeParams({...values, page: 1, limit: 12})
+    setQueryParams(params);
     dispatch(actions.company.getCompaniesRequest(params));
   };
 

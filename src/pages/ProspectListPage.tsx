@@ -8,7 +8,7 @@ import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';
 import { TitleBlock } from '../ui/TitleBlock';
 import { NavLink } from 'react-router-dom';
-import { createInitParams } from '../utils/queryParams';
+import { createInitParams, setQueryParams } from '../utils/queryParams';
 
 const ProspectListPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,11 +17,12 @@ const ProspectListPage: FC = () => {
   const meta = useAppSelector(selectors.saveList.selectMeta);
 
   const togglePage = (queryString: string) => {
+    setQueryParams(queryString);
     dispatch(actions.saveList.getSavedListRequest(queryString));
   };
 
   useEffect(() => {
-    const query = createInitParams({page: 1, limit: 1});
+    const query = createInitParams({page: 1, limit: 12});
     togglePage(query);
   }, []);
 
