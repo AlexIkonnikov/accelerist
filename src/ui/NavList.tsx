@@ -52,11 +52,12 @@ const Link = styled(NavLink)`
   ${({ theme }) => `color: ${theme.colors.black}`};
   font-size: 12px;
   line-height: 18px;
+  padding-bottom: 8px;
   @media (max-width: 768px) {
     font-size: 16px;
     line-height: 25px;
   }
   &.active {
-    font-family: Rubik-Medium;
+    border-bottom: 1px solid ${({theme}) => theme.colors.black};
   }
 `;

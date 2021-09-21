@@ -54,7 +54,7 @@ const StyledCirce = styled.circle<{ $variant: Variants; $size: Size }>`
   ${({ $size }) => {
     switch ($size) {
       case 'big':
-        return `stroke-width: 3px;`;
+        return `stroke-width: 2px;`;
       case 'small':
         return `stroke-width: 1px;`;
     }
@@ -76,7 +76,7 @@ const StyledPath = styled.path<{ $variant: Variants, $size: Size}>`
   ${({ $size }) => {
     switch ($size) {
       case 'big':
-        return `stroke-width: 3px;`;
+        return `stroke-width: 2px;`;
       case 'small':
         return `stroke-width: 1px;`;
     }

@@ -7,14 +7,14 @@ interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   onSearch: () => void
 }
 
-const SearchBar: FC<SearchBarProps> = ({render, onSearch, ...outerProps}) => {
+const SearchBar: FC<SearchBarProps> = ({render, onSearch, className,...outerProps}) => {
   const handleSearch = () => {
     console.log('')
   }
 
   return (
     <SearchBox>
-      <SearchInput type="text" placeholder="Search" {...outerProps} />
+      <SearchInput type="text" placeholder="Search" className={className} {...outerProps} />
       <IconWrapper>
         {render && render()}
         <SearchIcon onClick={onSearch}/>
