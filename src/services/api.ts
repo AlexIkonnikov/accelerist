@@ -44,3 +44,11 @@ export const getSaveListById = (id: string):  AxiosPromise<IList> => {
 export const createSavedList = (data: CreateSavedListPayload): AxiosPromise<IList> => {
   return ApiClient.post('v1/saved-list', {data});
 }
+
+export const likeCompany = (id: string): AxiosPromise => {
+  return ApiClient.get(`v1/companies/${id}/like`);
+}
+
+export const dislikeCompany = (id: string): AxiosPromise => {
+  return ApiClient.get(`v1/companies/${id}/dislike`);
+}

@@ -15,6 +15,7 @@ const Normalize = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 16px;
+    overflow-y: scroll;
   }
 
   *, *:before, *:after {

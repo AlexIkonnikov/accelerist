@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 
 export const ToastContainer: FC = () => {
-  return <StyledContainer hideProgressBar={true} autoClose={false} />;
+  return <StyledContainer hideProgressBar={true} autoClose={3000} limit={5} />;
 };
 
 const StyledContainer = styled(Container)`

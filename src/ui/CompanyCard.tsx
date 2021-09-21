@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { HeartIcon } from './icons/HeartIcon';
 import { AppText } from './AppText';
 import { TagList } from './TagList';
 import { ICompany } from '../store/company/types';
 import { Link } from 'react-router-dom';
 import { AppLink } from './AppLink';
+import { LikeButton } from './LikeButton';
 
 interface CompanyCardProps {
-  company?: ICompany
+  company: ICompany;
 }
 
-export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
+export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
+
   return (
     <Wrapper>
       <Body>
@@ -25,25 +26,30 @@ export const CompanyCard: FC<CompanyCardProps> = ({company}) => {
           </Rating>
         </CompanyFace>
         <CompanyInfo>
-          <Name type="BodySelect"><StyledLink to={`/profile/${company?.id}`}>{company?.name}</StyledLink></Name>
+          <Name type="BodySelect">
+            <StyledLink to={`/profile/${company.id}`}>{company.name}</StyledLink>
+          </Name>
           <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
           <Phone>{company?.phone}</Phone>
           <BorderWrapper>
             <Focus>
               <FocusText>CSR Focus</FocusText>
-              <TagList tags={company?.crsFocus}/>
+              <TagList tags={company.crsFocus} />
             </Focus>
             <Revenue>
               <RevenueText>Revenue</RevenueText>
-              <AppText type="FootnoteSelect" tagName="span">{company?.revenue}</AppText>
+              <AppText type="FootnoteSelect" tagName="span">
+                {company.revenue}
+              </AppText>
             </Revenue>
           </BorderWrapper>
         </CompanyInfo>
         <Buttons>
-          <HeartWrapper>
-            <HeartIcon />
-          </HeartWrapper>
-            <AppLink to={`/profile/${company?.id}`}>Profile</AppLink>
+          <LikeButton
+            id={company.id}
+            isLike={company.like}
+          />
+          <AppLink to={`/profile/${company.id}`}>Profile</AppLink>
         </Buttons>
       </Body>
     </Wrapper>
@@ -81,7 +87,7 @@ const Body = styled.div`
 `;
 
 const CompanyFace = styled.div`
-  border: 1px solid ${({theme}) => theme.colors.line};
+  border: 1px solid ${({ theme }) => theme.colors.line};
   border-radius: 6px;
   grid-area: avatar;
   display: flex;
@@ -111,7 +117,7 @@ const AvatarWrapper = styled.div`
 `;
 
 const Rating = styled.div`
-  border-top: 1px solid ${({theme}) => theme.colors.line};
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
   padding: 9px 0;
   text-align: center;
 `;
@@ -170,27 +176,10 @@ const RevenueText = styled(AppText)`
   text-align: right;
 `;
 
-const HeartWrapper = styled.div`
-  width: 36px;
-  height: 36px;
-  border: 1px solid ${({theme}) => theme.colors.line};
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 6px;
-  @media(max-width: 768px) {
-    margin-right: 12px;
-  }
-  @media(max-width: 375px) {
-    margin-right: 15px;
-  }
-`;
-
 const StyledLink = styled(Link)`
-  color: ${({theme}) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.black};
   padding-bottom: 2px;
   &:hover {
-    border-bottom: 1px solid ${({theme}) => theme.colors.black};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   }
-`
+`;
