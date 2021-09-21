@@ -24,6 +24,7 @@ const ProspectPage: FC = () => {
   const [filters, setFilters] = useState<IFilters>();
 
   useEffect(() => {
+    setLoading(true);
     const getList = async () => {
       const response = await getSaveListById(id);
       setFilters(response.data.filters);
@@ -33,7 +34,6 @@ const ProspectPage: FC = () => {
 
   useEffect(() => {
     if (filters !== undefined) {
-      setLoading(true);
       const query = stringify({...filters, page: 1, limit: 12});
       getCompanies(query).then(({data}) => {
         setCompany(data.items);

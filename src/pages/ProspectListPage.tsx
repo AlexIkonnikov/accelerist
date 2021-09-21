@@ -7,8 +7,8 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';
 import { TitleBlock } from '../ui/TitleBlock';
-import { stringify, parse } from 'query-string';
 import { NavLink } from 'react-router-dom';
+import { createInitParams } from '../utils/queryParams';
 
 const ProspectListPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,16 +16,14 @@ const ProspectListPage: FC = () => {
   const status = useAppSelector(selectors.saveList.selectStatus);
   const meta = useAppSelector(selectors.saveList.selectMeta);
 
-  const togglePage = (page?: number) => {
-    const params = parse(location.search);
-    const query = stringify({ ...params, page: page || 1, limit: 12 });
-    history.replaceState(location.search, '', '?' + query);
-    dispatch(actions.saveList.getSavedListRequest(query));
+  const togglePage = (queryString: string) => {
+    dispatch(actions.saveList.getSavedListRequest(queryString));
   };
 
   useEffect(() => {
-    togglePage();
-  }, [dispatch]);
+    const query = createInitParams({page: 1, limit: 1});
+    togglePage(query);
+  }, []);
 
   return (
     <>
@@ -52,7 +50,7 @@ const ProspectListPage: FC = () => {
               </AppText>
             </SortingItem>
           </SortingList>
-          <Pagination meta={meta} />
+          <Pagination meta={meta} onToggle={togglePage} />
         </Row>
         <ProspectsList items={list} isLoading={status === 'pending'} />
       </Container>

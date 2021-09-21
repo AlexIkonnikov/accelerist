@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { CompanyCard } from '../ui/CompanyCard';
 import { Counter } from '../ui/Counter';
@@ -11,9 +11,7 @@ import { SearchForm } from '../components/SearchForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { actions, selectors } from '../store/ducks';
 import { Loader } from '../ui/Loader';
-import { stringify } from 'query-string';
-import { getQueryString, isQueryParamsExist, getQueryParams } from '../utils/queryParams';
-import { IFilters } from '../store/savedList/types';
+import { getQueryParams, createInitParams } from '../utils/queryParams';
 import { createSavedList } from '../services/api';
 import { useHistory } from 'react-router-dom';
 
@@ -30,12 +28,7 @@ const SearchPage: FC = () => {
   };
 
   useEffect(() => {
-    let query: string;
-    if (isQueryParamsExist()) {
-      query = getQueryString();
-    } else {
-      query = stringify({ page: 1, limit: 12 });
-    }
+    const query = createInitParams({ page: 1, limit: 12 });
     getCompanies(query);
   }, []);
 

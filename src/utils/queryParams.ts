@@ -25,3 +25,10 @@ export const mergeParams = (params: Record<string, number |string | Array<string
   const newQueryString = stringify({...existQueryParams, ...params});
   return newQueryString;
 }
+
+export const createInitParams = (initParams: Record<string, number |string | Array<string> | Array<number>>): string => {
+  if (isQueryParamsExist()) {
+    return getQueryString();
+  }
+  return stringify(initParams);
+}
