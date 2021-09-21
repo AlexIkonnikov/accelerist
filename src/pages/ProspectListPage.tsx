@@ -52,7 +52,7 @@ const ProspectListPage: FC = () => {
               </AppText>
             </SortingItem>
           </SortingList>
-          <Pagination meta={meta} onToggle={togglePage} />
+          <Pagination meta={meta} />
         </Row>
         <ProspectsList items={list} isLoading={status === 'pending'} />
       </Container>

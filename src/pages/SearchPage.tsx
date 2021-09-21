@@ -11,30 +11,40 @@ import { SearchForm } from '../components/SearchForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { actions, selectors } from '../store/ducks';
 import { Loader } from '../ui/Loader';
-import { stringify, parse } from 'query-string';
+import { stringify } from 'query-string';
+import { getQueryString, isQueryParamsExist, getQueryParams } from '../utils/queryParams';
+import { IFilters } from '../store/savedList/types';
+import { createSavedList } from '../services/api';
+import { useHistory } from 'react-router-dom';
 
 const SearchPage: FC = () => {
   const dispatch = useAppDispatch();
+  const { push } = useHistory();
 
   const company = useAppSelector(selectors.company.selectCompany);
   const meta = useAppSelector(selectors.company.selectMeta);
   const status = useAppSelector(selectors.company.selectStatus);
 
-  const getCompanies = (page?: number) => {
-    const params = parse(location.search);
-    const query = stringify({ ...params, page: page || 1, limit: 12 });
-    history.replaceState(location.search, '', '?' + query);
-    dispatch(actions.company.getCompaniesRequest(query));
+  const getCompanies = (queryString: string) => {
+    dispatch(actions.company.getCompaniesRequest(queryString));
   };
 
-  const handleSaveList = () => {
-    const params = parse(location.search);
-    const {page, limit, ...outerFilters} = params;
-  }
-
   useEffect(() => {
-    getCompanies();
+    let query: string;
+    if (isQueryParamsExist()) {
+      query = getQueryString();
+    } else {
+      query = stringify({ page: 1, limit: 12 });
+    }
+    getCompanies(query);
   }, []);
+
+  const handleSaveList = () => {
+    const { page, limit, ...outerFilters } = getQueryParams();
+    createSavedList({ filters: outerFilters }).then(({ data }) => {
+      push(`/prospects/${data.id}`);
+    });
+  };
 
   return (
     <>
@@ -49,7 +59,7 @@ const SearchPage: FC = () => {
             <Counter count={meta.totalItems} />
             <Wrapper>
               <BtnWrapper>
-                <BtnIcon>
+                <BtnIcon onClick={handleSaveList}>
                   <SaveIcon />
                   <Text>Save List</Text>
                 </BtnIcon>

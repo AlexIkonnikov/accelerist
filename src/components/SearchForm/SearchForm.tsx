@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { Field, Form, FormProps } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 import { TitleBlock } from '../../ui/TitleBlock';
 import { SearchBar } from '../../components/SearchBar';
 import { SlidersIcon } from '../../ui/icons/SlidersIcon';
@@ -13,23 +13,23 @@ import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
 import { Button } from '../../ui/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
-import { stringify, parse } from 'query-string';
+import { IFilters } from '../../store/savedList/types';
+import { getQueryParams, mergeParams } from '../../utils/queryParams';
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
-  const [initialState, setInitialState] = useState({});
+  const initialState = getQueryParams();
   const dispatch = useAppDispatch();
+
   const toggleFilters = () => {
     setFiltersState(!isFiltersShow);
   };
-  useEffect(() => {
-    setInitialState(parse(location.search));
-  }, [])
-  const handleSubmitForm = (values: FormProps) => {
-    const params = stringify({...values, page: 1, limit: 12});
-    history.replaceState(location.search,' ', '?'+params);
+
+  const handleSubmitForm = (values: IFilters) => {
+    const params = mergeParams({...values, page: 1, limit: 12})
     dispatch(actions.company.getCompaniesRequest(params));
   };
+
   return (
     <Form
       onSubmit={handleSubmitForm}
@@ -73,7 +73,7 @@ const SearchForm: FC = () => {
                       min={0}
                       max={50}
                       render={({ ...outerProps }) => (
-                        <InputRange value={values.revenue || [0, 50]} {...outerProps} label="Revenue" />
+                        <InputRange value={[0, 50]} {...outerProps} label="Revenue" />
                       )}
                     />
                   </Row>
@@ -89,7 +89,7 @@ const SearchForm: FC = () => {
                       min={0}
                       max={50}
                       render={({ ...outerProps }) => (
-                        <InputRange label="Age" value={values.age || [0, 50]} {...outerProps} />
+                        <InputRange label="Age" value={[0, 50]} {...outerProps} />
                       )}
                     />
                   </Row>

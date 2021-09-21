@@ -40,7 +40,7 @@ const FavoritesPage: FC = () => {
           <>
             <Wrapper>
               <Counter count={meta.totalItems} />
-              <Pagination meta={meta} onToggle={togglePage} />
+              <Pagination meta={meta} />
             </Wrapper>
             <CardWrapper>
               {company.length > 0 ? (

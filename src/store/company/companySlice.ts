@@ -9,7 +9,7 @@ const initialState: CompanySliceInitialState = {
     itemCount: 0,
     itemsPerPage: '',
     totalPages: 0,
-    currentPage: '',
+    currentPage: '1',
   },
   status: 'init'
 };
