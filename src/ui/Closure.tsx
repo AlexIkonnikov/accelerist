@@ -18,7 +18,7 @@ const CloseButton = styled.button`
   background-image: url(${CloseIcon});
   background-size: cover;
   background-repeat: no-repeat;
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     display: none;
   }
 `;

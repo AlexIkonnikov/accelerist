@@ -27,32 +27,54 @@ const Navbar: FC = () => {
   };
 
   return (
-    <Container>
-      <Burger onClick={handleShowModal} />
-      <NavWrapper $isVisible={isVisible}>
-        <Closure onClick={handleCloseModal} />
-        <NavList />
-        {pathname !== '/search' && (
-          <SearchBarWrapper>
-            <Form
-              onSubmit={handleSubmitForm}
-              render={({ handleSubmit }) => {
-                return <Field name="q" render={({ input }) => <StyleSearch onSearch={handleSubmit} {...input} />} />;
-              }}
-            />
-          </SearchBarWrapper>
-        )}
-        <CurrentUser />
-      </NavWrapper>
-    </Container>
+      <Container>
+        <Burger onClick={handleShowModal} />
+        <NavWrapper $isVisible={isVisible}>
+          <Closure onClick={handleCloseModal} />
+          <NavList />
+          {pathname !== '/search' && (
+            <SearchBarWrapper>
+              <Form
+                onSubmit={handleSubmitForm}
+                render={({ handleSubmit }) => {
+                  return <Field name="q" render={({ input }) => <StyleSearch onSearch={handleSubmit} {...input} />} />;
+                }}
+              />
+            </SearchBarWrapper>
+          )}
+          <CurrentUser />
+        </NavWrapper>
+        <Overlay onClick={handleCloseModal} $isModalOpen={isVisible}/>
+      </Container>
   );
 };
+
+const Overlay = styled.div<{ $isModalOpen: boolean }>`
+  width: 100%;
+  ${({ $isModalOpen }) => {
+    if ($isModalOpen) {
+      return `
+        height: 100%;
+        z-index: 5;
+        background: rgba(0,0,0, 0.3);
+        position: fixed;
+        top: 0;
+        left: 0;
+      `;
+    }
+  }};
+  @media(min-width: 769px) {
+    display: none;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  z-index: 10;
   @media (max-width: 768px) {
+    width: auto;
     justify-content: flex-end;
   }
 `;
@@ -76,7 +98,7 @@ const NavWrapper = styled.nav<{ $isVisible: boolean }>`
     }}
     top: 0;
     background: white;
-    padding: 132px 130px 32px 40px;
+    padding: 132px 55px 32px 40px;
     transition: transform 0.4s;
   }
   @media (max-width: 375px) {

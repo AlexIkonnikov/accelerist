@@ -29,7 +29,7 @@ const CurrentUser: FC<CurrentUserProps> = ({ name = 'No name' }) => {
         <AvatarWrapper>
           <Avatar type="square" />
         </AvatarWrapper>
-        <AppText type="FootnoteBlack">{name}</AppText>
+        <UserName type="FootnoteBlack">{name}</UserName>
       </Wrapper>
       {isMenuShow &&
       <MenuWrapper>
@@ -59,11 +59,12 @@ const Wrapper = styled.div`
 `;
 
 const MenuWrapper = styled.div`
-  padding: 15px 5px;
+  width: 100%;
+  padding: 7px 24px;
   background-color: ${({ theme }) => theme.colors.white};
   position: absolute;
   border-radius: 6px;
-  bottom: -60px;
+  bottom: -40px;
   @media(max-width: 768px) {
     bottom: 30px;
     padding: 5px;
@@ -73,5 +74,9 @@ const MenuWrapper = styled.div`
 const DangerText = styled(AppText)`
   color: ${({ theme }) => theme.colors.red};
 `;
+
+const UserName = styled(AppText)`
+  min-width: 83px;
+`
 
 export default CurrentUser;

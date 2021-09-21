@@ -38,7 +38,7 @@ const StyledBurger = styled.button`
   &::after {
     top: 18px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     display: none;
   }
 `;

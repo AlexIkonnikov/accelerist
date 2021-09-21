@@ -34,6 +34,9 @@ const ContentWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  @media(max-width: 768px ) {
+    justify-content: space-between;
+  }
 `;
 
 const LogoLink = styled(NavLink)`
