@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { StoreType } from '../store/store';
 import { ParsedQuery, stringify } from 'query-string';
 
@@ -27,14 +27,15 @@ class ApiClient {
 
     this.api.interceptors.request.use((config) => {
       if (config.params !== undefined) {
+        console.log('запрос', config.params);
         const { limit, page, ...outerParams } = config.params;
 
-        if (page !== undefined && limit === undefined) {
-          config.params.limit = 12;
+        if (page === undefined) {
+          config.params.page = 1;
         }
 
-        if (page === undefined && limit !== undefined) {
-          config.params.page = 1;
+        if (limit === undefined) {
+          config.params.limit = 12;
         }
 
         let params;
@@ -42,12 +43,11 @@ class ApiClient {
           params = { ...outerParams };
         }
         if (page > 1) {
-          params = { ...params, page , limit};
+          params = { ...params, page, limit };
         }
 
         if (params && Object.keys(params).length > 0) {
-          console.log(params);
-          history.replaceState(location.search, '', '?' + stringify({...params}));
+          history.replaceState(location.search, '', '?' + stringify({ ...params }));
         }
       }
 

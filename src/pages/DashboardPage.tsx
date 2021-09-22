@@ -17,7 +17,7 @@ const DashboardPage: FC = () => {
   const [isLoading, setStatus] = useState(true);
 
   const getData =  () => {
-    const favoritesCompany = getFavoritesCompany({page: 1});
+    const favoritesCompany = getFavoritesCompany({page: 1, limit: 6});
     const savedSearchList = getSavedList({page:1, limit:2});
     return Promise.allSettled([favoritesCompany, savedSearchList]);
   }

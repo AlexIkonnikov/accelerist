@@ -12,6 +12,14 @@ interface ProspectsListProps {
 }
 
 const ProspectsList: FC<ProspectsListProps> = ({ items, isLoading = true }) => {
+  if (isLoading) {
+    return (
+      <EmptyWrapper>
+        <Loader size="big" variant="secondary"/>
+      </EmptyWrapper>
+    );
+  }
+
   if (items.length > 0) {
     return (
       <Grid>
@@ -23,7 +31,7 @@ const ProspectsList: FC<ProspectsListProps> = ({ items, isLoading = true }) => {
   }
   return (
     <EmptyWrapper>
-      {isLoading ? <Loader size="big" variant="secondary"/> :<EmptyList text="No lists saved" render={() => <FolderIcon />} />}
+      <EmptyList text="No lists saved" render={() => <FolderIcon />} />
     </EmptyWrapper>
   );
 };

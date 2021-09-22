@@ -12,9 +12,10 @@ import { ReactComponent as Pen } from './../assets/icons/pen.svg';
 import { useParams } from 'react-router-dom';
 import { getCompanies, getSaveListById } from '../services/api';
 import { IFilters, IMeta } from '../store/savedList/types';
-import { stringify } from 'query-string';
+import { ParsedQuery, stringify } from 'query-string';
 import { Loader } from '../ui/Loader';
 import { ICompany } from '../store/company/types';
+import { createInitParams, mergeWithExisting } from '../utils/queryParams';
 
 const ProspectPage: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,8 +24,17 @@ const ProspectPage: FC = () => {
   const [isLoading, setLoading] = useState(true);
   const [filters, setFilters] = useState<IFilters>();
 
-  useEffect(() => {
+  const getCompany = (query: ParsedQuery<string | number>) => {
     setLoading(true);
+    const params = mergeWithExisting(query);
+    getCompanies({ ...filters, ...params }).then(({ data }) => {
+      setCompany(data.items);
+      setMeta(data.meta);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
     const getList = async () => {
       const response = await getSaveListById(id);
       setFilters(response.data.filters);
@@ -34,12 +44,8 @@ const ProspectPage: FC = () => {
 
   useEffect(() => {
     if (filters !== undefined) {
-      const query = {...filters, page: 1, limit: 12};
-      getCompanies(query).then(({data}) => {
-        setCompany(data.items);
-        setMeta(data.meta);
-        setLoading(false);
-      });
+      const query = createInitParams({ page: 1, limit: 12 });
+      getCompany(query);
     }
   }, [filters]);
 
@@ -64,7 +70,7 @@ const ProspectPage: FC = () => {
           <Loader size="big" variant="secondary" />
         ) : (
           <>
-            <Counter count={meta?.totalItems || 0}/>
+            <Counter count={meta?.totalItems || 0} />
             <FiltersWrapper>
               <Filters filters={filters} />
             </FiltersWrapper>
@@ -73,13 +79,9 @@ const ProspectPage: FC = () => {
                 <UploadIcon />
                 <Text>Export to Excel</Text>
               </BtnIcon>
-              <Pagination meta={meta}/>
+              <Pagination meta={meta} onToggle={getCompany} />
             </Row>
-            <CardWrapper>
-              {company && company.map((item) => (
-                <CompanyCard key={item.id} company={item} />
-              ))}
-            </CardWrapper>
+            <CardWrapper>{company && company.map((item) => <CompanyCard key={item.id} company={item} />)}</CardWrapper>
           </>
         )}
       </Container>

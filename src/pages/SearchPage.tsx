@@ -11,7 +11,7 @@ import { SearchForm } from '../components/SearchForm';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { actions, selectors } from '../store/ducks';
 import { Loader } from '../ui/Loader';
-import { getQueryParams, createInitParams, setQueryParams } from '../utils/queryParams';
+import { getQueryParams, createInitParams, mergeWithExisting } from '../utils/queryParams';
 import { createSavedList } from '../services/api';
 import { useHistory } from 'react-router-dom';
 import { ParsedQuery } from 'query-string';
@@ -25,13 +25,10 @@ const SearchPage: FC = () => {
   const status = useAppSelector(selectors.company.selectStatus);
 
   const getCompanies = (query: ParsedQuery<string|number>) => {
-    dispatch(actions.company.getCompaniesRequest(query));
+    const params = mergeWithExisting(query);
+    console.log(params);
+    dispatch(actions.company.getCompaniesRequest(params));
   };
-
-  useEffect(() => {
-    const query = createInitParams({ page: 1, limit: 12 });
-    getCompanies(query);
-  }, []);
 
   const handleSaveList = () => {
     const { page, limit, ...outerFilters } = getQueryParams();
@@ -39,6 +36,11 @@ const SearchPage: FC = () => {
       push(`/prospects/${data.id}`);
     });
   };
+
+  useEffect(() => {
+    const query = createInitParams({ page: 1, limit: 12 });
+    getCompanies(query);
+  }, []);
 
   return (
     <>

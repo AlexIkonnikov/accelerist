@@ -23,9 +23,9 @@ const savedListSlice = createSlice({
       state.status = 'pending';
     });
     builder.addCase(getSavedListRequest.fulfilled, (state, { payload }) => {
-      state.status = 'end';
       state.list = payload.items;
       state.meta = payload.meta;
+      state.status = 'end';
     });
   },
 });

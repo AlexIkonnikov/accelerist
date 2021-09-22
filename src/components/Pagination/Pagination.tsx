@@ -1,3 +1,4 @@
+import { ParsedQuery } from 'query-string';
 import React, { FC, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
@@ -6,7 +7,7 @@ import { AppText } from './../../ui/AppText';
 
 interface PaginationProps extends HTMLAttributes<HTMLDivElement> {
   meta?: IMeta;
-  onToggle?: (params: any) => void;
+  onToggle?: (params: ParsedQuery<string | number>) => void;
 }
 
 const Pagination: FC<PaginationProps> = ({ className, meta, onToggle }) => {
@@ -29,17 +30,17 @@ const Pagination: FC<PaginationProps> = ({ className, meta, onToggle }) => {
       return `${itemsCount}`;
     }
     if (currentPage === totalPage) {
-      return `${totalItems}`
+      return `${totalItems}`;
     }
-    return `${currentPage * limit}`
-  }
+    return `${currentPage * limit}`;
+  };
 
   const handleNextPage = () => {
-    onToggle && onToggle({page: currentPage + 1});
+    onToggle && onToggle({ page: currentPage + 1 });
   };
 
   const handlePrevPage = () => {
-    onToggle && onToggle({page: currentPage - 1});
+    onToggle && onToggle({ page: currentPage - 1 });
   };
 
   if (totalItems === 0) {

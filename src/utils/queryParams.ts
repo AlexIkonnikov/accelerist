@@ -20,9 +20,9 @@ export const setQueryParams = (params: string): void => {
   history.replaceState(location.search, '', '?' + params);
 };
 
-export const mergeParams = (params: Record<string, number |string | Array<string> | Array<number>>): string => {
+export const mergeWithExisting = (params: ParsedQuery<string | number>): typeof params => {
   const existQueryParams = getQueryParams();
-  const newQueryString = stringify({...existQueryParams, ...params});
+  const newQueryString = {...existQueryParams, ...params};
   return newQueryString;
 }
 

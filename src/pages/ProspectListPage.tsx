@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, MouseEventHandler, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { Pagination } from '../components/Pagination';
 import { ProspectsList } from '../components/ProspectsList';
@@ -8,8 +8,8 @@ import { AppText } from '../ui/AppText';
 import { Container } from '../ui/Container';
 import { TitleBlock } from '../ui/TitleBlock';
 import { NavLink } from 'react-router-dom';
-import { createInitParams, setQueryParams } from '../utils/queryParams';
-import { ParsedQuery } from 'query-string';
+import { createInitParams, mergeWithExisting, getQueryParams } from '../utils/queryParams';
+import { parse, ParsedQuery } from 'query-string';
 
 const ProspectListPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,14 +17,25 @@ const ProspectListPage: FC = () => {
   const status = useAppSelector(selectors.saveList.selectStatus);
   const meta = useAppSelector(selectors.saveList.selectMeta);
 
-  const togglePage = (queryString: ParsedQuery<string|number>) => {
-    //setQueryParams(queryString);
-    dispatch(actions.saveList.getSavedListRequest(queryString));
+  const switchPage = (query: ParsedQuery<string | number>) => {
+    const params = mergeWithExisting(query);
+    dispatch(actions.saveList.getSavedListRequest(params));
   };
 
+  const handleChangeSorting = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const getParams = parse(e.currentTarget.href.split('?')[1]);
+    switchPage(getParams);
+  }
+
+  const isActive = (type: string) => {
+    const params = getQueryParams();
+    return params.sort === type ? true : false;
+  }
+
   useEffect(() => {
-    const query = createInitParams({page: 1, limit: 12});
-    togglePage({page: 1, limit: 12});
+    const query = createInitParams({ page: 1, limit: 12, sort:'alphabet'});
+    switchPage(query);
   }, []);
 
   return (
@@ -37,22 +48,16 @@ const ProspectListPage: FC = () => {
               <AppText>Sort by</AppText>
             </SortingItem>
             <SortingItem>
-              <AppText type="FootnoteBlack">
-                <NavLink exact to="/prospects?sort=alphabet">Alphabet</NavLink>
-              </AppText>
+              <CustomLink $isActive={isActive('alphabet')} onClick={handleChangeSorting} href="/prospects?sort=alphabet">Alphabet</CustomLink>
             </SortingItem>
             <SortingItem>
-              <AppText type="FootnoteBlack">
-                <NavLink exact to="/prospects?sort=available">Prospects Available</NavLink>
-              </AppText>
+              <CustomLink $isActive={isActive('available')} onClick={handleChangeSorting} href="/prospects?sort=available">Prospects Available</CustomLink>
             </SortingItem>
             <SortingItem>
-              <AppText type="FootnoteBlack">
-                <NavLink exact to="/prospects?sort=last-activity">Last Activity</NavLink>
-              </AppText>
+              <CustomLink $isActive={isActive('last-activity')} onClick={handleChangeSorting} href="/prospects?sort=last-activity">Last Activity</CustomLink>
             </SortingItem>
           </SortingList>
-          {/* <Pagination meta={meta} onToggle={togglePage} /> */}
+          <Pagination meta={meta} onToggle={switchPage} />
         </Row>
         <ProspectsList items={list} isLoading={status === 'pending'} />
       </Container>
@@ -81,6 +86,20 @@ const SortingItem = styled.li`
   &::last-child {
     margin: 0;
   }
+`;
+
+const CustomLink = styled.a<{$isActive: boolean}>`
+  font-size: 12px;
+  line-height: 18px;
+  color: ${({ theme }) => theme.colors.black};
+  padding-bottom: 2px;
+  ${({$isActive, theme}) => {
+    if ($isActive) {
+      return `
+        border-bottom: 1px solid ${theme.colors.blue};
+      `
+    }
+  }};
 `;
 
 export default ProspectListPage;
