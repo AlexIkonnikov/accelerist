@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { IList } from '../../store/savedList/types';
 import { IndicatorBlock } from '../IndicatorBlock';
 import { AppText } from './../../ui/AppText';

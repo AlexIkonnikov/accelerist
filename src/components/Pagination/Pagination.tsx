@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
 import { IMeta } from '../../store/company';
 import { AppText } from './../../ui/AppText';
-import {stringify, parse} from 'query-string';
 import { mergeParams } from '../../utils/queryParams';
 
 interface PaginationProps extends HTMLAttributes<HTMLDivElement> {

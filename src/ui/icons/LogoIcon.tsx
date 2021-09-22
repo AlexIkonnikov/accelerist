@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, {useTheme} from 'styled-components';
+import {useTheme} from 'styled-components';
 
 interface LogoIconProps {
   width?: number;

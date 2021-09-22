@@ -1,5 +1,5 @@
 import React, { FC, ButtonHTMLAttributes } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Loader } from './Loader';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

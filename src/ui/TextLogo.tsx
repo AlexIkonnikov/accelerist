@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled, { CSSProp } from 'styled-components';
+import styled from 'styled-components';
 
 interface TextLogoProps {
   variant?: 'dark' | 'white';

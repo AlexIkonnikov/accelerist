@@ -4,7 +4,6 @@ import { ReactComponent as SuccessIcon } from './../assets/icons/success.svg';
 import { ReactComponent as ErrorIcon } from './../assets/icons/error.svg';
 import { ReactComponent as InfoIcon } from './../assets/icons/info.svg';
 import { ReactComponent as WarningIcon } from './../assets/icons/warning.svg';
-import styled from 'styled-components';
 import { AppText } from '../ui/AppText';
 
 class Toaster {
@@ -56,7 +55,5 @@ class Toaster {
     );
   }
 }
-
-const Title = styled(AppText)``;
 
 export default new Toaster();

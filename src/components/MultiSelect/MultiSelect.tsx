@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import styled from 'styled-components';
 import { AppText } from './../../ui/AppText';
 import { ReactComponent as ArrowDown } from './../../assets/icons/arrow-down.svg';
 import { CheckBox } from './../../ui/CheckBox';
-import { FieldRenderProps, FieldProps, Field, FieldInputProps, RenderableProps } from 'react-final-form';
+import { FieldRenderProps, FieldProps, Field, FieldInputProps } from 'react-final-form';
 
 interface MultiSelectProps extends FieldProps<Array<string>, FieldRenderProps<Array<string>>> {
   label?: string;

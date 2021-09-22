@@ -17,7 +17,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ isLike = false, id, ...outerPr
   const handleLikeCompany = () => {
     setLoading(true);
     likeCompany(id)
-      .then((response) => {
+      .then(() => {
         setLike(true);
         toast.success(`Company added to favorites`);
       })
@@ -32,7 +32,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ isLike = false, id, ...outerPr
   const handleDislikeCompany = () => {
     setLoading(true);
     dislikeCompany(id)
-      .then((response) => {
+      .then(() => {
         setLike(false);
         toast.info(`Company removed from favorites`);
       })

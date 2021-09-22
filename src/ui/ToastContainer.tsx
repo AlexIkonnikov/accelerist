@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ToastContainer as Container, toast} from 'react-toastify';
+import { ToastContainer as Container } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 
