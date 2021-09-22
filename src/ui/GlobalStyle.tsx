@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import GlobalFonts from './../assets/fonts';
 
 export const GlobalStyle: FC = () => {
   return (
     <>
-      <GlobalFonts />
       <Normalize />
     </>
   );

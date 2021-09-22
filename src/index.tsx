@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { injectStore } from './services/ApiClient';
 import { ToastContainer } from './ui/ToastContainer';
 import { PersistGate } from 'redux-persist/integration/react'
+import './assets/fonts/index.css';
 
 injectStore(store);
 
