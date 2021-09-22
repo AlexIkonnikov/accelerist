@@ -27,8 +27,8 @@ const SearchForm: FC = () => {
 
   const handleSubmitForm = (values: IFilters) => {
     const params = mergeParams({...values, page: 1, limit: 12})
-    setQueryParams(params);
-    dispatch(actions.company.getCompaniesRequest(params));
+    //setQueryParams(params);
+    dispatch(actions.company.getCompaniesRequest({...values, page: 1, limit: 12}));
   };
 
   return (

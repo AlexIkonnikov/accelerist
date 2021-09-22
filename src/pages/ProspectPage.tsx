@@ -34,7 +34,7 @@ const ProspectPage: FC = () => {
 
   useEffect(() => {
     if (filters !== undefined) {
-      const query = stringify({...filters, page: 1, limit: 12});
+      const query = {...filters, page: 1, limit: 12};
       getCompanies(query).then(({data}) => {
         setCompany(data.items);
         setMeta(data.meta);

@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
 import { IMeta } from '../../store/company';
 import { AppText } from './../../ui/AppText';
-import { mergeParams } from '../../utils/queryParams';
 
 interface PaginationProps extends HTMLAttributes<HTMLDivElement> {
   meta?: IMeta;
-  onToggle?: (params: string) => void;
+  onToggle?: (params: any) => void;
 }
 
 const Pagination: FC<PaginationProps> = ({ className, meta, onToggle }) => {
@@ -36,13 +35,11 @@ const Pagination: FC<PaginationProps> = ({ className, meta, onToggle }) => {
   }
 
   const handleNextPage = () => {
-    const query = mergeParams({page: currentPage + 1});
-    onToggle && onToggle(query);
+    onToggle && onToggle({page: currentPage + 1});
   };
 
   const handlePrevPage = () => {
-    const query = mergeParams({page: currentPage - 1});
-    onToggle && onToggle(query);
+    onToggle && onToggle({page: currentPage - 1});
   };
 
   if (totalItems === 0) {

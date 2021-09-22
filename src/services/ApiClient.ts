@@ -1,17 +1,18 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { StoreType } from '../store/store';
+import { ParsedQuery, stringify } from 'query-string';
 
 const baseUrl = 'https://accelerist.herokuapp.com/api';
 
 const getToken = () => {
   return new URLSearchParams(location.search).get('passwordResetToken');
-}
+};
 
 let store: StoreType;
 
 export const injectStore = (_store: StoreType): void => {
-  store = _store
-}
+  store = _store;
+};
 
 class ApiClient {
   private api: AxiosInstance;
@@ -25,6 +26,31 @@ class ApiClient {
     });
 
     this.api.interceptors.request.use((config) => {
+      if (config.params !== undefined) {
+        const { limit, page, ...outerParams } = config.params;
+
+        if (page !== undefined && limit === undefined) {
+          config.params.limit = 12;
+        }
+
+        if (page === undefined && limit !== undefined) {
+          config.params.page = 1;
+        }
+
+        let params;
+        if (Object.keys(outerParams).length > 0) {
+          params = { ...outerParams };
+        }
+        if (page > 1) {
+          params = { ...params, page , limit};
+        }
+
+        if (params && Object.keys(params).length > 0) {
+          console.log(params);
+          history.replaceState(location.search, '', '?' + stringify({...params}));
+        }
+      }
+
       const token = store.getState().user.accessToken || getToken();
       if (token !== null) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -37,8 +63,8 @@ class ApiClient {
     return this.api.post(url, data);
   }
 
-  get(url: string) {
-    return this.api.get(url);
+  get(url: string, params?: ParsedQuery<string | number>) {
+    return this.api.get(url, { params });
   }
 
   put(url: string, { data }: AxiosRequestConfig) {
@@ -48,8 +74,6 @@ class ApiClient {
   delete(url: string) {
     return this.api.delete(url);
   }
-
 }
 
-export default new ApiClient;
-
+export default new ApiClient();

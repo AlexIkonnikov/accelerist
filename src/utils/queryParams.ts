@@ -1,7 +1,7 @@
 import { stringify, parse, ParsedQuery } from 'query-string';
 
-export const getQueryParams = (): ParsedQuery<string> => {
-  return parse(location.search);
+export const getQueryParams = (): ParsedQuery<string | number> => {
+  return parse(location.search, {parseNumbers: true});
 }
 
 export const getQueryString = (): string => {
@@ -26,9 +26,9 @@ export const mergeParams = (params: Record<string, number |string | Array<string
   return newQueryString;
 }
 
-export const createInitParams = (initParams: Record<string, number |string | Array<string> | Array<number>>): string => {
+export const createInitParams = (initParams: ParsedQuery<string|number>): typeof initParams => {
   if (isQueryParamsExist()) {
-    return getQueryString();
+    return getQueryParams();
   }
-  return stringify(initParams);
+  return initParams;
 }

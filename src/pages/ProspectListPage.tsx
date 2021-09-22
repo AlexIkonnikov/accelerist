@@ -9,6 +9,7 @@ import { Container } from '../ui/Container';
 import { TitleBlock } from '../ui/TitleBlock';
 import { NavLink } from 'react-router-dom';
 import { createInitParams, setQueryParams } from '../utils/queryParams';
+import { ParsedQuery } from 'query-string';
 
 const ProspectListPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,14 +17,14 @@ const ProspectListPage: FC = () => {
   const status = useAppSelector(selectors.saveList.selectStatus);
   const meta = useAppSelector(selectors.saveList.selectMeta);
 
-  const togglePage = (queryString: string) => {
-    setQueryParams(queryString);
+  const togglePage = (queryString: ParsedQuery<string|number>) => {
+    //setQueryParams(queryString);
     dispatch(actions.saveList.getSavedListRequest(queryString));
   };
 
   useEffect(() => {
     const query = createInitParams({page: 1, limit: 12});
-    togglePage(query);
+    togglePage({page: 1, limit: 12});
   }, []);
 
   return (
@@ -51,7 +52,7 @@ const ProspectListPage: FC = () => {
               </AppText>
             </SortingItem>
           </SortingList>
-          <Pagination meta={meta} onToggle={togglePage} />
+          {/* <Pagination meta={meta} onToggle={togglePage} /> */}
         </Row>
         <ProspectsList items={list} isLoading={status === 'pending'} />
       </Container>

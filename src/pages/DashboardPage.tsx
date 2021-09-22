@@ -17,13 +17,14 @@ const DashboardPage: FC = () => {
   const [isLoading, setStatus] = useState(true);
 
   const getData =  () => {
-    const favoritesCompany = getFavoritesCompany(`page=1&limit=6`);
-    const savedSearchList = getSavedList(`page=1&limit=2`);
+    const favoritesCompany = getFavoritesCompany({page: 1});
+    const savedSearchList = getSavedList({page:1, limit:2});
     return Promise.allSettled([favoritesCompany, savedSearchList]);
   }
 
   useEffect(() => {
     getData().then((response) => {
+      console.log(response)
       if (response[0].status === 'fulfilled') {
         setCompany(response[0].value.data.items);
       }

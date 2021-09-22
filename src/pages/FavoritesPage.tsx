@@ -17,11 +17,11 @@ const FavoritesPage: FC = () => {
   const meta = useAppSelector(selectors.company.selectMeta);
   const status = useAppSelector(selectors.company.selectStatus);
 
-  const togglePage = (page?: number) => {
+  const togglePage = (page = 1) => {
     const params = parse(location.search);
-    const query = stringify({ ...params, page: page || 1, limit: 12 });
+    const query = stringify({ ...params, page: page, limit: 12 });
     history.replaceState(location.search, '', '?' + query);
-    dispatch(actions.company.getFavoritesCompanyRequest(query));
+    dispatch(actions.company.getFavoritesCompanyRequest({ ...params, page: page, limit: 12 }));
   };
 
   useEffect(() => {

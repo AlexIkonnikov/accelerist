@@ -14,6 +14,7 @@ import { Loader } from '../ui/Loader';
 import { getQueryParams, createInitParams, setQueryParams } from '../utils/queryParams';
 import { createSavedList } from '../services/api';
 import { useHistory } from 'react-router-dom';
+import { ParsedQuery } from 'query-string';
 
 const SearchPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,9 +24,8 @@ const SearchPage: FC = () => {
   const meta = useAppSelector(selectors.company.selectMeta);
   const status = useAppSelector(selectors.company.selectStatus);
 
-  const getCompanies = (queryString: string) => {
-    setQueryParams(queryString);
-    dispatch(actions.company.getCompaniesRequest(queryString));
+  const getCompanies = (query: ParsedQuery<string|number>) => {
+    dispatch(actions.company.getCompaniesRequest(query));
   };
 
   useEffect(() => {
