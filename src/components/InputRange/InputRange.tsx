@@ -1,6 +1,6 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { Slider, SliderProps } from '@material-ui/core';
+import { Slider } from '@material-ui/core';
 import { FieldRenderProps } from 'react-final-form';
 import {AppText} from './../../ui/AppText';
 

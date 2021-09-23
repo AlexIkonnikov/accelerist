@@ -18,6 +18,7 @@ export const CheckBox: FC<CheckBoxInterface> = ({ text, ...outerProps }) => {
 
 const StyledLabel = styled.label`
   padding-left: 20px;
+  height: 20px;
   font-size: 12px;
   line-height: 20px;
   color: ${({ theme }) => theme.colors.black};

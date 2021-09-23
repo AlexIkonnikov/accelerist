@@ -1,9 +1,10 @@
 import React, { FC, ComponentProps } from 'react';
-import Select, { components, OptionsType } from 'react-select';
+import Select, { components, OptionsType, MultiValueProps,OptionTypeBase, OptionProps } from 'react-select';
 import styled from 'styled-components';
 import { ReactComponent as ArrowDown } from './../assets/icons/arrow-down.svg';
 import { FieldRenderProps } from 'react-final-form';
 import { AppText } from './AppText';
+import { CheckBox} from './CheckBox'
 
 const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>> = ({ ...outerProps }) => {
   return (
@@ -13,32 +14,41 @@ const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>>
   );
 };
 
-const MultiValue: FC<ComponentProps<typeof components.MultiValue>> = ({selectProps, data, innerProps, ...all}) => {
-  const values = selectProps.value;
-  if (values) {
-   const idx = values.length - 1;
-    return (
-      <components.MultiValue data={data} innerProps={innerProps}  selectProps={selectProps} {...all}>
-        {values && <AppText tagName="span">{idx}</AppText>}
-      </components.MultiValue>
-    )
-  } else {
-    return null;
-  }
+const MultiValueContainer: FC<MultiValueProps<{value: string}>> = ({ ...outerProps }) => {
+  return (
+    <components.MultiValueContainer {...outerProps}>
+      <AppText type="BodyBlack">{outerProps.data.value}</AppText>
+    </components.MultiValueContainer>
+  );
+};
+
+const Option: FC<OptionProps<{value: string}, boolean>> = ({...outerProps}) => {
+  console.log(outerProps)
+  return (
+    <components.Option {...outerProps}>
+      <>
+      <AppText type="BodyBlack">{outerProps.children}</AppText>
+      <CheckBox checked={outerProps.isSelected} readOnly />
+      </>
+    </components.Option>
+  )
 }
 
-export const AppSelect: FC<FieldRenderProps<string, any>> = ({input, ...outerProps}) => {
-
-  return (
+export const AppSelect: FC<FieldRenderProps<Array<string>, any>> = ({ input, ...outerProps }) => {
+    return (
     <>
-    <StyledSelect
-      {...input}
-      {...outerProps}
-      classNamePrefix="react-select"
-      components={{ DropdownIndicator }}
-      isMulti
-      isSearchable={false}
-    />
+      <StyledSelect
+        {...input}
+        {...outerProps}
+        defaultValue={input.value}
+        classNamePrefix="react-select"
+        components={{ DropdownIndicator, MultiValueContainer, Option}}
+        isMulti
+        hideSelectedOptions={false}
+        isSearchable={false}
+        closeMenuOnSelect={false}
+        menuIsOpen
+      />
     </>
   );
 };
@@ -56,14 +66,14 @@ const StyledSelect = styled(Select)`
     }
   }
 
-  & .react-select__indicators {
-    width: 24px;
-    height: 24px;
-    padding: 13px 16px 13px 16px;
-    box-sizing: content-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  & .react-select__clear-indicator  {
+    display: none;
+  }
+
+  & .react-select__dropdown-indicator {
+    margin-right: 22px;
+    padding: 0;
   }
 
   & .react-select__control--menu-is-open {
@@ -73,9 +83,6 @@ const StyledSelect = styled(Select)`
     &:hover {
       border: 1px solid ${({ theme }) => theme.colors.line};
     }
-    /* & .react-select__indicators {
-      transform: rotate(-180deg);
-    } */
   }
 
   & .react-select__placeholder,
@@ -87,15 +94,16 @@ const StyledSelect = styled(Select)`
 
   & .react-select__value-container {
     padding: 11px 0px 10px 16px;
+    height: 46px;
   }
 
   & .react-select__menu {
-    border: 1px solid ${({theme}) => theme.colors.line};
+    border: 1px solid ${({ theme }) => theme.colors.line};
     border-top: none;
     border-radius: 6px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    margin-top: -14px;
+    margin-top: -4px;
     margin-bottom: 0;
     box-shadow: unset;
     z-index: 10;
@@ -117,20 +125,25 @@ const StyledSelect = styled(Select)`
       border-radius: 4px;
     }
   }
+  & .react-select__multi-value__remove {
+    display: none;
+  }
 
   & .react-select__option {
     padding: 11px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     &:hover {
-      background-color: ${({theme}) => theme.colors.selected};
+      background-color: ${({ theme }) => theme.colors.selected};
     }
   }
 
+  & .react-select__option--is-focused {
+    background: unset;
+  }
+
   & .react-select__option--is-selected {
-    ${({theme}) => {
-      return `
-        background-color: ${theme.colors.selected}
-        color: ${theme.colors.black}
-      `
-    }}
+    background-color: unset;
   }
 `;
