@@ -63,8 +63,8 @@ class ApiClient {
     return this.api.post(url, data);
   }
 
-  get(url: string, params?: ParsedQuery<string | number>) {
-    return this.api.get(url, { params });
+  get(url: string, config?: AxiosRequestConfig) {
+    return this.api.get(url, {...config});
   }
 
   put(url: string, { data }: AxiosRequestConfig) {

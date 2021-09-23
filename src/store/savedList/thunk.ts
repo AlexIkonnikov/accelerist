@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GetSavedListResponse } from './types';
 import { getSavedList } from '../../services/api';
 import { ParsedQuery } from 'query-string';
 
-export const getSavedListRequest = createAsyncThunk<GetSavedListResponse, ParsedQuery<string | number>>(
+export const getSavedListRequest = createAsyncThunk(
   'savedList/getSavedListRequest',
-  async (query: ParsedQuery<string | number>) => {
+  async (query: ParsedQuery<string | number| undefined>) => {
     const response = await getSavedList(query);
     return response.data;
   },
