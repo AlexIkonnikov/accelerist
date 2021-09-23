@@ -23,11 +23,13 @@ class ApiClient {
       headers: {
         'Content-Type': 'application/json',
       },
+      paramsSerializer: function (params) {
+        return stringify(params, { arrayFormat: 'bracket' });
+      },
     });
 
     this.api.interceptors.request.use((config) => {
       if (config.params !== undefined) {
-        console.log('запрос', config.params);
         const { limit, page, ...outerParams } = config.params;
 
         if (page === undefined) {
@@ -47,7 +49,7 @@ class ApiClient {
         }
 
         if (params && Object.keys(params).length > 0) {
-          history.replaceState(location.search, '', '?' + stringify({ ...params }));
+          history.replaceState(location.search, '', '?' + stringify({ ...params }, { arrayFormat: 'bracket' }));
         }
       }
 
@@ -64,7 +66,7 @@ class ApiClient {
   }
 
   get(url: string, config?: AxiosRequestConfig) {
-    return this.api.get(url, {...config});
+    return this.api.get(url, { ...config });
   }
 
   put(url: string, { data }: AxiosRequestConfig) {

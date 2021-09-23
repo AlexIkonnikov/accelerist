@@ -1,7 +1,7 @@
 import { stringify, parse, ParsedQuery } from 'query-string';
 
 export const getQueryParams = (): ParsedQuery<string | number> => {
-  return parse(location.search, {parseNumbers: true});
+  return parse(location.search, {parseNumbers: true, arrayFormat: 'bracket'});
 }
 
 export const getQueryString = (): string => {

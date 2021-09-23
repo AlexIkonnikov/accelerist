@@ -1,6 +1,6 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
-import { Slider } from '@material-ui/core';
+import { Slider, SliderProps } from '@material-ui/core';
 import { FieldRenderProps } from 'react-final-form';
 import {AppText} from './../../ui/AppText';
 
@@ -8,7 +8,7 @@ interface InputRangeProps extends FieldRenderProps<Array<number>> {
   label?: string
 }
 
-const InputRange: FC<InputRangeProps> = ({ input, label= '', value, max, min}) => {
+const InputRange: FC<InputRangeProps> = ({ label= '', value,input, ...outerProps}) => {
   const [initValue, setValue] = useState<Array<number>>(value);
 
   const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
@@ -22,13 +22,12 @@ const InputRange: FC<InputRangeProps> = ({ input, label= '', value, max, min}) =
     <RangeWrapper>
       <Label>{label}</Label>
       <StyledSlider
-        min={min}
-        max={max}
         value={initValue}
         valueLabelDisplay="auto"
         onChange={handleChange}
         aria-labelledby="range-slider"
         valueLabelFormat={(str: number) => `$${str}M`}
+        {...outerProps}
       />
     </RangeWrapper>
   );

@@ -27,28 +27,19 @@ const MultiValue: FC<ComponentProps<typeof components.MultiValue>> = ({selectPro
   }
 }
 
-interface SelectProps extends FieldRenderProps<Array<string>> {
-  options: OptionsType<Field>;
-}
-
-interface Field {
-  value: string;
-  label: string;
-}
-
-export const AppSelect: FC = () => {
-  // const handleChangeEvent = (result: Field) => {
-  //   input.onChange([result.value]);
-  // };
+export const AppSelect: FC<FieldRenderProps<string, any>> = ({input, ...outerProps}) => {
 
   return (
+    <>
     <StyledSelect
+      {...input}
+      {...outerProps}
       classNamePrefix="react-select"
-      options={[{value: 'first', label: 'first'}, {value: 'second', label: 'second'}, {value: 'last', label: 'last'}]}
       components={{ DropdownIndicator }}
       isMulti
       isSearchable={false}
     />
+    </>
   );
 };
 
@@ -82,9 +73,9 @@ const StyledSelect = styled(Select)`
     &:hover {
       border: 1px solid ${({ theme }) => theme.colors.line};
     }
-    & .react-select__indicators {
+    /* & .react-select__indicators {
       transform: rotate(-180deg);
-    }
+    } */
   }
 
   & .react-select__placeholder,
@@ -104,9 +95,10 @@ const StyledSelect = styled(Select)`
     border-radius: 6px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    margin-top: -17px;
+    margin-top: -14px;
     margin-bottom: 0;
     box-shadow: unset;
+    z-index: 10;
   }
 
   & .react-select__multi-value {
@@ -116,6 +108,14 @@ const StyledSelect = styled(Select)`
   & .react-select__menu-list {
     padding: 0;
     border-top: none;
+    max-height: 180px;
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.lightGray};
+      border-radius: 4px;
+    }
   }
 
   & .react-select__option {

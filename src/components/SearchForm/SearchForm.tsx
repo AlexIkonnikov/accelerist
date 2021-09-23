@@ -6,7 +6,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { SlidersIcon } from '../../ui/icons/SlidersIcon';
 import { Container } from '../../ui/Container';
 import { AppText } from '../../ui/AppText';
-import { MultiSelect } from '../MultiSelect';
+import { AppSelect } from './../../ui/AppSelect';
 import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
 import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
@@ -16,24 +16,64 @@ import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
 
+const income = [
+  {value:'$20K-$29K', label: '$20K-$29K'},
+  {value:'$30K-$39K', label: '$30K-$39K'},
+  {value:'$40K-$49K', label: '$40K-$49K'},
+  {value:'$50K-$74K', label: '$50K-$74K'},
+  {value:'$75K-$99K', label: '$75K-$99K'},
+  {value:'$100K-$124K', label: '$100K-$125K'},
+  {value:'$125K or More', label: '$125K or More'},
+  {value: 'Less than $20K', label: 'Less than $20K'}
+];
+
+interface ISearchFormFields {
+  q?:string
+  revenue?: Array<number>,
+  gender?: string[],
+  relations?: string[],
+  income?: Array<{value: string, label: string}>
+}
+
+const getFormatValuesToApi = (values: ISearchFormFields) => {
+  const {revenue, ...outerProps} = values;
+  return {
+    ...outerProps,
+    income: (values.income && values.income.map((item) => item.value)),
+    revenueMin: (values.revenue && values.revenue[0]),
+    revenueMax: (values.revenue && values.revenue[1]),
+  }
+}
+
+const getInitialValueToForm = (values: IFilters) => {
+  return {
+    ...values,
+    income: (values.income && values.income.map((item) => {
+      return {value: item, label: item};
+    })),
+    revenue: (values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax]),
+  }
+}
+
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
-  const initialState = getQueryParams();
+  const initialState = getInitialValueToForm(getQueryParams());
   const dispatch = useAppDispatch();
 
   const toggleFilters = () => {
     setFiltersState(!isFiltersShow);
   };
 
-  const handleSubmitForm = (values: IFilters) => {
-    dispatch(actions.company.getCompaniesRequest({...values, page: 1, limit: 12}));
+  const handleSubmitForm = (values: ISearchFormFields) => {
+    const goodData = getFormatValuesToApi(values);
+    dispatch(actions.company.getCompaniesRequest({...goodData, page: 1, limit: 12}));
   };
 
   return (
     <Form
       onSubmit={handleSubmitForm}
-      initialValues={initialState}
-      render={({ handleSubmit, values }) => {
+
+      render={({ handleSubmit, initialValues }) => {
         return (
           <>
             <TitleBlock
@@ -63,7 +103,11 @@ const SearchForm: FC = () => {
                   <Grid>
                     <SearchableMultiSelect label="Industry" />
                     <SearchableMultiSelect label="Geographic Location" />
-                    <MultiSelect value={['first', 'second', 'last']} name="scope" label="Scope" />
+                    <Field
+                      name="income"
+                      options={income}
+                      component={AppSelect}
+                    />
                   </Grid>
                   <Row>
                     <Field
@@ -82,15 +126,6 @@ const SearchForm: FC = () => {
                     <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']} />
                   </Grid>
                   <Row>
-                    <Field
-                      name="age"
-                      type="range"
-                      min={0}
-                      max={50}
-                      render={({ ...outerProps }) => (
-                        <InputRange label="Age" value={[0, 50]} {...outerProps} />
-                      )}
-                    />
                   </Row>
                   <ButtonWrapper>
                     <SearchButton onClick={handleSubmit}>Search</SearchButton>
