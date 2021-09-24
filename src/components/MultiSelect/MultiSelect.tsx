@@ -1,41 +1,20 @@
-import React, { FC, ComponentProps } from 'react';
-import Select, { components, OptionsType, MultiValueProps, OptionTypeBase, OptionProps } from 'react-select';
+import React, { FC } from 'react';
+import Select from 'react-select';
 import styled from 'styled-components';
-import { ReactComponent as ArrowDown } from './../assets/icons/arrow-down.svg';
 import { FieldRenderProps } from 'react-final-form';
-import { AppText } from './AppText';
-import { CheckBox } from './CheckBox';
+import { MultiValueContainer } from './custom/MultiValueContainer';
+import { DropdownIndicator } from './custom/DropdownIndicator';
+import { Option } from './custom/Option';
+import { AppText } from './../../ui/AppText';
 
-const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>> = ({ ...outerProps }) => {
-  return (
-    <components.DropdownIndicator {...outerProps}>
-      <ArrowDown />
-    </components.DropdownIndicator>
-  );
-};
+interface MultiSelectProps extends FieldRenderProps<Array<string>, HTMLElement> {
+  label?: string;
+}
 
-const MultiValueContainer: FC<MultiValueProps<{ value: string }>> = ({ ...outerProps }) => {
+const MultiSelect: FC<FieldRenderProps<Array<string>, HTMLElement>> = ({ label = '', input, ...outerProps }) => {
   return (
-    <components.MultiValueContainer {...outerProps}>
-      <AppText type="BodyBlack">{outerProps.data.value}</AppText>
-    </components.MultiValueContainer>
-  );
-};
-
-const Option: FC<OptionProps<{ value: string }, boolean>> = ({ ...outerProps }) => {
-  return (
-    <components.Option {...outerProps}>
-      <>
-        <AppText type="BodyBlack">{outerProps.children}</AppText>
-        <CheckBox checked={outerProps.isSelected} readOnly />
-      </>
-    </components.Option>
-  );
-};
-
-export const AppSelect: FC<FieldRenderProps<Array<string>, any>> = ({ input, ...outerProps }) => {
-  return (
-    <>
+    <div>
+      {label && <Label>{label}</Label>}
       <StyledSelect
         {...input}
         {...outerProps}
@@ -47,9 +26,13 @@ export const AppSelect: FC<FieldRenderProps<Array<string>, any>> = ({ input, ...
         isSearchable={false}
         closeMenuOnSelect={false}
       />
-    </>
+    </div>
   );
 };
+
+const Label = styled(AppText)`
+  margin-bottom: 4px;
+`;
 
 const StyledSelect = styled(Select)`
   & .react-select__indicator-separator {
@@ -144,3 +127,5 @@ const StyledSelect = styled(Select)`
     background-color: unset;
   }
 `;
+
+export default MultiSelect;

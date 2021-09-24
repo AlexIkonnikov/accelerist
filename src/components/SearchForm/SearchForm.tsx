@@ -6,7 +6,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { SlidersIcon } from '../../ui/icons/SlidersIcon';
 import { Container } from '../../ui/Container';
 import { AppText } from '../../ui/AppText';
-import { AppSelect } from './../../ui/AppSelect';
+import { MultiSelect } from './../MultiSelect';
 import { SearchableMultiSelect } from '../SearchableMultiSelect';
 import { InputRange } from '../InputRange';
 import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
@@ -17,43 +17,52 @@ import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
 
 const income = [
-  {value:'$20K-$29K', label: '$20K-$29K'},
-  {value:'$30K-$39K', label: '$30K-$39K'},
-  {value:'$40K-$49K', label: '$40K-$49K'},
-  {value:'$50K-$74K', label: '$50K-$74K'},
-  {value:'$75K-$99K', label: '$75K-$99K'},
-  {value:'$100K-$124K', label: '$100K-$125K'},
-  {value:'$125K or More', label: '$125K or More'},
-  {value: 'Less than $20K', label: 'Less than $20K'}
+  { value: '$20K-$29K', label: '$20K-$29K' },
+  { value: '$30K-$39K', label: '$30K-$39K' },
+  { value: '$40K-$49K', label: '$40K-$49K' },
+  { value: '$50K-$74K', label: '$50K-$74K' },
+  { value: '$75K-$99K', label: '$75K-$99K' },
+  { value: '$100K-$124K', label: '$100K-$125K' },
+  { value: '$125K or More', label: '$125K or More' },
+  { value: 'Less than $20K', label: 'Less than $20K' },
 ];
 
+const ethnicity = [
+  {value: 'white', label: 'White'},
+  {value: 'african american', label: 'African American'},
+  {value: 'asian', label: 'Asian'},
+  {value: 'hispanic', label: 'Hispanic'},
+]
+
 interface ISearchFormFields {
-  q?:string
-  revenue?: Array<number>,
-  gender?: string[],
-  relations?: string[],
-  income?: Array<{value: string, label: string}>
+  q?: string;
+  revenue?: Array<number>;
+  gender?: string[];
+  relations?: string[];
+  income?: Array<{ value: string; label: string }>;
 }
 
 const getFormatValuesToApi = (values: ISearchFormFields) => {
-  const {revenue, ...outerProps} = values;
+  const { revenue, ...outerProps } = values;
   return {
     ...outerProps,
-    income: (values.income && values.income.map((item) => item.value)),
-    revenueMin: (values.revenue && values.revenue[0]),
-    revenueMax: (values.revenue && values.revenue[1]),
-  }
-}
+    income: values.income && values.income.map((item) => item.value),
+    revenueMin: values.revenue && values.revenue[0],
+    revenueMax: values.revenue && values.revenue[1],
+  };
+};
 
 const getInitialValueToForm = (values: IFilters) => {
   return {
     ...values,
-    income: (values.income && values.income.map((item) => {
-      return {value: item, label: item};
-    })),
-    revenue: (values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax]),
-  }
-}
+    income:
+      values.income &&
+      values.income.map((item) => {
+        return { value: item, label: item };
+      }),
+    revenue: values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax],
+  };
+};
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
@@ -65,10 +74,10 @@ const SearchForm: FC = () => {
   };
 
   const handleSubmitForm = (values: ISearchFormFields) => {
-    console.log(values)
+    console.log(values);
     toggleFilters();
     const goodData = getFormatValuesToApi(values);
-    dispatch(actions.company.getCompaniesRequest({...goodData, page: 1, limit: 12}));
+    dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
   };
 
   return (
@@ -104,11 +113,6 @@ const SearchForm: FC = () => {
                   <Grid>
                     <SearchableMultiSelect label="Industry" />
                     <SearchableMultiSelect label="Geographic Location" />
-                    <Field
-                      name="income"
-                      options={income}
-                      component={AppSelect}
-                    />
                   </Grid>
                   <Row>
                     <Field
@@ -116,20 +120,24 @@ const SearchForm: FC = () => {
                       type="range"
                       min={0}
                       max={50}
-                      render={({ ...outerProps }) => (
-                        <InputRange value={[0, 50]} {...outerProps} label="Revenue" />
-                      )}
+                      render={({ ...outerProps }) => <InputRange value={[0, 50]} {...outerProps} label="Revenue" />}
                     />
                   </Row>
                   <SubTitle type="BodySelect">Customer Demographics</SubTitle>
                   <Grid>
                     <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']} />
                     <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']} />
+                    <Field name="income" label="Household Income" options={income} component={MultiSelect} />
+                    <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} />
                   </Grid>
-                  <Row>
-                  </Row>
+                  <Row></Row>
                   <ButtonWrapper>
-                    <SearchButton onClick={handleSubmit}>Search</SearchButton>
+                    <CancelButton variant="secondary" onClick={toggleFilters}>
+                      Cancel
+                    </CancelButton>
+                    <SearchButton variant="primary" onClick={handleSubmit}>
+                      Search
+                    </SearchButton>
                   </ButtonWrapper>
                 </Wrapper>
               </Container>
@@ -195,12 +203,17 @@ const Row = styled.div`
 const ButtonWrapper = styled.div`
   width: 48.2%;
   margin-top: 40px;
+  display: flex;
 `;
 
 const SearchButton = styled(Button)`
-  font-size: 16px;
-  line-height: 24px;
-  font-family: Rubik-Medium;
+  width: 146px;
+`;
+
+const CancelButton = styled(Button)`
+  width: 146px;
+  height: 46px;
+  margin-right: 8px;
 `;
 
 export default SearchForm;
