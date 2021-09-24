@@ -1,10 +1,10 @@
 import React, { FC, ComponentProps } from 'react';
-import Select, { components, OptionsType, MultiValueProps,OptionTypeBase, OptionProps } from 'react-select';
+import Select, { components, OptionsType, MultiValueProps, OptionTypeBase, OptionProps } from 'react-select';
 import styled from 'styled-components';
 import { ReactComponent as ArrowDown } from './../assets/icons/arrow-down.svg';
 import { FieldRenderProps } from 'react-final-form';
 import { AppText } from './AppText';
-import { CheckBox} from './CheckBox'
+import { CheckBox } from './CheckBox';
 
 const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>> = ({ ...outerProps }) => {
   return (
@@ -14,7 +14,7 @@ const DropdownIndicator: FC<ComponentProps<typeof components.DropdownIndicator>>
   );
 };
 
-const MultiValueContainer: FC<MultiValueProps<{value: string}>> = ({ ...outerProps }) => {
+const MultiValueContainer: FC<MultiValueProps<{ value: string }>> = ({ ...outerProps }) => {
   return (
     <components.MultiValueContainer {...outerProps}>
       <AppText type="BodyBlack">{outerProps.data.value}</AppText>
@@ -22,32 +22,30 @@ const MultiValueContainer: FC<MultiValueProps<{value: string}>> = ({ ...outerPro
   );
 };
 
-const Option: FC<OptionProps<{value: string}, boolean>> = ({...outerProps}) => {
-  console.log(outerProps)
+const Option: FC<OptionProps<{ value: string }, boolean>> = ({ ...outerProps }) => {
   return (
     <components.Option {...outerProps}>
       <>
-      <AppText type="BodyBlack">{outerProps.children}</AppText>
-      <CheckBox checked={outerProps.isSelected} readOnly />
+        <AppText type="BodyBlack">{outerProps.children}</AppText>
+        <CheckBox checked={outerProps.isSelected} readOnly />
       </>
     </components.Option>
-  )
-}
+  );
+};
 
 export const AppSelect: FC<FieldRenderProps<Array<string>, any>> = ({ input, ...outerProps }) => {
-    return (
+  return (
     <>
       <StyledSelect
         {...input}
         {...outerProps}
         defaultValue={input.value}
         classNamePrefix="react-select"
-        components={{ DropdownIndicator, MultiValueContainer, Option}}
+        components={{ DropdownIndicator, MultiValueContainer, Option }}
         isMulti
         hideSelectedOptions={false}
         isSearchable={false}
         closeMenuOnSelect={false}
-        menuIsOpen
       />
     </>
   );
@@ -66,8 +64,7 @@ const StyledSelect = styled(Select)`
     }
   }
 
-
-  & .react-select__clear-indicator  {
+  & .react-select__clear-indicator {
     display: none;
   }
 

@@ -15,7 +15,6 @@ import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
-import { MultiSelect } from '../MultiSelect';
 
 const income = [
   {value:'$20K-$29K', label: '$20K-$29K'},
@@ -67,6 +66,7 @@ const SearchForm: FC = () => {
 
   const handleSubmitForm = (values: ISearchFormFields) => {
     console.log(values)
+    toggleFilters();
     const goodData = getFormatValuesToApi(values);
     dispatch(actions.company.getCompaniesRequest({...goodData, page: 1, limit: 12}));
   };
@@ -74,7 +74,6 @@ const SearchForm: FC = () => {
   return (
     <Form
       onSubmit={handleSubmitForm}
-
       render={({ handleSubmit, initialValues }) => {
         return (
           <>
