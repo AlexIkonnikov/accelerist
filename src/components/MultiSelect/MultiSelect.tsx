@@ -97,6 +97,7 @@ const StyledSelect = styled(Select)`
     padding: 0;
     border-top: none;
     max-height: 180px;
+    overflow-y: scroll;
     ::-webkit-scrollbar {
       width: 4px;
     }

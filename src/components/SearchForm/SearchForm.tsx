@@ -15,24 +15,8 @@ import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
-
-const income = [
-  { value: '$20K-$29K', label: '$20K-$29K' },
-  { value: '$30K-$39K', label: '$30K-$39K' },
-  { value: '$40K-$49K', label: '$40K-$49K' },
-  { value: '$50K-$74K', label: '$50K-$74K' },
-  { value: '$75K-$99K', label: '$75K-$99K' },
-  { value: '$100K-$124K', label: '$100K-$125K' },
-  { value: '$125K or More', label: '$125K or More' },
-  { value: 'Less than $20K', label: 'Less than $20K' },
-];
-
-const ethnicity = [
-  {value: 'white', label: 'White'},
-  {value: 'african american', label: 'African American'},
-  {value: 'asian', label: 'Asian'},
-  {value: 'hispanic', label: 'Hispanic'},
-]
+import {ethnicity, income, industry, location} from './data';
+import { TabLink } from '../../ui/TabLink';
 
 interface ISearchFormFields {
   q?: string;
@@ -75,9 +59,9 @@ const SearchForm: FC = () => {
 
   const handleSubmitForm = (values: ISearchFormFields) => {
     console.log(values);
-    toggleFilters();
-    const goodData = getFormatValuesToApi(values);
-    dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
+    // toggleFilters();
+    // const goodData = getFormatValuesToApi(values);
+    // dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
   };
 
   return (
@@ -109,10 +93,11 @@ const SearchForm: FC = () => {
               <Container variant={2}>
                 <Wrapper>
                   <Title type="Headline">Filters</Title>
+                  <FakeTab>Advanced</FakeTab>
                   <SubTitle type="BodySelect">Company</SubTitle>
                   <Grid>
-                    <SearchableMultiSelect label="Industry" />
-                    <SearchableMultiSelect label="Geographic Location" />
+                    <Field name="industry" isDisabled label="Industry" options={industry} component={SearchableMultiSelect}/>
+                    <Field name="location" isDisabled label="Geographic Location" options={location} component={SearchableMultiSelect}/>
                   </Grid>
                   <Row>
                     <Field
@@ -214,6 +199,19 @@ const CancelButton = styled(Button)`
   width: 146px;
   height: 46px;
   margin-right: 8px;
+`;
+
+const FakeTab = styled.div`
+  width: 100%;
+  height: 36px;
+  margin-bottom: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: ${({theme}) => theme.colors.secondaryBlue};
+  font-size: 12px;
+  line-height: 18px;
 `;
 
 export default SearchForm;
