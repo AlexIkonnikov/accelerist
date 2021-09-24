@@ -58,7 +58,6 @@ const SearchForm: FC = () => {
   };
 
   const handleSubmitForm = (values: ISearchFormFields) => {
-    toggleFilters();
     const goodData = getFormatValuesToApi(values);
     dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
   };
@@ -66,9 +65,9 @@ const SearchForm: FC = () => {
   return (
     <Form
       onSubmit={handleSubmitForm}
+      initialValuesEqual={() => true}
       initialValues={initialState}
-      render={({ handleSubmit, values }) => {
-        console.log('values', values)
+      render={({ handleSubmit }) => {
         return (
           <>
             <TitleBlock
@@ -97,24 +96,24 @@ const SearchForm: FC = () => {
                   <FakeTab>Advanced</FakeTab>
                   <SubTitle type="BodySelect">Company</SubTitle>
                   <Grid>
-                    {/* <SearchableMultiSelect label="Industry" options={industry}/>
-                    <SearchableMultiSelect label="Geographic Location" options={location}/> */}
+                    <SearchableMultiSelect label="Industry" options={industry}/>
+                    <SearchableMultiSelect label="Geographic Location" options={location}/>
                   </Grid>
                   <Row>
-                    {/* <Field
+                    <Field
                       name="revenue"
                       min={0}
                       max={100000000}
                       values={[0, 100000000]}
                       component={InputRange}
-                    /> */}
+                    />
                   </Row>
                   <SubTitle type="BodySelect">Customer Demographics</SubTitle>
                   <Grid>
-                    {/* <TabRadioGroupe name="gender" label="Gender" value={['Male', 'Female', 'Both']} />
-                    <TabRadioGroupe name="relations" label="Relations" value={['Married', 'Single']} /> */}
+                    <TabRadioGroupe name="gender" label="Gender" value={['Male', 'Female', 'Both']} />
+                    <TabRadioGroupe name="relations" label="Relations" value={['Married', 'Single']} />
                     <Field name="income" label="Household Income" value={income} options={income} component={MultiSelect} />
-                    {/* <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} /> */}
+                    <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} />
                   </Grid>
                   <Row></Row>
                   <ButtonWrapper>

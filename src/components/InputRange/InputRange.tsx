@@ -20,7 +20,7 @@ const InputRange: FC<InputRangeProps> = ({ label = '', values, input, ...outerPr
       <Label>{label}</Label>
       <StyledSlider
         {...outerProps}
-        value={values}
+        value={input.value || values}
         valueLabelDisplay="auto"
         onChange={handleChange}
         aria-labelledby="range-slider"
