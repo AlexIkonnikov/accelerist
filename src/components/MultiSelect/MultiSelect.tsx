@@ -11,7 +11,7 @@ interface MultiSelectProps extends FieldRenderProps<Array<string>, HTMLElement> 
   label?: string;
 }
 
-const MultiSelect: FC<FieldRenderProps<Array<string>, HTMLElement>> = ({ label = '', input, ...outerProps }) => {
+const MultiSelect: FC<MultiSelectProps> = ({ label = '', input, ...outerProps }) => {
   return (
     <div>
       {label && <Label>{label}</Label>}

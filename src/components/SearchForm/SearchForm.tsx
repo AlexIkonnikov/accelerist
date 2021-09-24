@@ -16,7 +16,6 @@ import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
 import {ethnicity, income, industry, location} from './data';
-import { TabLink } from '../../ui/TabLink';
 
 interface ISearchFormFields {
   q?: string;
@@ -44,13 +43,14 @@ const getInitialValueToForm = (values: IFilters) => {
       values.income.map((item) => {
         return { value: item, label: item };
       }),
-    revenue: values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax],
+    revenue: values.revenueMin !== undefined && values.revenueMax !== undefined && [values.revenueMin, values.revenueMax],
   };
 };
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
   const initialState = getInitialValueToForm(getQueryParams());
+  console.log('initial', initialState);
   const dispatch = useAppDispatch();
 
   const toggleFilters = () => {
@@ -58,16 +58,17 @@ const SearchForm: FC = () => {
   };
 
   const handleSubmitForm = (values: ISearchFormFields) => {
-    console.log(values);
-    // toggleFilters();
-    // const goodData = getFormatValuesToApi(values);
-    // dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
+    toggleFilters();
+    const goodData = getFormatValuesToApi(values);
+    dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
   };
 
   return (
     <Form
       onSubmit={handleSubmitForm}
-      render={({ handleSubmit, initialValues }) => {
+      initialValues={initialState}
+      render={({ handleSubmit, values }) => {
+        console.log('values', values)
         return (
           <>
             <TitleBlock
@@ -96,8 +97,8 @@ const SearchForm: FC = () => {
                   <FakeTab>Advanced</FakeTab>
                   <SubTitle type="BodySelect">Company</SubTitle>
                   <Grid>
-                    <Field name="industry" isDisabled label="Industry" options={industry} component={SearchableMultiSelect}/>
-                    <Field name="location" isDisabled label="Geographic Location" options={location} component={SearchableMultiSelect}/>
+                    <SearchableMultiSelect label="Industry" options={industry}/>
+                    <SearchableMultiSelect label="Geographic Location" options={location}/>
                   </Grid>
                   <Row>
                     <Field
@@ -105,7 +106,8 @@ const SearchForm: FC = () => {
                       type="range"
                       min={0}
                       max={50}
-                      render={({ ...outerProps }) => <InputRange value={[0, 50]} {...outerProps} label="Revenue" />}
+                      values={[0, 50]}
+                      component={InputRange}
                     />
                   </Row>
                   <SubTitle type="BodySelect">Customer Demographics</SubTitle>

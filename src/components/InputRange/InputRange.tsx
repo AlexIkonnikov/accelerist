@@ -1,33 +1,30 @@
-import React, { FC, useState, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { Slider } from '@material-ui/core';
 import { FieldRenderProps } from 'react-final-form';
-import {AppText} from './../../ui/AppText';
+import { AppText } from './../../ui/AppText';
 
-interface InputRangeProps extends FieldRenderProps<Array<number>> {
-  label?: string
+interface InputRangeProps extends FieldRenderProps<Array<number>, HTMLElement> {
+  label?: string;
+  values: Array<number>;
 }
 
-const InputRange: FC<InputRangeProps> = ({ label= '', value,input, ...outerProps}) => {
-  const [initValue, setValue] = useState<Array<number>>(value);
+const InputRange: FC<InputRangeProps> = ({ label = '', values, input, ...outerProps }) => {
 
   const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
-    if (Array.isArray(value)) {
-      setValue(value);
-      input.onChange(value);
-    }
+    input.onChange(value);
   };
 
   return (
     <RangeWrapper>
       <Label>{label}</Label>
       <StyledSlider
-        value={initValue}
+        {...outerProps}
+        value={input.value || values}
         valueLabelDisplay="auto"
         onChange={handleChange}
         aria-labelledby="range-slider"
         valueLabelFormat={(str: number) => `$${str}M`}
-        {...outerProps}
       />
     </RangeWrapper>
   );
@@ -35,7 +32,7 @@ const InputRange: FC<InputRangeProps> = ({ label= '', value,input, ...outerProps
 
 const RangeWrapper = styled.div`
   padding: 0 36px;
-`
+`;
 
 const Label = styled(AppText)`
   margin-bottom: 12px;

@@ -5,17 +5,17 @@ import { FieldRenderProps } from 'react-final-form';
 import Select from 'react-select';
 import { Option } from './custom/Option';
 
-interface SearchableMultiSelectProps extends FieldRenderProps<Array<string>, HTMLElement> {
+interface SearchableMultiSelectProps {
   label?: string;
+  options: Array<{value: string, label: string}>
 }
 
-const SearchableMultiSelect: FC<SearchableMultiSelectProps> = ({ label = '', input, ...outerProps }) => {
+const SearchableMultiSelect: FC<SearchableMultiSelectProps> = ({ label = '', options}) => {
   return (
     <div>
       {label && <Label>{label}</Label>}
       <CustomSelect
-        {...input}
-        {...outerProps}
+        options={options}
         isMulti
         menuIsOpen
         hideSelectedOptions={false}

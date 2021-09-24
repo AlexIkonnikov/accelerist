@@ -9,7 +9,7 @@ interface TabRadioGroupeProps extends FieldProps<string, FieldRenderProps<string
   items: Array<string>;
 }
 
-export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ label = '', name, items }) => {
+export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ label = '', name, items, value }) => {
   return (
     <div>
       <Label>{label}</Label>
