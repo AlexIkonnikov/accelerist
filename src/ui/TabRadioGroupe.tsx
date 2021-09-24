@@ -4,27 +4,27 @@ import { AppText } from './AppText';
 import { TabRadio } from './TabRadio';
 import { FieldRenderProps, FieldProps, Field } from 'react-final-form';
 
-interface TabRadioGroupeProps extends FieldProps<string, FieldRenderProps<string>> {
+interface TabRadioGroupeProps extends FieldProps<string[], FieldRenderProps<string[], HTMLElement>> {
   label?: string;
-  items: Array<string>;
 }
 
-export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ label = '', name, items, value }) => {
+export const TabRadioGroupe: FC<TabRadioGroupeProps> = ({ label = '', name, value }) => {
   return (
     <div>
       <Label>{label}</Label>
       <Flex>
-        {items.map((item, idx) => {
-          return (
-            <Field
-              type="radio"
-              key={item + idx}
-              name={name}
-              value={item.toLowerCase()}
-              render={({ input }) => <TabRadio {...input}>{item}</TabRadio>}
-            />
-          );
-        })}
+        {value &&
+          value.map((item, idx) => {
+            return (
+              <Field
+                type="radio"
+                name={name}
+                key={item + idx}
+                value={item.toLowerCase()}
+                render={({ input }) => <TabRadio {...input}>{item}</TabRadio>}
+              />
+            );
+          })}
       </Flex>
     </div>
   );
@@ -37,5 +37,5 @@ const Label = styled(AppText)`
 const Flex = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${({theme}) => theme.colors.substrate};
+  background-color: ${({ theme }) => theme.colors.substrate};
 `;

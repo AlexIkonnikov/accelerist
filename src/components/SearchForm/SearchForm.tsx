@@ -43,14 +43,14 @@ const getInitialValueToForm = (values: IFilters) => {
       values.income.map((item) => {
         return { value: item, label: item };
       }),
-    revenue: values.revenueMin !== undefined && values.revenueMax !== undefined && [values.revenueMin, values.revenueMax],
+    revenue: values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax],
   };
 };
 
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
   const initialState = getInitialValueToForm(getQueryParams());
-  console.log('initial', initialState);
+  console.log('Init', initialState);
   const dispatch = useAppDispatch();
 
   const toggleFilters = () => {
@@ -97,25 +97,24 @@ const SearchForm: FC = () => {
                   <FakeTab>Advanced</FakeTab>
                   <SubTitle type="BodySelect">Company</SubTitle>
                   <Grid>
-                    <SearchableMultiSelect label="Industry" options={industry}/>
-                    <SearchableMultiSelect label="Geographic Location" options={location}/>
+                    {/* <SearchableMultiSelect label="Industry" options={industry}/>
+                    <SearchableMultiSelect label="Geographic Location" options={location}/> */}
                   </Grid>
                   <Row>
-                    <Field
+                    {/* <Field
                       name="revenue"
-                      type="range"
                       min={0}
-                      max={50}
-                      values={[0, 50]}
+                      max={100000000}
+                      values={[0, 100000000]}
                       component={InputRange}
-                    />
+                    /> */}
                   </Row>
                   <SubTitle type="BodySelect">Customer Demographics</SubTitle>
                   <Grid>
-                    <TabRadioGroupe name="gender" label="Gender" items={['Male', 'Female', 'Both']} />
-                    <TabRadioGroupe name="relations" label="Relations" items={['Married', 'Single']} />
-                    <Field name="income" label="Household Income" options={income} component={MultiSelect} />
-                    <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} />
+                    {/* <TabRadioGroupe name="gender" label="Gender" value={['Male', 'Female', 'Both']} />
+                    <TabRadioGroupe name="relations" label="Relations" value={['Married', 'Single']} /> */}
+                    <Field name="income" label="Household Income" value={income} options={income} component={MultiSelect} />
+                    {/* <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} /> */}
                   </Grid>
                   <Row></Row>
                   <ButtonWrapper>

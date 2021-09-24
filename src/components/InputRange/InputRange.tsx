@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { Slider } from '@material-ui/core';
 import { FieldRenderProps } from 'react-final-form';
@@ -20,11 +20,11 @@ const InputRange: FC<InputRangeProps> = ({ label = '', values, input, ...outerPr
       <Label>{label}</Label>
       <StyledSlider
         {...outerProps}
-        value={input.value || values}
+        value={values}
         valueLabelDisplay="auto"
         onChange={handleChange}
         aria-labelledby="range-slider"
-        valueLabelFormat={(str: number) => `$${str}M`}
+        valueLabelFormat={(value: number) => `$${(value/1000000).toFixed(1)}M`}
       />
     </RangeWrapper>
   );

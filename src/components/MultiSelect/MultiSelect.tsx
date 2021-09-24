@@ -7,24 +7,30 @@ import { DropdownIndicator } from './custom/DropdownIndicator';
 import { Option } from './custom/Option';
 import { AppText } from './../../ui/AppText';
 
-interface MultiSelectProps extends FieldRenderProps<Array<string>, HTMLElement> {
+interface MultiSelectProps extends FieldRenderProps<Array<{value: string, label: string}>, HTMLElement> {
   label?: string;
 }
 
 const MultiSelect: FC<MultiSelectProps> = ({ label = '', input, ...outerProps }) => {
+  console.log(outerProps)
+
+  const handleChange = (option: {value: string, label: string}) => {
+    input.onChange(option);
+  }
   return (
     <div>
       {label && <Label>{label}</Label>}
       <StyledSelect
-        {...input}
         {...outerProps}
-        defaultValue={input.value}
-        classNamePrefix="react-select"
-        components={{ DropdownIndicator, MultiValueContainer, Option }}
+        value={input.value}
+        onChange={handleChange}
+        options={outerProps.options}
         isMulti
-        hideSelectedOptions={false}
         isSearchable={false}
         closeMenuOnSelect={false}
+        hideSelectedOptions={false}
+        classNamePrefix="react-select"
+        components={{ DropdownIndicator, MultiValueContainer, Option }}
       />
     </div>
   );
