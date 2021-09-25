@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { signIn, signUp } from './../../services/api';
+import { signIn, signUp } from '../../services/api';
 import type { UserCredential } from './types';
 
 export const signUpRequest = createAsyncThunk(
@@ -8,7 +8,7 @@ export const signUpRequest = createAsyncThunk(
     try {
       const response = await signUp(data);
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown | any) {
       return rejectWithValue(err.response.data);
     }
   },
@@ -20,7 +20,7 @@ export const signInRequest = createAsyncThunk(
     try {
       const response = await signIn(data);
       return response.data;
-    } catch (err: any) {
+    } catch (err: unknown | any) {
       return rejectWithValue(err.response.data);
     }
   },

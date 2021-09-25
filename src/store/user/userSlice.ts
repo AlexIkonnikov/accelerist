@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { UserInitialState } from './types';
-import {signUpRequest, signInRequest} from './thunk';
+import {signUpRequest, signInRequest} from './operations';
 import toast from './../../utils/Toaster';
 
 const initialState: UserInitialState = {

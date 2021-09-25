@@ -9,4 +9,4 @@ const selectUserSlice = (state: RootState): UserInitialState => {
 const selectUserToken = createSelector(selectUserSlice, (user: UserInitialState) => user.accessToken);
 const selectStatus = createSelector(selectUserSlice, (user: UserInitialState) => user.status);
 
-export const userSliceSelectors = { selectUserSlice, selectUserToken, selectStatus};
+export const userSliceSelectors = { selectUserToken, selectStatus };
