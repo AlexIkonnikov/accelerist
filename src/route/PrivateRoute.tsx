@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { ROUTES } from '.';
 import { MainLayout } from '../layouts/MainLayout';
 import DashboardPage from '../pages/DashboardPage';
 import FavoritesPage from '../pages/FavoritesPage';
@@ -12,13 +13,13 @@ export const PrivateRoute: FC = () => {
   return (
     <MainLayout>
       <Switch>
-        <Route path="/dashboard" component={DashboardPage} />
-        <Route path="/search" component={SearchPage} />
-        <Route path="/favorites" component={FavoritesPage} />
-        <Route path="/prospects/:id" exact component={ProspectPage} />
-        <Route path="/prospects" exact component={ProspectListPage} />
-        <Route path="/profile/:id" component={ProfilePage} />
-        <Redirect to="/search" />
+        <Route path={ROUTES.dashboard} component={DashboardPage} />
+        <Route path={ROUTES.search} component={SearchPage} />
+        <Route path={ROUTES.favorites} component={FavoritesPage} />
+        <Route path={ROUTES.prospectsId()} exact component={ProspectPage} />
+        <Route path={ROUTES.prospects} exact component={ProspectListPage} />
+        <Route path={ROUTES.profile()} component={ProfilePage} />
+        <Redirect to={ROUTES.dashboard} />
       </Switch>
     </MainLayout>
   );

@@ -10,6 +10,7 @@ import { ProspectsList } from '../components/ProspectsList';
 import { ICompany } from '../store/company/types';
 import { getFavoritesCompany, getSavedList } from '../services/api';
 import { IList } from '../store/savedList/types';
+import { ROUTES } from '../route';
 
 const DashboardPage: FC = () => {
   const [company, setCompany] = useState<Array<ICompany>>([]);
@@ -44,7 +45,7 @@ const DashboardPage: FC = () => {
             <AppText type="Headline" tagName="h3">
               Prospecting Sessions
             </AppText>
-            <SeeMoreLink to="/prospects" />
+            <SeeMoreLink to={ROUTES.prospects} />
           </Wrapper>
           <ProspectsList items={savedList} isLoading={isLoading}/>
         </Section>

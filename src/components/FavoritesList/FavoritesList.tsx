@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { ROUTES } from '../../route';
 import { ICompany } from '../../store/company/types';
 import { AppText } from '../../ui/AppText';
 import { EmptyList } from '../../ui/EmptyList';
@@ -20,7 +21,7 @@ const FavoritesList: FC<FavoritesListProps> = ({ company = [], isLoading = true 
         <AppText type="Headline" tagName="h3">
           Favorites
         </AppText>
-        {company.length > 0 ? <SeeMoreLink to="/favorites" /> : null}
+        {company.length > 0 ? <SeeMoreLink to={ROUTES.favorites} /> : null}
       </TitleWrapper>
       {
         company.length > 0 ?

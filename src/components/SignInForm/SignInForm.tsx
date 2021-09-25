@@ -10,6 +10,7 @@ import { FormWrapper } from '../../ui/FormWrapper';
 import { InputField } from '../InputField';
 import { actions, selectors } from '../../store/ducks';
 import { mailValidator, requireField } from '../../utils/validators';
+import { ROUTES } from '../../route';
 
 const SignInForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +41,7 @@ const SignInForm: FC = () => {
               />
               <Wrapper>
                 <Field name="remember" type="checkbox" render={({input}) => <CheckBox text="Remember" {...input}/>} />
-                <NavLink to="/reset">
+                <NavLink to={ROUTES.resetPassword}>
                   <AppText>Forgot Password?</AppText>
                 </NavLink>
               </Wrapper>

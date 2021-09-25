@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
+import { ROUTES } from '../route';
 import { Container } from './Container';
 import { LogoIcon } from './icons/LogoIcon';
 import { TextLogo } from './TextLogo';
@@ -11,7 +12,7 @@ export const MainHeader: FC = () => {
     <Background>
       <Container>
         <ContentWrapper>
-          <LogoLink to="/dashboard">
+          <LogoLink to={ROUTES.dashboard}>
             <LogoWrapper>
               <LogoIcon variant="dark" />
             </LogoWrapper>

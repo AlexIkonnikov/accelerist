@@ -6,6 +6,7 @@ import { ICompany } from '../store/company/types';
 import { Link } from 'react-router-dom';
 import { AppLink } from './AppLink';
 import { LikeButton } from './LikeButton';
+import { ROUTES } from '../route';
 
 interface CompanyCardProps {
   company: ICompany;
@@ -27,7 +28,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
         </CompanyFace>
         <CompanyInfo>
           <Name type="BodySelect">
-            <StyledLink to={`/profile/${company.id}`}>{company.name}</StyledLink>
+            <StyledLink to={ROUTES.profile(company.id)}>{company.name}</StyledLink>
           </Name>
           <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
           <Phone>{company?.phone}</Phone>
@@ -49,7 +50,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
             id={company.id}
             isLike={company.like}
           />
-          <AppLink to={`/profile/${company.id}`}>Profile</AppLink>
+          <AppLink to={ROUTES.profile(company.id)}>Profile</AppLink>
         </Buttons>
       </Body>
     </Wrapper>

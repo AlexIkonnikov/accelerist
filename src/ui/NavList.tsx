@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { ROUTES } from '../route';
 
 export const NavList: FC = () => {
   return (
     <List>
       <Item>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to={ROUTES.dashboard}>Dashboard</Link>
       </Item>
       <Item>
         <Link to="/audience">Audience</Link>
@@ -15,7 +16,7 @@ export const NavList: FC = () => {
         <Link to="/pricing">Pricing</Link>
       </Item>
       <Item>
-        <Link to="/prospects">Prospecting</Link>
+        <Link to={ROUTES.prospects}>Prospecting</Link>
       </Item>
       <Item>
         <Link to="/roi">ROI</Link>

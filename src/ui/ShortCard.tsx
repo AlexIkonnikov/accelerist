@@ -5,6 +5,7 @@ import { AppText } from './AppText';
 import { Avatar } from './Avatar';
 import { TagList } from './TagList';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../route';
 
 interface ShortCardProps {
   company: ICompany
@@ -12,7 +13,7 @@ interface ShortCardProps {
 
 export const ShortCard: FC<ShortCardProps> = ({company}) => {
   return (
-    <Wrapper to={`/profile/${company?.id}`}>
+    <Wrapper to={ROUTES.profile(company.id)}>
       <CompanyWrapper>
         <AvatarWrapper>
           <Avatar type="square" />

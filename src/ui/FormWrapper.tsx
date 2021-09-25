@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AppText } from './AppText';
 import LinkedinIcon from './icons/LinkedinIcon';
 import { TabLink } from './TabLink';
+import {ROUTES} from './../route';
 
 interface FormWrapperProps {
   render?: () => JSX.Element
@@ -15,8 +16,8 @@ export const FormWrapper: FC<FormWrapperProps> = ({children, render}) => {
       <>
         <WelcomeText type="Headline" tagName="h3">Welcome to Accelerist</WelcomeText>
         <TabWrapper>
-          <TabLink to="signup" title="Register"/>
-          <TabLink to="signin" title="Login"/>
+          <TabLink to={ROUTES.signUp} title="Register"/>
+          <TabLink to={ROUTES.signIn} title="Login"/>
         </TabWrapper>
         {children}
         <TextWrapper type="Footnote">or continue with</TextWrapper>

@@ -50,7 +50,6 @@ const getInitialValueToForm = (values: IFilters) => {
 const SearchForm: FC = () => {
   const [isFiltersShow, setFiltersState] = useState(false);
   const initialState = getInitialValueToForm(getQueryParams());
-  console.log('Init', initialState);
   const dispatch = useAppDispatch();
 
   const toggleFilters = () => {

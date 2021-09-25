@@ -6,20 +6,21 @@ import { AppText } from './../../ui/AppText';
 import { Filters } from './../../ui/Filters';
 import { Owner } from './../../ui/Owner';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../route';
 
 interface ProspectsCardProps {
-  list?: IList;
+  list: IList;
 }
 
 const ProspectsCard: FC<ProspectsCardProps> = ({ list }) => {
   return (
     <Wrapper>
       <CardName type="BodySelect">
-        <StyledLink to={`/prospects/${list?.id}`}>{list?.name ?? 'No name'}</StyledLink>
+        <StyledLink to={ROUTES.prospectsId(list.id)}>{list.name ?? 'No name'}</StyledLink>
       </CardName>
-      <Filters filters={list?.filters} />
+      <Filters filters={list.filters} />
       <InnerWrapper>
-        <IndicatorBlock index="№ of Prospects Available" value={list?.prospectsAvailable ?? 0} />
+        <IndicatorBlock index="№ of Prospects Available" value={list.prospectsAvailable ?? 0} />
         <IndicatorBlock index="№ of Contacts Pursued" value={72} />
       </InnerWrapper>
       <InnerWrapper>

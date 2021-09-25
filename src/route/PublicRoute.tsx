@@ -5,16 +5,17 @@ import NewPasswordPage from '../pages/NewPasswordPage';
 import PasswordResetPage from '../pages/PasswordResetPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
+import { ROUTES } from './routes';
 
 export const PublicRoute: FC = () => {
   return (
     <StartLayout>
       <Switch>
-        <Route path="/signup" component={SignUpPage} />
-        <Route path="/signin" component={SignInPage} />
-        <Route path="/reset" component={PasswordResetPage} />
-        <Route exact path="/change_password" component={NewPasswordPage} />
-        <Redirect to="/signup" />
+        <Route path={ROUTES.signUp} component={SignUpPage} />
+        <Route path={ROUTES.signIn} component={SignInPage} />
+        <Route path={ROUTES.resetPassword} component={PasswordResetPage} />
+        <Route exact path={ROUTES.changePassword} component={NewPasswordPage} />
+        <Redirect to={ROUTES.signUp} />
       </Switch>
     </StartLayout>
   );

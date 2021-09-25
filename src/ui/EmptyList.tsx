@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { AppText } from './AppText';
 import { AppLink } from './AppLink';
+import { ROUTES } from '../route';
 
 interface EmptyListProps {
   text: string;
@@ -16,7 +17,7 @@ export const EmptyList: FC<EmptyListProps> = ({ text, render }) => {
         {text}
       </AppText>
       <AppText CSS={mb32}>Go to the search page and add to list</AppText>
-      <StyledLink to="/search">Search</StyledLink>
+      <StyledLink to={ROUTES.search}>Search</StyledLink>
     </Wrapper>
   );
 };
