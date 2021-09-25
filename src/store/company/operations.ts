@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getCompanies, getFavoritesCompany } from './../../services/api';
+import { getCompanies, getFavoritesCompany } from '../../services/api';
 import { ParsedQuery } from 'query-string';
 
 export const getCompaniesRequest = createAsyncThunk(

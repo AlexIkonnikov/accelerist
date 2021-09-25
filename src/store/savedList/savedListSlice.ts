@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SavedListSliceInitialState } from './types';
-import { getSavedListRequest } from './thunk';
+import { getSavedListRequest } from './operations';
+import toast from './../../utils/Toaster';
 
 const initialState: SavedListSliceInitialState = {
   list: [],
@@ -21,6 +22,10 @@ const savedListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getSavedListRequest.pending, (state) => {
       state.status = 'pending';
+    });
+    builder.addCase(getSavedListRequest.rejected, (state) => {
+      toast.error('Server side error. Please try again later.');
+      state.status = 'end';
     });
     builder.addCase(getSavedListRequest.fulfilled, (state, { payload }) => {
       state.list = payload.items;

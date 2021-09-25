@@ -2,15 +2,15 @@ import { createSelector } from '@reduxjs/toolkit';
 import { CompanySliceInitialState, ICompany, IMeta } from './types';
 import { RootState } from '../store';
 
-const companySlice = (state: RootState): CompanySliceInitialState => {
+const selectCompanySlice = (state: RootState): CompanySliceInitialState => {
   return state.company;
 };
 
 const selectCompany = createSelector(
-  companySlice,
+  selectCompanySlice,
   (company: CompanySliceInitialState): Array<ICompany> => company.company,
 );
-const selectMeta = createSelector(companySlice, (company: CompanySliceInitialState): IMeta => company.meta);
-const selectStatus = createSelector(companySlice, (company: CompanySliceInitialState) => company.status);
+const selectMeta = createSelector(selectCompanySlice, (company: CompanySliceInitialState): IMeta => company.meta);
+const selectStatus = createSelector(selectCompanySlice, (company: CompanySliceInitialState) => company.status);
 
 export const companySliceSelectors = { selectCompany, selectMeta, selectStatus };

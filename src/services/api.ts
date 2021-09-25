@@ -1,11 +1,10 @@
 import { ChangePasswordPayload, EmailPayload, UserCredential } from '../store/user';
-import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosPromise } from 'axios';
 import ApiClient from './ApiClient';
 import { SearchCompanyResponse } from '../store/company';
 import { ICompany } from '../store/company/types';
 import { CreateSavedListPayload, GetSavedListResponse, IList } from '../store/savedList/types';
 import { ParsedQuery } from 'query-string';
-import { getQueryParams } from '../utils/queryParams';
 
 export const signUp = (data: UserCredential): AxiosPromise => {
   return ApiClient.post('v1/auth/sign_up', { data });
