@@ -74,6 +74,7 @@ const SearchPage: FC = () => {
                 return <CompanyCard key={cmp.id} company={cmp} />;
               })}
             </CardWrapper>
+            <MobilePagination meta={meta} onToggle={getCompanies}/>
           </>
         )}
       </Container>

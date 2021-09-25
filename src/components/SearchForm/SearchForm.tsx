@@ -107,14 +107,13 @@ const SearchForm: FC = () => {
                       component={InputRange}
                     />
                   </Row>
-                  <SubTitle type="BodySelect">Customer Demographics</SubTitle>
+                  <SubTitle className="mobile-hide" type="BodySelect">Customer Demographics</SubTitle>
                   <Grid>
                     <TabRadioGroupe name="gender" label="Gender" value={['Male', 'Female', 'Both']} />
                     <TabRadioGroupe name="relations" label="Relations" value={['Married', 'Single']} />
                     <Field name="income" label="Household Income" value={income} options={income} component={MultiSelect} />
                     <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} />
                   </Grid>
-                  <Row></Row>
                   <ButtonWrapper>
                     <CancelButton variant="secondary" onClick={toggleFilters}>
                       Cancel
@@ -158,14 +157,33 @@ const Wrapper = styled.div`
   border-radius: 6px;
   width: 100%;
   margin-bottom: 60px;
+  @media (max-width: 768px) {
+    padding: 32px 26px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 375px) {
+    padding: 24px 15px 24px 17px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Title = styled(AppText)`
   margin-bottom: 18px;
+  @media (max-width: 375px) {
+    font-size: 12px;
+    line-height: 18px;
+  }
 `;
 
 const SubTitle = styled(AppText)`
   margin-bottom: 16px;
+  @media (max-width: 375px) {
+    font-size: 12px;
+    line-height: 18px;
+    &.mobile-hide {
+      display: none;
+    }
+  }
 `;
 
 const Grid = styled.div`
@@ -174,6 +192,10 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 23px;
   margin-bottom: 24px;
+  @media (max-width: 375px) {
+    grid-template-columns: 1fr;
+    grid-gap: 18px;
+  }
 `;
 
 const Row = styled.div`
@@ -188,6 +210,10 @@ const ButtonWrapper = styled.div`
   width: 48.2%;
   margin-top: 40px;
   display: flex;
+  @media (max-width: 375px) {
+    width: 100%;
+    margin-top: 28px;
+  }
 `;
 
 const SearchButton = styled(Button)`
@@ -211,6 +237,12 @@ const FakeTab = styled.div`
   background: ${({theme}) => theme.colors.secondaryBlue};
   font-size: 12px;
   line-height: 18px;
+  @media (max-width: 768px) {
+    margin-bottom: 26px;
+  }
+  @media (max-width: 375px) {
+    margin-bottom: 18px;
+  }
 `;
 
 export default SearchForm;
