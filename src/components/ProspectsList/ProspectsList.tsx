@@ -41,6 +41,9 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 24px;
   grid-row-gap: 16px;
+  @media(max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const EmptyWrapper = styled.div`
