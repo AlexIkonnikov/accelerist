@@ -1,16 +1,16 @@
 import React, { FC, ButtonHTMLAttributes, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from './Button';
-import { HeartIcon } from './icons/HeartIcon';
-import toast from '../utils/Toaster';
-import { dislikeCompany, likeCompany } from '../services/api';
+import { Button } from './../../ui/Button';
+import { HeartIcon } from './../../ui/icons/HeartIcon';
+import toast from './../../utils/Toaster';
+import { dislikeCompany, likeCompany } from './../../services/api';
 
 interface LikeButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   id: string;
   isLike?: boolean;
 }
 
-export const LikeButton: FC<LikeButtonProps> = ({ isLike = false, id, ...outerProps }) => {
+const LikeButton: FC<LikeButtonProps> = ({ isLike = false, id, ...outerProps }) => {
   const [isLoading, setLoading] = useState(false);
   const [isCompanyLike, setLike] = useState(isLike);
 
@@ -76,3 +76,5 @@ const StyledButton = styled(Button)`
     margin-right: 15px;
   }
 `;
+
+export default LikeButton;

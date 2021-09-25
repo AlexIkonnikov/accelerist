@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Pagination } from '../components/Pagination';
 import { actions, selectors } from '../store/ducks';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { CompanyCard } from '../ui/CompanyCard';
+import { CompanyCard } from './../components/CompanyCard';
 import { Container } from '../ui/Container';
 import { Counter } from '../ui/Counter';
 import { EmptyList } from '../ui/EmptyList';

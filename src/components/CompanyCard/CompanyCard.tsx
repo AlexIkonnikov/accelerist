@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { AppText } from './AppText';
-import { TagList } from './TagList';
-import { ICompany } from '../store/company/types';
+import { AppText } from './../../ui/AppText';
+import { TagList } from './../../ui/TagList';
+import { ICompany } from './../../store/company/types';
 import { Link } from 'react-router-dom';
-import { AppLink } from './AppLink';
-import { LikeButton } from './LikeButton';
-import { ROUTES } from '../route';
+import { AppLink } from './../../ui/AppLink';
+import { LikeButton } from './../LikeButton';
+import { ROUTES } from './../../route';
 
 interface CompanyCardProps {
   company: ICompany;
 }
 
-export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
+const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
   const revenue = Number(company.revenue);
   return (
     <Wrapper>
@@ -184,3 +184,5 @@ const StyledLink = styled(Link)`
     border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   }
 `;
+
+export default CompanyCard;

@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import { CompanyCard } from '../ui/CompanyCard';
+import { CompanyCard } from './../components/CompanyCard';
 import { Counter } from '../ui/Counter';
 import { ReactComponent as Save } from './../assets/icons/folder-plus.svg';
 import { ReactComponent as Mail } from './../assets/icons/mail.svg';
