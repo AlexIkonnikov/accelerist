@@ -40,7 +40,7 @@ const ProspectListPage: FC = () => {
 
   return (
     <>
-      <TitleBlock title="Prospects" />
+      <TitleBlock title="Prospecting" />
       <Container variant={2}>
         <Row>
           <SortingList>

@@ -5,15 +5,16 @@ import { SearchIcon } from '../../ui/icons/SearchIcon';
 interface SearchBarProps extends InputHTMLAttributes<HTMLInputElement> {
   render?: () => JSX.Element
   onSearch: () => void
+  isDisable?: boolean
 }
 
-const SearchBar: FC<SearchBarProps> = ({render, onSearch, className,...outerProps}) => {
+const SearchBar: FC<SearchBarProps> = ({render, onSearch, className, isDisable = false,...outerProps}) => {
   return (
     <SearchBox>
       <SearchInput type="text" placeholder="Search" className={className} {...outerProps} />
       <IconWrapper>
         {render && render()}
-        <SearchIcon onClick={onSearch}/>
+        {isDisable ? <SearchIcon/> :<SearchIcon onClick={onSearch}/>}
       </IconWrapper>
     </SearchBox>
   );

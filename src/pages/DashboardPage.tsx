@@ -25,7 +25,6 @@ const DashboardPage: FC = () => {
 
   useEffect(() => {
     getData().then((response) => {
-      console.log(response)
       if (response[0].status === 'fulfilled') {
         setCompany(response[0].value.data.items);
       }

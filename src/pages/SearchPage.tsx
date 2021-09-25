@@ -26,7 +26,6 @@ const SearchPage: FC = () => {
 
   const getCompanies = (query: ParsedQuery<string|number>) => {
     const params = mergeWithExisting(query);
-    console.log(params);
     dispatch(actions.company.getCompaniesRequest(params));
   };
 

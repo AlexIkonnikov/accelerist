@@ -12,7 +12,6 @@ interface MultiSelectProps extends FieldRenderProps<Array<{value: string, label:
 }
 
 const MultiSelect: FC<MultiSelectProps> = ({ label = '', input, ...outerProps }) => {
-  console.log(outerProps)
 
   const handleChange = (option: {value: string, label: string}) => {
     input.onChange(option);

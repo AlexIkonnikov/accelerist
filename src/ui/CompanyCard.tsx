@@ -13,7 +13,7 @@ interface CompanyCardProps {
 }
 
 export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
-
+  const revenue = Number(company.revenue);
   return (
     <Wrapper>
       <Body>
@@ -40,7 +40,7 @@ export const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
             <Revenue>
               <RevenueText>Revenue</RevenueText>
               <AppText type="FootnoteSelect" tagName="span">
-                {company.revenue}
+                {'$ ' + Intl.NumberFormat('en-US').format(revenue)}
               </AppText>
             </Revenue>
           </BorderWrapper>

@@ -8,6 +8,7 @@ import { SearchBar } from '../SearchBar';
 import { useHistory, useLocation } from 'react-router';
 import { Field, Form, FormProps } from 'react-final-form';
 import { stringify } from 'query-string';
+import { ROUTES } from '../../route';
 
 const Navbar: FC = () => {
   const [isVisible, setVisible] = useState(false);
@@ -16,7 +17,7 @@ const Navbar: FC = () => {
 
   const handleSubmitForm = (values: FormProps) => {
     const params = stringify({ ...values, page: 1, limit: 12 });
-    push(`/search?${params}`);
+    push(`${ROUTES.search}?${params}`);
   };
 
   const handleShowModal = () => {
@@ -32,12 +33,12 @@ const Navbar: FC = () => {
         <NavWrapper $isVisible={isVisible}>
           <Closure onClick={handleCloseModal} />
           <NavList />
-          {pathname !== '/search' && (
+          {pathname !== ROUTES.search && (
             <SearchBarWrapper>
               <Form
                 onSubmit={handleSubmitForm}
-                render={({ handleSubmit }) => {
-                  return <Field name="q" render={({ input }) => <StyleSearch onSearch={handleSubmit} {...input} />} />;
+                render={({ handleSubmit, pristine }) => {
+                  return <Field name="q" render={({ input }) => <StyleSearch onSearch={handleSubmit} isDisable={pristine} {...input} />} />;
                 }}
               />
             </SearchBarWrapper>
