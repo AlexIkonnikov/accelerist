@@ -4,7 +4,7 @@ import { Container } from './Container';
 import { AppText } from './AppText';
 
 interface TitleBlockProps {
-  title: string
+  title?: string
   render?: () => JSX.Element
   renderBefore?: () => JSX.Element
 }
@@ -15,7 +15,7 @@ export const TitleBlock: FC<TitleBlockProps> = ({ title, render, renderBefore })
       <Container variant={2}>
         <ContentWrapper>
           {renderBefore && renderBefore()}
-          <TitleText type="Title" tagName="h2">{title}</TitleText>
+          {title && <TitleText type="Title" tagName="h2">{title}</TitleText>}
           {render && render()}
         </ContentWrapper>
       </Container>

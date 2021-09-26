@@ -15,4 +15,9 @@ const selectMeta = createSelector(selectSavedListSlice, (slice: SavedListSliceIn
 
 const selectStatus = createSelector(selectSavedListSlice, (slice: SavedListSliceInitialState): string => slice.status);
 
-export const saveListSliceSelectors = { selectList, selectMeta, selectStatus };
+const selectListById = (id: string) =>
+  createSelector(selectList, (list: Array<IList>) => {
+    return list.find((item) => item.id === id);
+  });
+
+export const saveListSliceSelectors = { selectList, selectMeta, selectStatus, selectListById };

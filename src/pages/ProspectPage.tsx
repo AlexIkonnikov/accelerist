@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Container } from '../ui/Container';
 import { Counter } from '../ui/Counter';
 import { Filters } from '../ui/Filters';
@@ -7,72 +7,47 @@ import { ReactComponent as Upload } from '../assets/icons/upload.svg';
 import styled from 'styled-components';
 import { CompanyCard } from './../components/CompanyCard';
 import { Pagination } from '../components/Pagination';
-import { Button } from '../ui/Button';
-import { ReactComponent as Pen } from './../assets/icons/pen.svg';
 import { useParams } from 'react-router-dom';
-import { getCompanies, getSaveListById } from '../services/api';
-import { IFilters, IMeta } from '../store/savedList/types';
-import { ParsedQuery, stringify } from 'query-string';
+import { getSaveListById } from '../services/api';
+import { IFilters, IList } from '../store/savedList/types';
+import { ParsedQuery } from 'query-string';
 import { Loader } from '../ui/Loader';
-import { ICompany } from '../store/company/types';
 import { createInitParams, mergeWithExisting } from '../utils/queryParams';
+import {useAppDispatch, useAppSelector} from './../store/hooks';
+import {actions, selectors} from './../store/ducks';
+import { EditListForm } from '../components/EditListForm';
 
 const ProspectPage: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [company, setCompany] = useState<Array<ICompany>>();
-  const [meta, setMeta] = useState<IMeta>();
-  const [isLoading, setLoading] = useState(true);
-  const [filters, setFilters] = useState<IFilters>();
+  const dispatch = useAppDispatch();
+  const list = useAppSelector(selectors.saveList.selectListById(id));
+  const company = useAppSelector(selectors.company.selectCompany);
+  const status = useAppSelector(selectors.company.selectStatus);
+  const meta = useAppSelector(selectors.company.selectMeta);
 
   const getCompany = (query: ParsedQuery<string | number>) => {
-    setLoading(true);
     const params = mergeWithExisting(query);
-    getCompanies({ ...filters, ...params }).then(({ data }) => {
-      setCompany(data.items);
-      setMeta(data.meta);
-      setLoading(false);
-    });
+    dispatch(actions.company.getCompaniesRequest({ ...list?.filters, ...params }));
   };
 
   useEffect(() => {
-    const getList = async () => {
-      const response = await getSaveListById(id);
-      setFilters(response.data.filters);
-    };
-    getList();
+    const query = createInitParams({ page: 1, limit: 12 });
+    getCompany(query);
   }, []);
-
-  useEffect(() => {
-    if (filters !== undefined) {
-      const query = createInitParams({ page: 1, limit: 12 });
-      getCompany(query);
-    }
-  }, [filters]);
 
   return (
     <>
       <TitleBlock
-        title="Prospect"
-        render={() => {
-          return (
-            <ButtonWrapper>
-              <EditButton variant="secondary">
-                <PenIcon />
-                Edit
-              </EditButton>
-              <DeleteButton variant="secondary">Delete</DeleteButton>
-            </ButtonWrapper>
-          );
-        }}
+        render={() => <EditListForm name={list?.name || 'No name'}/>}
       />
       <Container variant={2}>
-        {isLoading ? (
+        {status === 'pending' ? (
           <Loader size="big" variant="secondary" />
         ) : (
           <>
             <Counter count={meta?.totalItems || 0} />
             <FiltersWrapper>
-              <Filters filters={filters} />
+              <Filters filters={list?.filters} />
             </FiltersWrapper>
             <Row>
               <BtnIcon>
@@ -88,28 +63,6 @@ const ProspectPage: FC = () => {
     </>
   );
 };
-
-const ButtonWrapper = styled.div`
-  margin-left: auto;
-  display: flex;
-`;
-
-const PenIcon = styled(Pen)`
-  margin-right: 10px;
-`;
-
-const EditButton = styled(Button)`
-  padding: 9px 16px;
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
-`;
-
-const DeleteButton = styled(Button)`
-  border: none;
-  padding: 9px 20px;
-  color: ${({ theme }) => theme.colors.red};
-`;
 
 const FiltersWrapper = styled.div`
   margin: 24px 0;
