@@ -1,4 +1,5 @@
 import { IUser } from '../user';
+import { IMeta } from '../../types';
 
 export interface IFilters {
   sdgGoals?: Array<string>;
@@ -18,14 +19,6 @@ export interface IList {
   createdAt: string;
   updatedAt: string;
   lastAuthor: IUser;
-}
-
-export interface IMeta {
-  totalItems: number;
-  itemCount: number;
-  itemsPerPage: string;
-  totalPages: number;
-  currentPage: string;
 }
 
 export interface SavedListSliceInitialState {

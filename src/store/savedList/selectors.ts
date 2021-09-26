@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { IList, IMeta, SavedListSliceInitialState } from './types';
+import { IList, SavedListSliceInitialState } from './types';
+import { IMeta } from '../../types';
 import { RootState } from '../store';
 
 const selectSavedListSlice = (state: RootState): SavedListSliceInitialState => {

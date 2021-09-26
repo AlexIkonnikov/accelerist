@@ -1,3 +1,4 @@
+import { IMeta } from '../../types';
 export interface ICompany {
   id: string;
   zoomInfoId: null;
@@ -62,14 +63,6 @@ export interface CompanySliceInitialState {
   company: Array<ICompany>;
   meta: IMeta
   status: 'init' | 'pending' | 'end'
-}
-
-export interface IMeta {
-  totalItems: number;
-  itemCount: number;
-  itemsPerPage: string;
-  totalPages: number;
-  currentPage: string;
 }
 
 export interface SearchCompanyResponse {

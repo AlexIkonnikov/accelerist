@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { CompanySliceInitialState, ICompany, IMeta } from './types';
+import { CompanySliceInitialState, ICompany } from './types';
+import { IMeta } from '../../types';
 import { RootState } from '../store';
 
 const selectCompanySlice = (state: RootState): CompanySliceInitialState => {
