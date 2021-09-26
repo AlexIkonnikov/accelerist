@@ -13,40 +13,9 @@ import { TabRadioGroupe } from '../../ui/TabRadioGroupe';
 import { Button } from '../../ui/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
-import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
 import { ethnicity, income, industry, location } from './data';
-
-interface ISearchFormFields {
-  q?: string;
-  revenue?: Array<number>;
-  gender?: string[];
-  relations?: string[];
-  income?: Array<{ value: string; label: string }>;
-}
-
-const getFormatValuesToApi = (values: ISearchFormFields) => {
-  const { revenue, ...outerProps } = values;
-  return {
-    ...outerProps,
-    income: values.income && values.income.map((item) => item.value),
-    revenueMin: values.revenue && values.revenue[0],
-    revenueMax: values.revenue && values.revenue[1],
-  };
-};
-
-const getInitialValueToForm = (values: IFilters) => {
-  return {
-    ...values,
-    income:
-      values.income &&
-      values.income.map((item) => {
-        return { value: item, label: item };
-      }),
-    revenue:
-      values.revenueMin && values.revenueMax ? [values.revenueMin ?? 1, values.revenueMax ?? 100000000] : undefined,
-  };
-};
+import { getInitialValueToForm, getFormatValuesToApi, ISearchFormFields } from './utils';
 
 interface SearchFormProp {
   forwardRef: MutableRefObject<HTMLDivElement>;

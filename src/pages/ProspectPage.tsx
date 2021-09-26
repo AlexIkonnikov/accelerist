@@ -47,7 +47,7 @@ const ProspectPage: FC = () => {
           <>
             <Counter count={meta?.totalItems || 0} />
             <FiltersWrapper>
-              <Filters filters={list?.filters} />
+              {list?.filters && <Filters filters={Object.entries(list.filters)} />}
             </FiltersWrapper>
             <Row>
               <BtnIcon>

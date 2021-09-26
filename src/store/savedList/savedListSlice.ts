@@ -50,7 +50,7 @@ const savedListSlice = createSlice({
     });
     builder.addCase(updateSavedListRequest.fulfilled, (state, { payload }) => {
       const idx = state.list.findIndex((item) => item.id === payload.id);
-      toast.success(`Name changed from ${state.list[idx].name} to ${payload.name}`);
+      toast.success(`Name changed successfully`);
       state.list[idx] = payload;
       state.status = 'end';
     });

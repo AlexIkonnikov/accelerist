@@ -64,11 +64,11 @@ const EditListForm: FC<EditListFormProps> = ({ list }) => {
           </>
         ) : (
           <>
-            <EditButton variant="secondary" onClick={toggleMode} isLoading={status === 'pending'}>
+            <EditButton variant="secondary" onClick={toggleMode} disabled={status === 'pending'}>
               <PenIcon />
               Edit
             </EditButton>
-            <DeleteButton variant="danger" onClick={handleDeleteList} disabled={!isEditable && status === 'pending'}>
+            <DeleteButton variant="danger" onClick={handleDeleteList} disabled={status === 'pending'}>
               Delete
             </DeleteButton>
           </>
