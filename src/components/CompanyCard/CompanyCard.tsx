@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import { AppLink } from './../../ui/AppLink';
 import { LikeButton } from './../LikeButton';
 import { ROUTES } from './../../route';
+import { getFormattedRevenue } from '../../utils';
 
 interface CompanyCardProps {
   company: ICompany;
 }
 
 const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
-  const revenue = Number(company.revenue);
+  const address = `${company.street}, ${company.state}, ${company.zipCode}`;
   return (
     <Wrapper>
       <Body>
@@ -30,7 +31,7 @@ const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
           <Name type="BodySelect">
             <StyledLink to={ROUTES.profile(company.id)}>{company.name}</StyledLink>
           </Name>
-          <Address>4140 Parker Rd. Allentown, New Mexico 31134</Address>
+          <Address>{address}</Address>
           <Phone>{company?.phone}</Phone>
           <BorderWrapper>
             <Focus>
@@ -40,7 +41,7 @@ const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
             <Revenue>
               <RevenueText>Revenue</RevenueText>
               <AppText type="FootnoteSelect" tagName="span">
-                {'$ ' + Intl.NumberFormat('en-US').format(revenue)}
+                {getFormattedRevenue(company.revenue)}
               </AppText>
             </Revenue>
           </BorderWrapper>
@@ -62,6 +63,7 @@ const Wrapper = styled.div`
   background-color: white;
   border-radius: 6px;
   width: 48.98%;
+  max-width: 536px;
   margin-bottom: 24px;
   @media (max-width: 768px) {
     width: 48.3%;

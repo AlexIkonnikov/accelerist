@@ -15,6 +15,7 @@ import { getQueryParams, createInitParams, mergeWithExisting } from '../utils/qu
 import { createSavedList } from '../services/api';
 import { useHistory } from 'react-router-dom';
 import { ParsedQuery } from 'query-string';
+import {ROUTES} from './../route';
 
 const SearchPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ const SearchPage: FC = () => {
     const { page, limit, ...outerFilters } = getQueryParams();
     createSavedList({ filters: outerFilters }).then(({ data }) => {
       dispatch(actions.saveList.addList(data));
-      push(`/prospects/${data.id}`);
+      push(ROUTES.prospectsId(data.id));
     });
   };
 

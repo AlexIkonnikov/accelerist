@@ -11,6 +11,11 @@ import { getCompanyById } from '../services/api';
 import { ICompany } from '../store/company/types';
 import { Loader } from '../ui/Loader';
 import {ReactComponent as Arrow} from './../assets/icons/arrow.svg';
+import { LikeButton } from '../components/LikeButton';
+import { Reported } from '../ui/Reported';
+import { Tickers } from '../ui/Tickers';
+import { Contacts } from '../ui/Contacts';
+import { GoalsList } from '../ui/GoalsList';
 
 const ProfilePage: FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,28 +30,40 @@ const ProfilePage: FC = () => {
   }, []);
   return (
     <>
-      <TitleBlock title="Corparate Profile" renderBefore={() => <BackArrow onClick={() => {history.back()}} />} />
+      <TitleBlock render={() => {
+        return (
+          <>
+            <BackArrow onClick={() => {history.back()}} />
+            <AppText type="Title" tagName="h2">Corporate Profile</AppText>
+          </>
+        )
+      }
+      }
+      />
       <Container variant={2}>
         {company === undefined ? (
           <Loader size="big" variant="secondary" />
         ) : (
           <>
             <ProfileHeader>
-              <Wrapper>
+              <Row>
                 <AvatarWrapper>
                   <Avatar />
                 </AvatarWrapper>
                 <InfoBlock>
-                  <Name type="Headline">{company?.name}</Name>
-                  <ShortDescription>{company?.primaryIndustry.join(',')}</ShortDescription>
+                  <Row>
+                    <Name type="Headline">{company.name}</Name>
+                    <Like id={company.id} isLike={company.like} />
+                  </Row>
+                  <ShortDescription>{company.primaryIndustry.join(',')}</ShortDescription>
                   <IconWrapper>
                     <LinkedinIcon></LinkedinIcon>
                     <LinkedinIcon></LinkedinIcon>
                     <LinkedinIcon></LinkedinIcon>
                   </IconWrapper>
                 </InfoBlock>
-                <BlockButton variant="secondary">Block</BlockButton>
-              </Wrapper>
+                <BlockButton variant="danger" disabled>Block</BlockButton>
+              </Row>
             </ProfileHeader>
             <ProfileBody>
               <Title type="Headline" tagName="h3">
@@ -54,6 +71,14 @@ const ProfilePage: FC = () => {
               </Title>
               <SubTitle type="BodySelect">Description</SubTitle>
               <AppText type="BodyBlack" CSS={mb24}>{company?.descriptionList}</AppText>
+              <Reported revenue={company.revenue} employeeCount={company.employeeCount}/>
+              <Tickers/>
+              <Contacts
+                website={company.website}
+                phone={company.phone}
+                address={`${company.street}, ${company.state}, ${company.zipCode}`}
+              />
+              <GoalsList/>
             </ProfileBody>
           </>
         )}
@@ -82,7 +107,7 @@ const ProfileBody = styled.div`
   margin-right: 366px;
 `;
 
-const Wrapper = styled.div`
+const Row = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -96,11 +121,11 @@ const BlockButton = styled(Button)`
   border: none;
   padding: 9px 37px;
   width: auto;
-  color: ${({ theme }) => theme.colors.red};
 `;
 
 const Name = styled(AppText)`
   margin-bottom: 4px;
+  margin-right: 8px;
 `;
 
 const ShortDescription = styled(AppText)`
@@ -117,6 +142,19 @@ const LinkedinIcon = styled(Linkedin)`
   width: 20px;
   height: 20px;
   margin-right: 12px;
+`;
+
+const Like = styled(LikeButton)`
+  border: none;
+`;
+
+const border = css`
+  border: 1px solid ${({theme}) => theme.colors.line};
+  border-radius: 6px;
+`
+
+const mb16 = css`
+  margin-bottom: 16px;
 `;
 
 const mb24 = css`
