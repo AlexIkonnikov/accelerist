@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, MutableRefObject, useState } from 'react';
 import styled from 'styled-components';
 import { Field, Form } from 'react-final-form';
 import { TitleBlock } from '../../ui/TitleBlock';
@@ -15,7 +15,7 @@ import { useAppDispatch } from '../../store/hooks';
 import { actions } from '../../store/ducks';
 import { IFilters } from '../../store/savedList/types';
 import { getQueryParams } from '../../utils/queryParams';
-import {ethnicity, income, industry, location} from './data';
+import { ethnicity, income, industry, location } from './data';
 
 interface ISearchFormFields {
   q?: string;
@@ -43,11 +43,16 @@ const getInitialValueToForm = (values: IFilters) => {
       values.income.map((item) => {
         return { value: item, label: item };
       }),
-    revenue: (values.revenueMin && values.revenueMax) ? ([values.revenueMin ?? 1, values.revenueMax ?? 100000000]) : undefined,
+    revenue:
+      values.revenueMin && values.revenueMax ? [values.revenueMin ?? 1, values.revenueMax ?? 100000000] : undefined,
   };
 };
 
-const SearchForm: FC = () => {
+interface SearchFormProp {
+  forwardRef: MutableRefObject<HTMLDivElement>;
+}
+
+const SearchForm: FC<SearchFormProp> = ({ forwardRef }) => {
   const [isFiltersShow, setFiltersState] = useState(false);
   const initialState = getInitialValueToForm(getQueryParams());
   const dispatch = useAppDispatch();
@@ -58,7 +63,9 @@ const SearchForm: FC = () => {
 
   const handleSubmitForm = (values: ISearchFormFields) => {
     const goodData = getFormatValuesToApi(values);
-    dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 }));
+    dispatch(actions.company.getCompaniesRequest({ ...goodData, page: 1, limit: 12 })).finally(() => {
+      forwardRef.current.scrollIntoView({ behavior: 'smooth' });
+    });
   };
 
   return (
@@ -95,23 +102,25 @@ const SearchForm: FC = () => {
                   <FakeTab>Advanced</FakeTab>
                   <SubTitle type="BodySelect">Company</SubTitle>
                   <Grid>
-                    <SearchableMultiSelect label="Industry" options={industry}/>
-                    <SearchableMultiSelect label="Geographic Location" options={location}/>
+                    <SearchableMultiSelect label="Industry" options={industry} />
+                    <SearchableMultiSelect label="Geographic Location" options={location} />
                   </Grid>
                   <Row>
-                    <Field
-                      name="revenue"
-                      min={0}
-                      max={100000000}
-                      values={[1, 100000000]}
-                      component={InputRange}
-                    />
+                    <Field name="revenue" min={0} max={100000000} values={[1, 100000000]} component={InputRange} />
                   </Row>
-                  <SubTitle className="mobile-hide" type="BodySelect">Customer Demographics</SubTitle>
+                  <SubTitle className="mobile-hide" type="BodySelect">
+                    Customer Demographics
+                  </SubTitle>
                   <Grid>
                     <TabRadioGroupe name="gender" label="Gender" value={['Male', 'Female', 'Both']} />
                     <TabRadioGroupe name="relations" label="Relations" value={['Married', 'Single']} />
-                    <Field name="income" label="Household Income" value={income} options={income} component={MultiSelect} />
+                    <Field
+                      name="income"
+                      label="Household Income"
+                      value={income}
+                      options={income}
+                      component={MultiSelect}
+                    />
                     <Field name="ethnicity" label="Ethnicity" options={ethnicity} component={MultiSelect} />
                   </Grid>
                   <ButtonWrapper>
@@ -234,7 +243,7 @@ const FakeTab = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  background: ${({theme}) => theme.colors.secondaryBlue};
+  background: ${({ theme }) => theme.colors.secondaryBlue};
   font-size: 12px;
   line-height: 18px;
   @media (max-width: 768px) {

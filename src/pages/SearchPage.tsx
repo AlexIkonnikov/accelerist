@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { CompanyCard } from './../components/CompanyCard';
 import { Counter } from '../ui/Counter';
@@ -19,6 +19,7 @@ import { ParsedQuery } from 'query-string';
 const SearchPage: FC = () => {
   const dispatch = useAppDispatch();
   const { push } = useHistory();
+  const MyRef = useRef(document.createElement('div'));
 
   const company = useAppSelector(selectors.company.selectCompany);
   const meta = useAppSelector(selectors.company.selectMeta);
@@ -27,6 +28,7 @@ const SearchPage: FC = () => {
   const getCompanies = (query: ParsedQuery<string|number>) => {
     const params = mergeWithExisting(query);
     dispatch(actions.company.getCompaniesRequest(params));
+    MyRef.current.scrollIntoView({behavior: 'smooth'});
   };
 
   const handleSaveList = () => {
@@ -43,7 +45,7 @@ const SearchPage: FC = () => {
 
   return (
     <>
-      <SearchForm />
+      <SearchForm forwardRef={MyRef}/>
       <Container variant={2}>
         {status === 'pending' ? (
           <LoaderWrapper>
@@ -51,7 +53,9 @@ const SearchPage: FC = () => {
           </LoaderWrapper>
         ) : (
           <>
-            <Counter count={meta.totalItems} />
+            <div ref={MyRef}>
+              <Counter count={meta.totalItems} />
+            </div>
             <Wrapper>
               <BtnWrapper>
                 <BtnIcon onClick={handleSaveList}>
@@ -86,6 +90,7 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  min-height: 1000px;
   @media (max-width: 375px) {
     display: block;
   }

@@ -59,6 +59,7 @@ const StyledButton = styled(Button)`
   width: 36px;
   height: 36px;
   margin-right: 6px;
+  flex-shrink: 0;
   &:active,
   &:focus,
   &:hover {
