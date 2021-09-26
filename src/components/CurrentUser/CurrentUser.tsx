@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { actions } from '../../store/ducks';
 import { useAppDispatch } from '../../store/hooks';
@@ -12,19 +12,29 @@ interface CurrentUserProps {
 const CurrentUser: FC<CurrentUserProps> = ({ name = 'No name' }) => {
 
   const [isMenuShow, setMenuState] = useState(false);
-
+  const ref = useRef<any>();
   const dispatch = useAppDispatch();
 
   const handleToggleMenu = () => {
     setMenuState(!isMenuShow);
-  }
+  };
 
   const handleLogOut = () => {
     dispatch(actions.user.logOut());
-  }
+  };
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e: MouseEvent) => {
+      if (isMenuShow && ref.current && !ref.current.contains(e.target)) {
+        setMenuState(false);
+      }
+    }
+    document.addEventListener('click', checkIfClickedOutside);
+    return () => { document.removeEventListener('click', checkIfClickedOutside) };
+    }, [isMenuShow]);
 
   return (
-    <RelativeWrapper onClick={handleToggleMenu}>
+    <RelativeWrapper onClick={handleToggleMenu} ref={ref}>
       <Wrapper>
         <AvatarWrapper>
           <Avatar type="square" />

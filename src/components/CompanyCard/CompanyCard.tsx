@@ -14,7 +14,7 @@ interface CompanyCardProps {
 }
 
 const CompanyCard: FC<CompanyCardProps> = ({ company }) => {
-  const address = `${company.street}, ${company.state}, ${company.zipCode}`;
+  const address = `${company.street}, ${company.state}`;
   return (
     <Wrapper>
       <Body>
