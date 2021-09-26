@@ -10,8 +10,7 @@ interface InputRangeProps extends FieldRenderProps<Array<number>, HTMLElement> {
 }
 
 const InputRange: FC<InputRangeProps> = ({ label = '', values, input, ...outerProps }) => {
-
-  const handleChange = (evt: ChangeEvent<unknown>, value: Array<number> | number) => {
+  const handleChange = (_evt: ChangeEvent<unknown>, value: Array<number> | number) => {
     input.onChange(value);
   };
 

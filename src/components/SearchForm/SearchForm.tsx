@@ -43,7 +43,7 @@ const getInitialValueToForm = (values: IFilters) => {
       values.income.map((item) => {
         return { value: item, label: item };
       }),
-    revenue: values.revenueMin && values.revenueMax && [values.revenueMin, values.revenueMax],
+    revenue: (values.revenueMin && values.revenueMax) ? ([values.revenueMin ?? 1, values.revenueMax ?? 100000000]) : undefined,
   };
 };
 
@@ -103,7 +103,7 @@ const SearchForm: FC = () => {
                       name="revenue"
                       min={0}
                       max={100000000}
-                      values={[0, 100000000]}
+                      values={[1, 100000000]}
                       component={InputRange}
                     />
                   </Row>
