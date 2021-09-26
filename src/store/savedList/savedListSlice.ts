@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { SavedListSliceInitialState } from './types';
-import { getSavedListRequest, updateSavedListRequest, deleteSavedListRequest } from './operations';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IList, SavedListSliceInitialState } from './types';
+import {
+  getSavedListRequest,
+  updateSavedListRequest,
+  deleteSavedListRequest,
+} from './operations';
 import toast from './../../utils/Toaster';
 
 const initialState: SavedListSliceInitialState = {
@@ -18,7 +22,11 @@ const initialState: SavedListSliceInitialState = {
 const savedListSlice = createSlice({
   name: 'savedList',
   initialState,
-  reducers: {},
+  reducers: {
+    addList(state, {payload}: PayloadAction<IList>) {
+      state.list.push(payload);
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getSavedListRequest.pending, (state) => {
       state.status = 'pending';
@@ -40,7 +48,7 @@ const savedListSlice = createSlice({
       state.status = 'end';
       toast.error('Server side error. Please try again later.');
     });
-    builder.addCase(updateSavedListRequest.fulfilled, (state, {payload}) => {
+    builder.addCase(updateSavedListRequest.fulfilled, (state, { payload }) => {
       const idx = state.list.findIndex((item) => item.id === payload.id);
       toast.success(`Name changed from ${state.list[idx].name} to ${payload.name}`);
       state.list[idx] = payload;
@@ -54,14 +62,20 @@ const savedListSlice = createSlice({
       state.status = 'end';
       toast.error('Server side error. Please try again later.');
     });
-    builder.addCase(deleteSavedListRequest.fulfilled, (state, {payload}) => {
+    builder.addCase(deleteSavedListRequest.fulfilled, (state, { payload }) => {
       const idx = state.list.findIndex((item) => item.id === payload);
       const removed = state.list.splice(idx, 1);
       state.status = 'end';
       toast.info(`List "${removed[0].name}" has been removed`);
     });
+
   },
 });
 
 export default savedListSlice.reducer;
-export const savedListActions = { ...savedListSlice.actions, getSavedListRequest, updateSavedListRequest, deleteSavedListRequest };
+export const savedListActions = {
+  ...savedListSlice.actions,
+  getSavedListRequest,
+  updateSavedListRequest,
+  deleteSavedListRequest,
+};

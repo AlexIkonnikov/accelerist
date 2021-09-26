@@ -39,7 +39,8 @@ const EditListForm: FC<EditListFormProps> = ({ list }) => {
   };
 
   const handleDeleteList = () => {
-    list?.id && dispatch(actions.saveList.deleteSavedListRequest(list.id)).then(() => history.push(ROUTES.dashboard));
+    list?.id && dispatch(actions.saveList.deleteSavedListRequest(list.id))
+      .then(() => history.push(ROUTES.dashboard));
   };
 
   return (
@@ -57,7 +58,7 @@ const EditListForm: FC<EditListFormProps> = ({ list }) => {
             <EditButton variant="secondary" onClick={handleUpdateList} disabled={value.length === 0}>
               save
             </EditButton>
-            <DeleteButton variant="danger" onClick={toggleMode}>
+            <DeleteButton variant="danger" onClick={toggleMode} disabled={value.length === 0}>
               cancel
             </DeleteButton>
           </>

@@ -34,6 +34,7 @@ const SearchPage: FC = () => {
   const handleSaveList = () => {
     const { page, limit, ...outerFilters } = getQueryParams();
     createSavedList({ filters: outerFilters }).then(({ data }) => {
+      dispatch(actions.saveList.addList(data));
       push(`/prospects/${data.id}`);
     });
   };
