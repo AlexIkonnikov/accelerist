@@ -23,15 +23,17 @@ export const passwordChangeRequest = (data: ChangePasswordPayload): AxiosPromise
 };
 
 export const getCompanies = (params: ParsedQuery<number | string | undefined>): AxiosPromise<SearchCompanyResponse> => {
-  return ApiClient.get(`v1/companies`, {params});
+  return ApiClient.get(`v1/companies`, { params });
 };
 
-export const getSavedList = (params: ParsedQuery<number | string| undefined>): AxiosPromise<GetSavedListResponse> => {
-  return ApiClient.get(`v1/saved-list`, {params});
+export const getSavedList = (params: ParsedQuery<number | string | undefined>): AxiosPromise<GetSavedListResponse> => {
+  return ApiClient.get(`v1/saved-list`, { params });
 };
 
-export const getFavoritesCompany = (params: ParsedQuery<number | string | undefined>): AxiosPromise<SearchCompanyResponse> => {
-  return ApiClient.get(`v1/companies/favorites`, {params});
+export const getFavoritesCompany = (
+  params: ParsedQuery<number | string | undefined>,
+): AxiosPromise<SearchCompanyResponse> => {
+  return ApiClient.get(`v1/companies/favorites`, { params });
 };
 
 export const getCompanyById = (id: string): AxiosPromise<ICompany> => {
@@ -54,3 +56,10 @@ export const dislikeCompany = (id: string): AxiosPromise => {
   return ApiClient.get(`v1/companies/${id}/dislike`);
 };
 
+export const updateSavedList = (data: IList): AxiosPromise<IList> => {
+  return ApiClient.patch(`v1/saved-list/${data.id}`, { data });
+};
+
+export const deleteSavedList = (id: string): AxiosPromise => {
+  return ApiClient.delete(`v1/saved-list/${id}`);
+};

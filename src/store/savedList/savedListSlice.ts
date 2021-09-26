@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SavedListSliceInitialState } from './types';
-import { getSavedListRequest } from './operations';
+import { getSavedListRequest, updateSavedListRequest, deleteSavedListRequest } from './operations';
 import toast from './../../utils/Toaster';
 
 const initialState: SavedListSliceInitialState = {
@@ -32,8 +32,36 @@ const savedListSlice = createSlice({
       state.meta = payload.meta;
       state.status = 'end';
     });
+
+    builder.addCase(updateSavedListRequest.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(updateSavedListRequest.rejected, (state) => {
+      state.status = 'end';
+      toast.error('Server side error. Please try again later.');
+    });
+    builder.addCase(updateSavedListRequest.fulfilled, (state, {payload}) => {
+      const idx = state.list.findIndex((item) => item.id === payload.id);
+      toast.success(`Name changed from ${state.list[idx].name} to ${payload.name}`);
+      state.list[idx] = payload;
+      state.status = 'end';
+    });
+
+    builder.addCase(deleteSavedListRequest.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(deleteSavedListRequest.rejected, (state) => {
+      state.status = 'end';
+      toast.error('Server side error. Please try again later.');
+    });
+    builder.addCase(deleteSavedListRequest.fulfilled, (state, {payload}) => {
+      const idx = state.list.findIndex((item) => item.id === payload);
+      const removed = state.list.splice(idx, 1);
+      state.status = 'end';
+      toast.info(`List "${removed[0].name}" has been removed`);
+    });
   },
 });
 
 export default savedListSlice.reducer;
-export const savedListActions = { ...savedListSlice.actions, getSavedListRequest };
+export const savedListActions = { ...savedListSlice.actions, getSavedListRequest, updateSavedListRequest, deleteSavedListRequest };

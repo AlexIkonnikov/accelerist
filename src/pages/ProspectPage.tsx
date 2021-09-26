@@ -38,7 +38,7 @@ const ProspectPage: FC = () => {
   return (
     <>
       <TitleBlock
-        render={() => <EditListForm name={list?.name || 'No name'}/>}
+        render={() => <EditListForm list={list} />}
       />
       <Container variant={2}>
         {status === 'pending' ? (

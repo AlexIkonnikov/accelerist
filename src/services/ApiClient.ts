@@ -73,6 +73,10 @@ class ApiClient {
     return this.api.put(url, data);
   }
 
+  patch(url: string, { data }: AxiosRequestConfig) {
+    return this.api.patch(url, data);
+  }
+
   delete(url: string) {
     return this.api.delete(url);
   }

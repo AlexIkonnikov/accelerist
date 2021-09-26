@@ -1,27 +1,77 @@
-import React, { FC, useState } from 'react';
+import React, { ChangeEvent, FC, useRef, useState, useEffect } from 'react';
 import { ReactComponent as Pen } from './../../assets/icons/pen.svg';
-import {Button} from './../../ui/Button';
+import { Button } from './../../ui/Button';
 import styled from 'styled-components';
-import {AppText} from './../../ui/AppText';
+import { AppText } from './../../ui/AppText';
+import { IList } from '../../store/savedList/types';
+import { useAppDispatch, useAppSelector } from './../../store/hooks';
+import { actions, selectors } from './../../store/ducks';
+import { useHistory } from 'react-router';
+import { ROUTES } from '../../route';
 
 interface EditListFormProps {
-  name: string;
-  isEdit?: boolean;
+  list?: IList;
 }
 
-const EditListForm: FC<EditListFormProps> = ({name, isEdit = false}) => {
+const EditListForm: FC<EditListFormProps> = ({ list }) => {
+  const dispatch = useAppDispatch();
+  const history = useHistory();
+  const status = useAppSelector(selectors.saveList.selectStatus);
+  const [isEditable, setEditable] = useState(list?.name ? false : true);
+  const [value, setValue] = useState(list?.name ?? '');
+  const inputRef = useRef(document.createElement('input'));
 
-  const [isEditable, setEditable] = useState(isEdit);
+  useEffect(() => {
+    isEditable && inputRef.current.focus();
+  }, [isEditable]);
+
+  const toggleMode = () => {
+    setEditable(!isEditable);
+  };
+
+  const handleChangeName = ({ target }: ChangeEvent<HTMLInputElement>) => {
+    setValue(target.value);
+  };
+
+  const handleUpdateList = () => {
+    list && dispatch(actions.saveList.updateSavedListRequest({ ...list, name: value }));
+    toggleMode();
+  };
+
+  const handleDeleteList = () => {
+    list?.id && dispatch(actions.saveList.deleteSavedListRequest(list.id)).then(() => history.push(ROUTES.dashboard));
+  };
 
   return (
     <Wrapper>
-      <AppText type="Title" tagName="h2">{name}</AppText>
+      {isEditable ? (
+        <Input ref={inputRef} value={value} onChange={handleChangeName} />
+      ) : (
+        <AppText type="Title" tagName="h2">
+          {value}
+        </AppText>
+      )}
       <ButtonWrapper>
-        <EditButton variant="secondary">
-          <PenIcon />
-          Edit
-        </EditButton>
-        <DeleteButton variant="danger">Delete</DeleteButton>
+        {isEditable ? (
+          <>
+            <EditButton variant="secondary" onClick={handleUpdateList} disabled={value.length === 0}>
+              save
+            </EditButton>
+            <DeleteButton variant="danger" onClick={toggleMode}>
+              cancel
+            </DeleteButton>
+          </>
+        ) : (
+          <>
+            <EditButton variant="secondary" onClick={toggleMode} isLoading={status === 'pending'}>
+              <PenIcon />
+              Edit
+            </EditButton>
+            <DeleteButton variant="danger" onClick={handleDeleteList} disabled={!isEditable && status === 'pending'}>
+              Delete
+            </DeleteButton>
+          </>
+        )}
       </ButtonWrapper>
     </Wrapper>
   );
@@ -32,7 +82,16 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
+
+const Input = styled.input`
+  border: none;
+  background: transparent;
+  font-size: 32px;
+  line-height: 48px;
+  font-family: Rubik-Medium;
+  outline: none;
+`;
 
 const ButtonWrapper = styled.div`
   display: flex;
